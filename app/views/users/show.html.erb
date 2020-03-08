@@ -2,6 +2,8 @@
 
 <p>ユーザー名: <%= @user.username %></p>
 
+<%= attachment_image_tag @user, :image, :fill, 100, 100, format: 'jpeg' %>
+
 <%= link_to "ユーザー情報編集", edit_user_path(current_user.id) %>
 
 <%= link_to "ボランティアを主催する", new_event_path %>
