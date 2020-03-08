@@ -10,6 +10,8 @@
 
 	<p>集合場所：〒<%= event.postal_code %>　<%= event.address %></p>
 
-	 <p>参加人数：<%= event.joined_users.count %></p>
+	<p>参加人数：<%= event.joined_users.count %></p>
+
+	<p>いいね数：<%= event.liked_users.count %></p>
 
 <% end %>

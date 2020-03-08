@@ -6,6 +6,7 @@ class EventsController < ApplicationController
   def show
   	@event = Event.find(params[:id])
   	@join_user = JoinUser.new
+  	@like = Like.new
   end
 
   def new
