@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_140738) do
+ActiveRecord::Schema.define(version: 2020_03_08_154437) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 2020_03_08_140738) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_join_users_on_event_id"
     t.index ["user_id"], name: "index_join_users_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_likes_on_event_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

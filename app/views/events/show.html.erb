@@ -19,14 +19,27 @@
 	<p><%= @event.address %></p>
 
 <!-- 参加機能 -->
-	<h3>参加件数: <%= @event.join_users.count %></h3>
+	<h5>参加人数: <%= @event.join_users.count %></h5>
 	<% if current_user.already_joined?(@event) %>
 	  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
 	<% else %>
 	  <%= button_to '参加する', event_join_users_path(@event) %>
 	<% end %>
-	<h2>参加ユーザー</h2>
+	<h5>参加ユーザー</h5>
 	<% @event.joined_users.each do |user| %>
+	  <li><%= user.username %></li>
+	<% end %>
+<!-- ここまで -->
+
+<!-- いいね機能 -->
+	<h5>いいね件数: <%= @event.likes.count %></h5>
+	<% if current_user.already_liked?(@event) %>
+	  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete %>
+	<% else %>
+	  <%= button_to 'いいね', event_likes_path(@event) %>
+	<% end %>
+	<h5>いいねしたユーザー</h5>
+	<% @event.liked_users.each do |user| %>
 	  <li><%= user.username %></li>
 	<% end %>
 <!-- ここまで -->
