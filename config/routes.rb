@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'events/new'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
@@ -16,5 +15,6 @@ Rails.application.routes.draw do
 
   root to: 'users#top'
   resources :events
+  resources :users
 end
 

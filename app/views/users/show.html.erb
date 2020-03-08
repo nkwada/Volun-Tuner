@@ -1,0 +1,12 @@
+<h3>My Page</h3>
+
+<p>ユーザー名: <%= @user.username %></p>
+
+<%= link_to "ユーザー情報編集", edit_user_path(current_user.id) %>
+
+<%= link_to "ボランティアを主催する", new_event_path %>
+
+<p><%= @user.username %>さんがこれまで参加したボランティア活動</p>
+
+<p><%= @user.username %>さんがこれまで主催したボランティア活動</p>
+
