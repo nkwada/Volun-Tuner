@@ -44,5 +44,22 @@
 	<% end %>
 <!-- ここまで -->
 
+<!-- コメント機能 -->
+	<h5>コメント一覧</h5>
+	<% @comments.each do |c| %>
+	  <div>
+	    <a href="/users/<%= @event.user.id %>"><%= c.user.email %></a>
+	    <%= c.content %>
+	    <hr>
+	  </div>
+	<% end %>
+
+	<%= form_for [@event, @comment] do |f| %>
+	  <%= f.text_field :content %>
+	  <br>
+	  <%= f.submit 'コメントする' %>
+	<% end %>
+<!-- ここまで -->
+
 <%= link_to "編集", edit_event_path(@event.id) %>
 <%= link_to "イベント一覧へ", events_path %>

@@ -7,6 +7,8 @@ class EventsController < ApplicationController
   	@event = Event.find(params[:id])
   	@join_user = JoinUser.new
   	@like = Like.new
+ 	@comments = @event.comments
+    @comment = Comment.new
   end
 
   def new
