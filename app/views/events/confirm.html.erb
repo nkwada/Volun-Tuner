@@ -1,0 +1,22 @@
+<h3>イベント確認画面</h3>
+
+<p>タイトル：<%= @event.title %></p>
+<p>内容：<%= @event.content %></p>
+<p>日付：<%= @event.date %></p>
+<p>時間：<%= @event.time %></p>
+<p>郵便番号：<%= @event.postal_code %></p>
+<p>住所：<%= @event.address %></p>
+
+<!-- form_withで書いたらダメでform_forなら通った -->
+<%= form_for(@event, url: events_path, method: :post) do |f| %>
+
+	<%= f.hidden_field :title, :value => @event.title %>
+	<%= f.hidden_field :content, :value => @event.content %>
+	<%= f.hidden_field :date, :value => @event.date %>
+	<%= f.hidden_field :time, :value => @event.time %>
+	<%= f.hidden_field :postal_code, :value => @event.postal_code %>
+	<%= f.hidden_field :address, :value => @event.address %>
+
+
+	<%= f.submit 'ボランティアを主催する' %>
+<% end %>

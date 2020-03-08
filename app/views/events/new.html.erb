@@ -1,6 +1,6 @@
 <h3>新規イベント</h3>
 
-<%= form_for(@event, url: '/events') do |f| %>
+<%= form_with url: events_confirm_path, method: :get, local: true do |f| %>
 
 	<p>タイトル</p>
 	<%= f.text_field :title %>

@@ -8,7 +8,6 @@ class EventsController < ApplicationController
   end
 
   def new
-  	@event = Event.new
   end
 
   def create
@@ -25,6 +24,18 @@ class EventsController < ApplicationController
 	event = Event.find(params[:id])
 	event.update(event_params)
 	redirect_to event_path(event.id)
+  end
+
+# イベント確認画面
+  def confirm
+  	# パラメータで確認画面へ
+  	@event = Event.new
+  	@event.title = params[:title]
+  	@event.content = params[:content]
+  	@event.date = params[:date]
+  	@event.time = params[:time]
+  	@event.postal_code = params[:postal_code]
+  	@event.address = params[:address]
   end
 
   private

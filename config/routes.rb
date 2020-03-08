@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'users#top'
+  get 'events/confirm', to: 'events#confirm'
   resources :events
   resources :users
 end
