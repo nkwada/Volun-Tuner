@@ -18,5 +18,18 @@
 	<p>住所</p>
 	<p><%= @event.address %></p>
 
+<!-- 参加機能 -->
+	<h3>参加件数: <%= @event.join_users.count %></h3>
+	<% if current_user.already_joined?(@event) %>
+	  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
+	<% else %>
+	  <%= button_to '参加する', event_join_users_path(@event) %>
+	<% end %>
+	<h2>参加ユーザー</h2>
+	<% @event.joined_users.each do |user| %>
+	  <li><%= user.username %></li>
+	<% end %>
+<!-- ここまで -->
+
 <%= link_to "編集", edit_event_path(@event.id) %>
 <%= link_to "イベント一覧へ", events_path %>

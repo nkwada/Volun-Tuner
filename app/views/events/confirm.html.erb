@@ -7,7 +7,7 @@
 <p>郵便番号：<%= @event.postal_code %></p>
 <p>住所：<%= @event.address %></p>
 
-<!-- form_withで書いたらダメでform_forなら通った -->
+<!-- form_withで書いたらダメでform_forなら通ったのはなぜか -->
 <%= form_for(@event, url: events_path, method: :post) do |f| %>
 
 	<%= f.hidden_field :title, :value => @event.title %>
