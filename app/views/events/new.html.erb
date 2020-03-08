@@ -1,0 +1,24 @@
+<h3>新規イベント</h3>
+
+<%= form_for(@event, url: '/events') do |f| %>
+
+	<p>タイトル</p>
+	<%= f.text_field :title %>
+
+	<p>本文</p>
+	<%= f.text_area :content %>
+
+	<p>日付</p>
+	<%= f.date_field :date %>
+
+	<p>時間</p>
+	<%= f.time_field :time %>
+
+	<p>郵便番号</p>
+	<%= f.text_field :postal_code %>
+
+	<p>住所</p>
+	<%= f.text_field :address %>
+
+	<%= f.submit '投稿' %>
+<% end %>

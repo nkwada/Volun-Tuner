@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_03_08_071701) do
     t.string "title"
     t.text "content"
     t.date "date"
-    t.time "time"
+    t.string "time"
     t.string "postal_code"
     t.string "address"
     t.string "area"

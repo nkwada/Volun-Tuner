@@ -1,0 +1,9 @@
+<h3>投稿一覧</h3>
+
+<% @events.each do |event| %>
+	<h5>タイトル</h5>
+	<%= event.title %>
+
+	<h5>内容</h5>
+	<%= event.content %>
+<% end %>
