@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   end
 
   root to: 'users#top'
-  resources :events
+  get 'events/confirm', to: 'events#confirm'
+  resources :events do
+    resources :join_users, only: [:create, :destroy]
+  end
   resources :users
 end
 

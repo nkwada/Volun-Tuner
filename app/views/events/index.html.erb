@@ -1,9 +1,15 @@
-<h3>投稿一覧</h3>
+<h3>イベント一覧</h3>
 
 <% @events.each do |event| %>
-	<h5>タイトル</h5>
-	<%= event.title %>
 
-	<h5>内容</h5>
-	<%= event.content %>
+	<p>タイトル：<%= link_to event.title, event_path(event.id) %></p>
+
+	<p>内容：<%= event.content %></p>
+
+	<p>日時：<%= event.date %>　<%= event.time %></p>
+
+	<p>集合場所：〒<%= event.postal_code %>　<%= event.address %></p>
+
+	 <p>参加人数：<%= event.joined_users.count %></p>
+
 <% end %>
