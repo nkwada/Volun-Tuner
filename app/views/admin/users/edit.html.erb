@@ -1,0 +1,21 @@
+<h3>編集画面</h3>
+
+<%= form_for(@user, url: {controller: 'admin/users', action: 'update' }) do |f| %>
+
+    <p>ユーザー名</p>
+    <%= f.text_field :username %>
+
+    <p>姓</p>
+    <%= f.text_field :lastname %>
+
+    <p>名</p>
+    <%= f.text_field :firstname %>
+
+    <p>カナ姓</p>
+    <%= f.text_field :kana_lastname %>
+
+    <p>カナ名</p>
+    <%= f.text_field :kana_firstname %>
+
+    <%= f.submit '更新' %>
+<% end %>
