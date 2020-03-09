@@ -9,7 +9,12 @@ class CommentsController < ApplicationController
     else
       redirect_back(fallback_location: root_path)
     end
+  end
 
+  def destroy
+	@comment = Comment.find(params[:event_id])
+    @comment.destroy
+    redirect_back(fallback_location: root_path)
   end
 
   private

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :events do
     resources :join_users, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
-    resources :comments, only: [:create]
+    resource :comments, only: [:create, :destroy]
   end
   resources :users
 end

@@ -46,10 +46,13 @@
 
 <!-- コメント機能 -->
 	<h5>コメント一覧</h5>
-	<% @comments.each do |c| %>
+	<% @comments.each do |comment| %>
 	  <div>
-	    <a href="/users/<%= @event.user.id %>"><%= c.user.email %></a>
-	    <%= c.content %>
+	    <a href="/users/<%= @event.user.id %>"><%= comment.user.username %></a>
+	    <%= comment.content %>
+	    <% if comment.user == current_user %>
+			<%=link_to "削除", event_comments_path(comment.id), method: :delete %>
+		<% end %>
 	    <hr>
 	  </div>
 	<% end %>
