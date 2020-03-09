@@ -1,22 +1,19 @@
 <h3>イベント詳細</h3>
 
-	<p>タイトル</p>
-	<p><%= @event.title %></p>
+<!-- 主催者の場合のみ編集ボタンを表示 -->
+<% if @event.user_id == current_user.id %>
+	<%= link_to "編集", edit_event_path(@event.id) %>
+<% end %>
 
-	<p>内容</p>
-	<p><%= @event.content %></p>
-
-	<p>日付</p>
-	<p><%= @event.date %></p>
-
-	<p>時間</p>
-	<p><%= @event.time %></p>
-
-	<p>郵便番号</p>
-	<p><%= @event.postal_code %></p>
-
-	<p>住所</p>
-	<p><%= @event.address %></p>
+<table class="table table-bordered table-hover">
+	<tr><th>タイトル</th><td><%= @event.title %></td></tr>
+	<tr><th>内容</th><td><%= @event.content %></td></tr>
+	<tr><th>日付</th><td><%= @event.date %></td></tr>
+	<tr><th>時間</th><td><%= @event.time %></td></tr>
+	<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
+	<tr><th>住所</th><td><%= @event.address %></td></tr>
+	<tr><th>主催者</th><td><%= @event.user.username %></td></tr>
+</table>
 
 <!-- 参加機能 -->
 	<h5>参加人数: <%= @event.join_users.count %></h5>
@@ -64,5 +61,7 @@
 	<% end %>
 <!-- ここまで -->
 
-<%= link_to "編集", edit_event_path(@event.id) %>
-<%= link_to "イベント一覧へ", events_path %>
+
+
+
+

@@ -11,14 +11,16 @@
 <h5><%= @user.username %>さんがこれまで参加したボランティア活動</h5>
 
 <% @user.joined_events.each do |event| %>
-  <p>主催者：<%= event.user.username %></p>
-  <p>タイトル：<%= event.title %></p>
+  <p>主催者：<%= event.user.username %> タイトル：<%= event.title %></p>
 <% end %>
+<hr>
 
 <h5><%= @user.username %>さんがこれまで主催したボランティア活動</h5>
+
 	<% @user.events.each do |event| %>
 		<%= event.title %>
 	<% end %>
+<hr>
 
 <h5><%= @user.username %>さんがいいねしている投稿</h5>
 	<% @user.liked_events.each do |event| %>
