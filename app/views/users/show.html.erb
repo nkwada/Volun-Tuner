@@ -2,7 +2,7 @@
 
 <p>ユーザー名: <%= @user.username %></p>
 
-<%= attachment_image_tag @user, :image, :fill, 100, 100, format: 'jpeg' %>
+<%= attachment_image_tag @user, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %><br>
 
 <%= link_to "ユーザー情報編集", edit_user_path(current_user.id) %><br>
 
