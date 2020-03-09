@@ -20,7 +20,7 @@
 		<%= event.title %>
 	<% end %>
 
-<h5>いいねしている投稿</h5>
+<h5><%= @user.username %>さんがいいねしている投稿</h5>
 	<% @user.liked_events.each do |event| %>
 	  <%= event.user.email %>
 	  <%= event.content %>

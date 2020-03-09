@@ -7,6 +7,7 @@ class User < ApplicationRecord
 	has_many :joined_events, through: :join_users, source: :event
 	has_many :likes, dependent: :destroy
 	has_many :liked_events, through: :likes, source: :event
+	has_many :comments
 
 # ユーザーがイベントに対して、既に参加しているかどうかを判定
   def already_joined?(event)
