@@ -8,15 +8,19 @@
 
 <%= link_to "ボランティアを主催する", new_event_path %>
 
-<h5><%= @user.username %>さんがこれまで参加したボランティア活動</h5>
+<section class="stats">
+	<%= render 'shared/stats' %>
+</section>
 
-<% @user.joined_events.each do |event| %>
-  <p>主催者：<%= event.user.username %> タイトル：<%= event.title %></p>
-<% end %>
+<%= render 'follow_form' if user_signed_in? %>
+
+<h5><%= @user.username %>さんがこれまで参加したボランティア活動</h5>
+	<% @user.joined_events.each do |event| %>
+	  <p>主催者：<%= event.user.username %> タイトル：<%= event.title %></p>
+	<% end %>
 <hr>
 
 <h5><%= @user.username %>さんがこれまで主催したボランティア活動</h5>
-
 	<% @user.events.each do |event| %>
 		<%= event.title %>
 	<% end %>
@@ -24,6 +28,5 @@
 
 <h5><%= @user.username %>さんがいいねしている投稿</h5>
 	<% @user.liked_events.each do |event| %>
-	  <%= event.user.email %>
-	  <%= event.content %>
+	  <%= event.title %>
 	<% end %>

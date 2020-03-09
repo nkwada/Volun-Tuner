@@ -9,7 +9,7 @@
 	<tr><th>集合場所</th><td>〒<%= event.postal_code %>　<%= event.address %></td></tr>
 	<tr><th>参加人数</th><td><%= event.joined_users.count %></td></tr>
 	<tr><th>いいね数</th><td><%= event.liked_users.count %></td></tr>
-	<tr><th>主催者</th><td><%= event.user.username %></td></tr>
+	<tr><th>主催者</th><td><%= link_to event.user.username, user_path(event.user.id) %></td></tr>
 </table>
 <hr>
 

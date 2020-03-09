@@ -22,10 +22,12 @@
 	<% else %>
 	  <%= button_to '参加する', event_join_users_path(@event) %>
 	<% end %>
+<hr>
 	<h5>参加ユーザー</h5>
 	<% @event.joined_users.each do |user| %>
 	  <li><%= user.username %></li>
 	<% end %>
+<hr>
 <!-- ここまで -->
 
 <!-- いいね機能 -->
@@ -35,10 +37,12 @@
 	<% else %>
 	  <%= button_to 'いいね', event_likes_path(@event) %>
 	<% end %>
+<hr>
 	<h5>いいねしたユーザー</h5>
 	<% @event.liked_users.each do |user| %>
 	  <li><%= user.username %></li>
 	<% end %>
+<hr>
 <!-- ここまで -->
 
 <!-- コメント機能 -->
@@ -55,7 +59,7 @@
 	<% end %>
 
 	<%= form_for [@event, @comment] do |f| %>
-	  <%= f.text_field :content %>
+	  <%= f.text_area :content %>
 	  <br>
 	  <%= f.submit 'コメントする' %>
 	<% end %>

@@ -14,6 +14,13 @@ Rails.application.routes.draw do
   end
 
   root to: 'users#top'
+
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
   get 'events/confirm', to: 'events#confirm'
   resources :events do
     resources :join_users, only: [:create, :destroy]
@@ -21,5 +28,6 @@ Rails.application.routes.draw do
     resource :comments, only: [:create, :destroy]
   end
   resources :users
+  resources :relationships, only: [:create, :destroy]
 end
 
