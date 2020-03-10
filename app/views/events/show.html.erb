@@ -67,6 +67,82 @@
 <!-- ここまで -->
 
 
+<p>
+  <strong>Address:</strong>
+  <%= @event.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @event.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @event.longitude %>
+</p>
+
+
+
+<!-- Mapを表示 -->
+
+<div id='map'></div>
+
+
+<style>
+#map{
+  height: 600px;
+  width: 900px;
+}
+</style>
+
+<script type="text/javascript">
+  function initMap() {
+    var geocoder = new google.maps.Geocoder();
+	var address = '<%= @event.address %>';
+	var location ='';
+    console.log(address);
+
+	geocoder.geocode({'address': address}, function(results, status) {
+    	if (status === google.maps.GeocoderStatus.OK) {
+        	location = results[0].geometry.location;
+           	console.log(location);
+
+    		var map = new google.maps.Map(document.getElementById('map'), {
+      			zoom: 15,
+      			center: location
+    		});
+
+
+    		var contentString = '住所：<%= @event.address %>';
+    		var infowindow = new google.maps.InfoWindow({
+      			content: contentString
+    		});
+
+    		var marker = new google.maps.Marker({
+      			position:location,
+      			map: map,
+      			title: contentString
+    		});
+    		marker.addListener('click', function() {
+      			infowindow.open(map, marker);
+    		});
+
+        } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+
+  }
+
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap">
+</script>
+
+
+
 
 
 
