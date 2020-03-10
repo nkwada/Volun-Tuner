@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 2020_03_09_080952) do
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.date "date"
-    t.string "time"
+    t.datetime "start_time"
     t.string "postal_code"
     t.string "address"
+    t.string "image"
     t.string "area"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_080952) do
     t.string "kana_lastname"
     t.string "kana_firstname"
     t.string "area"
-    t.string "image_id"
+    t.string "image"
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

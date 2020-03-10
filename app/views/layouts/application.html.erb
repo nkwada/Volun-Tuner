@@ -4,7 +4,7 @@
     <title>VolunTuner</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -12,7 +12,7 @@
   <body>
       <!-- ヘッダーの記述 -->
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a href="#" class="navbar-brand">Volun-Tuner</a>
+        <%= link_to "Volun-Tuner", root_path, class: "navbar-brand" %>
         <button class="navbar-toggler" type="button"
             data-toggle="collapse"
             data-target="#navmenu1"

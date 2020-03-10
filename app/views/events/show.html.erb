@@ -5,11 +5,12 @@
 	<%= link_to "編集", edit_event_path(@event.id) %>
 <% end %>
 
+<%= image_tag @event.image_url, width: 100 %><br>
+
 <table class="table table-bordered table-hover">
 	<tr><th>タイトル</th><td><%= @event.title %></td></tr>
 	<tr><th>内容</th><td><%= @event.content %></td></tr>
-	<tr><th>日付</th><td><%= @event.date %></td></tr>
-	<tr><th>時間</th><td><%= @event.time %></td></tr>
+	<tr><th>日時</th><td><%= @event.start_time %></td></tr>
 	<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
 	<tr><th>住所</th><td><%= @event.address %></td></tr>
 	<tr><th>主催者</th><td><%= @event.user.username %></td></tr>

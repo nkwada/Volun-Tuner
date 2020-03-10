@@ -6,11 +6,8 @@
 	<h4>本文</h4>
 	<%= f.text_area :content %>
 
-	<h4>日付</h4>
-	<%= f.date_field :date %>
-
-	<h4>時間</h4>
-	<%= f.time_field :time %>
+	<p>日時</p>
+	<%= f.datetime_select :start_time %>
 
 	<h4>郵便番号</h4>
 	<%= f.text_field :postal_code %>
@@ -18,5 +15,28 @@
 	<h4>住所</h4>
 	<%= f.text_field :address %>
 
+	<h4>画像</h4>
+  	<%= f.file_field :image, id: :event_image %>
+<!-- 画像プレビューを表示 -->
+  	<%= image_tag @event.image.url, width: 100, id: :image_prev %>
+  	<p><%= f.check_box :remove_image %>画像を削除する</p>
+
     <%= f.submit '更新' %>
 <% end %>
+
+<script type="text/javascript">
+$(function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#image_prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#event_image").change(function(){
+   readURL(this);
+ });
+});
+</script>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 	def top
+		@events = Event.all
 	end
 
 	def show
@@ -33,6 +34,6 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
-		params.require(:user).permit(:username, :lastname, :firstname, :kana_lastname, :kana_firstname, :image )
+		params.require(:user).permit(:username, :lastname, :firstname, :kana_lastname, :kana_firstname, :image, :image_cache, :remove_image )
 	end
 end

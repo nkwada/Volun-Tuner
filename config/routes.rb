@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'events/confirm', to: 'events#confirm'
+  post 'events/confirm', to: 'events#confirm'
   resources :events do
     resources :join_users, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]

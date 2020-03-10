@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-	attachment :image
 	has_many :events, dependent: :destroy
 	has_many :join_users, dependent: :destroy
 	has_many :joined_events, through: :join_users, source: :event
@@ -16,7 +15,7 @@ class User < ApplicationRecord
                                    dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-
+  mount_uploader :image, ImageUploader
 
 
 # ユーザーがイベントに対して、既に参加しているかどうかを判定
