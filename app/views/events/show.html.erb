@@ -2,7 +2,7 @@
 
 <!-- 主催者の場合のみ編集ボタンを表示 -->
 <!-- 未ログイン時にcurrent_user.idでエラーが出たため、[user_signed_in? &&]を追加 -->
-<% if user_signed_in? && @event.user_id == current_user.id %>
+<% if @event.user == current_user %>
 	<%= link_to "編集", edit_event_path(@event.id) %>
 <% end %>
 
@@ -11,7 +11,7 @@
 <table class="table table-bordered table-hover">
 	<tr><th>タイトル</th><td><%= @event.title %></td></tr>
 	<tr><th>内容</th><td><%= @event.content %></td></tr>
-	<tr><th>日時</th><td><%= @event.start_time %></td></tr>
+	<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
 	<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
 	<tr><th>住所</th><td><%= @event.address %></td></tr>
 	<tr><th>主催者</th><td><%= @event.user.username %></td></tr>
