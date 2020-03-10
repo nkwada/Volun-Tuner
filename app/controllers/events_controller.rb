@@ -44,6 +44,13 @@ class EventsController < ApplicationController
   	# @event.address = params[:address]
   end
 
+  def search
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+
+    @places = Event.all.within(1000, origin: [latitude, longitude])
+  end
+
   private
 
   def event_params

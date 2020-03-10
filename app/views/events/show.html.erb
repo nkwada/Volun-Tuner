@@ -1,7 +1,8 @@
 <h3>イベント詳細</h3>
 
 <!-- 主催者の場合のみ編集ボタンを表示 -->
-<% if @event.user_id == current_user.id %>
+<!-- 未ログイン時にcurrent_user.idでエラーが出たため、[user_signed_in? &&]を追加 -->
+<% if user_signed_in? && @event.user_id == current_user.id %>
 	<%= link_to "編集", edit_event_path(@event.id) %>
 <% end %>
 
@@ -17,23 +18,31 @@
 </table>
 
 <!-- 参加機能 -->
-	<h5>参加人数: <%= @event.join_users.count %></h5>
-	<% if current_user.already_joined?(@event) %>
+<h5>参加人数: <%= @event.join_users.count %></h5>
+	<% if user_signed_in? && current_user.already_joined?(@event) %>
+
 	  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
+
 	<% else %>
+
 	  <%= button_to '参加する', event_join_users_path(@event) %>
+
 	<% end %>
+
 <hr>
+
 	<h5>参加ユーザー</h5>
+
 	<% @event.joined_users.each do |user| %>
 	  <li><%= user.username %></li>
 	<% end %>
+
 <hr>
 <!-- ここまで -->
 
 <!-- いいね機能 -->
 	<h5>いいね件数: <%= @event.likes.count %></h5>
-	<% if current_user.already_liked?(@event) %>
+	<% if user_signed_in? && current_user.already_liked?(@event) %>
 	  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete %>
 	<% else %>
 	  <%= button_to 'いいね', event_likes_path(@event) %>
@@ -72,29 +81,19 @@
   <%= @event.address %>
 </p>
 
-<!-- <p>
-  <strong>Latitude:</strong>
-  <%= @event.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @event.longitude %>
-</p>
- -->
 
 <!-- 緯度と経度が取得されていないのに地図はちゃんと表示される -->
 
 
-<!-- Mapを表示 -->
+<!-- 地図を表示 -->
 
 <div id='map'></div>
 
 
 <style>
 #map{
-  height: 600px;
-  width: 900px;
+  height: 400px;
+  width: 500px;
 }
 </style>
 
@@ -111,7 +110,7 @@
            	console.log(location);
 
     		var map = new google.maps.Map(document.getElementById('map'), {
-      			zoom: 16,
+      			zoom: 15,
       			center: location
     		});
 
@@ -136,13 +135,13 @@
     });
 
   }
-
 </script>
 
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap">
 </script>
 
+<!-- 地図ここまで -->
 
 
 

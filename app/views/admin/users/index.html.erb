@@ -1,7 +1,7 @@
  <h3>ユーザー一覧</h3>
    <% @users.each do |user| %>
       <%= user.id %>
-	  <%= attachment_image_tag user, :image, :fill, 50, 50, format: 'jpeg' %>
+	  <%= image_tag user.image.url, width: 100 %>
 	  <%= link_to user.username, admin_user_path(user.id) %>
       <%= user.lastname %>
       <%= user.firstname %>
