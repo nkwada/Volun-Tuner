@@ -1,7 +1,8 @@
 <h3>イベント詳細</h3>
 
 <!-- 主催者の場合のみ編集ボタンを表示 -->
-<% if @event.user_id == current_user.id %>
+<!-- 未ログイン時にcurrent_user.idでエラーが出たため、[user_signed_in? &&]を追加 -->
+<% if user_signed_in? && @event.user_id == current_user.id %>
 	<%= link_to "編集", edit_event_path(@event.id) %>
 <% end %>
 
@@ -17,23 +18,31 @@
 </table>
 
 <!-- 参加機能 -->
-	<h5>参加人数: <%= @event.join_users.count %></h5>
-	<% if current_user.already_joined?(@event) %>
+<h5>参加人数: <%= @event.join_users.count %></h5>
+	<% if user_signed_in? && current_user.already_joined?(@event) %>
+
 	  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
+
 	<% else %>
+
 	  <%= button_to '参加する', event_join_users_path(@event) %>
+
 	<% end %>
+
 <hr>
+
 	<h5>参加ユーザー</h5>
+
 	<% @event.joined_users.each do |user| %>
 	  <li><%= user.username %></li>
 	<% end %>
+
 <hr>
 <!-- ここまで -->
 
 <!-- いいね機能 -->
 	<h5>いいね件数: <%= @event.likes.count %></h5>
-	<% if current_user.already_liked?(@event) %>
+	<% if user_signed_in? && current_user.already_liked?(@event) %>
 	  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete %>
 	<% else %>
 	  <%= button_to 'いいね', event_likes_path(@event) %>
@@ -65,6 +74,74 @@
 	  <%= f.submit 'コメントする' %>
 	<% end %>
 <!-- ここまで -->
+
+
+<p>
+  <strong>Address:</strong>
+  <%= @event.address %>
+</p>
+
+
+<!-- 緯度と経度が取得されていないのに地図はちゃんと表示される -->
+
+
+<!-- 地図を表示 -->
+
+<div id='map'></div>
+
+
+<style>
+#map{
+  height: 400px;
+  width: 500px;
+}
+</style>
+
+<script type="text/javascript">
+  function initMap() {
+    var geocoder = new google.maps.Geocoder();
+	var address = '<%= @event.address %>';
+	var location ='';
+    console.log(address);
+
+	geocoder.geocode({'address': address}, function(results, status) {
+    	if (status === google.maps.GeocoderStatus.OK) {
+        	location = results[0].geometry.location;
+           	console.log(location);
+
+    		var map = new google.maps.Map(document.getElementById('map'), {
+      			zoom: 15,
+      			center: location
+    		});
+
+
+    		var contentString = '住所：<%= @event.address %>';
+    		var infowindow = new google.maps.InfoWindow({
+      			content: contentString
+    		});
+
+    		var marker = new google.maps.Marker({
+      			position:location,
+      			map: map,
+      			title: contentString
+    		});
+    		marker.addListener('click', function() {
+      			infowindow.open(map, marker);
+    		});
+
+        } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+
+  }
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap">
+</script>
+
+<!-- 地図ここまで -->
 
 
 

@@ -2,7 +2,7 @@
 
 <%= form_for(@user, url: {controller: 'admin/users', action: 'update' }) do |f| %>
 
-    <p>ユーザー名</p>
+    <p>ユーザーネーム</p>
     <%= f.text_field :username %>
 
     <p>姓</p>
@@ -17,5 +17,27 @@
     <p>カナ名</p>
     <%= f.text_field :kana_firstname %>
 
+    <p>画像</p>
+    <%= f.file_field :image, id: :user_image %>
+    <%= image_tag @user.image.url, width: 100, id: :image_prev %>
+    <p><%= f.check_box :remove_image %>画像を削除する</p>
+
     <%= f.submit '更新' %>
 <% end %>
+
+<script type="text/javascript">
+$(function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#image_prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#user_image").change(function(){
+   readURL(this);
+ });
+});
+</script>

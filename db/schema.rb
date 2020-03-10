@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2020_03_09_080952) do
     t.string "address"
     t.string "image"
     t.string "area"
+    t.float "latitude"
+    t.float "longitude"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,6 +91,8 @@ ActiveRecord::Schema.define(version: 2020_03_09_080952) do
     t.string "kana_firstname"
     t.string "area"
     t.string "image"
+    t.float "latitude"
+    t.float "longitude"
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
