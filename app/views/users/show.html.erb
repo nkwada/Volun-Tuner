@@ -2,26 +2,46 @@
 
 <p>ユーザー名: <%= @user.username %></p>
 
-<%= attachment_image_tag @user, :image, :fill, 100, 100, format: 'jpeg' %>
+<%= image_tag @user.image_url, width: 100 %><br>
 
 <%= link_to "ユーザー情報編集", edit_user_path(current_user.id) %><br>
 
 <%= link_to "ボランティアを主催する", new_event_path %>
 
-<h5><%= @user.username %>さんがこれまで参加したボランティア活動</h5>
+<!-- フォロー機能 -->
+<!-- フォロー、フォロワー数を表示 -->
+<%= render 'stats' %>
 
-<% @user.joined_events.each do |event| %>
-  <p>主催者：<%= event.user.username %></p>
-  <p>タイトル：<%= event.title %></p>
+<!-- フォローボタンの表示 -->
+<%= render 'follow_form' if user_signed_in? %>
+<!-- フォロー機能ここまで -->
+
+
+<!-- ユーザーが参加するイベントをカレンダーに表示 -->
+<%= month_calendar events: @user.joined_events do |date, events| %>
+  <%= date.day %>
+  <% events.each do |event| %>
+    <div>
+      <%= link_to event.title, event %>
+    </div>
+  <% end %>
 <% end %>
+<!-- ここまで -->
+
+
+<h5><%= @user.username %>さんがこれまで参加したボランティア活動</h5>
+	<% @user.joined_events.each do |event| %>
+	  <p>主催者：<%= event.user.username %> タイトル：<%= event.title %></p>
+	<% end %>
+<hr>
 
 <h5><%= @user.username %>さんがこれまで主催したボランティア活動</h5>
 	<% @user.events.each do |event| %>
 		<%= event.title %>
 	<% end %>
+<hr>
 
 <h5><%= @user.username %>さんがいいねしている投稿</h5>
 	<% @user.liked_events.each do |event| %>
-	  <%= event.user.email %>
-	  <%= event.content %>
+	  <%= event.title %>
 	<% end %>

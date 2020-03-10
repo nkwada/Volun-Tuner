@@ -1,0 +1,19 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+      <h4><%= @user.username %></h4>
+      <%= link_to "マイページに戻る", @user %>
+      <%= render 'stats' %>
+  </aside>
+  <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @users.any? %>
+        <% @users.each do |user| %>
+              <%= user.username %>
+          <% end %>
+      <%= will_paginate %>
+    <% end %>
+  </div>
+</div>
+
+<!-- will_paginateを使ったがkaminariだけで出来ないのか -->

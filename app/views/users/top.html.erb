@@ -1,3 +1,5 @@
+<h4>TOPページ</h4>
+
 <% if user_signed_in? %>
 
 	<%= link_to "マイページへ", user_path(current_user.id) %>
@@ -7,3 +9,15 @@
 ログインしていません
 
 <% end %>
+
+
+<!-- イベント全てをカレンダーに表示 -->
+<%= month_calendar events: @events do |date, events| %>
+  <%= date.day %>
+  <% events.each do |event| %>
+    <div>
+      <%= link_to event.title, event %>
+    </div>
+  <% end %>
+<% end %>
+<!-- ここまで -->

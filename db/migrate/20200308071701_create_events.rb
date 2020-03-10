@@ -4,10 +4,10 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 
 	  t.string :title
 	  t.text :content
-	  t.date :date
-	  t.string :time
+	  t.datetime :start_time
 	  t.string :postal_code
 	  t.string :address
+	  t.string :image
 	  t.string :area
 	  t.references :user, index: true
       t.timestamps

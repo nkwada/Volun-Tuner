@@ -2,16 +2,15 @@
 
 <% @events.each do |event| %>
 
-	<p>タイトル：<%= link_to event.title, event_path(event.id) %></p>
-
-	<p>内容：<%= event.content %></p>
-
-	<p>日時：<%= event.date %>　<%= event.time %></p>
-
-	<p>集合場所：〒<%= event.postal_code %>　<%= event.address %></p>
-
-	<p>参加人数：<%= event.joined_users.count %></p>
-
-	<p>いいね数：<%= event.liked_users.count %></p>
+<table class="table table-bordered table-hover">
+	<tr><th>タイトル</th><td><%= link_to event.title, event_path(event.id) %></td></tr>
+	<tr><th>内容</th><td><%= event.content %></td></tr>
+	<tr><th>日時</th><td><%= event.start_time %></td></tr>
+	<tr><th>集合場所</th><td>〒<%= event.postal_code %>　<%= event.address %></td></tr>
+	<tr><th>参加人数</th><td><%= event.joined_users.count %></td></tr>
+	<tr><th>いいね数</th><td><%= event.liked_users.count %></td></tr>
+	<tr><th>主催者</th><td><%= link_to event.user.username, user_path(event.user.id) %></td></tr>
+</table>
+<hr>
 
 <% end %>

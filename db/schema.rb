@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_161723) do
+ActiveRecord::Schema.define(version: 2020_03_09_080952) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 2020_03_08_161723) do
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.date "date"
-    t.string "time"
+    t.datetime "start_time"
     t.string "postal_code"
     t.string "address"
+    t.string "image"
     t.string "area"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -66,6 +66,16 @@ ActiveRecord::Schema.define(version: 2020_03_08_161723) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -78,7 +88,7 @@ ActiveRecord::Schema.define(version: 2020_03_08_161723) do
     t.string "kana_lastname"
     t.string "kana_firstname"
     t.string "area"
-    t.string "image_id"
+    t.string "image"
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

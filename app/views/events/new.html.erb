@@ -1,6 +1,5 @@
 <h3>新規イベント</h3>
-
-<%= form_with url: events_confirm_path, method: :get, local: true do |f| %>
+<%= form_for @event, url: events_confirm_path, method: :post, local: true do |f| %>
 
 	<p>タイトル</p>
 	<%= f.text_field :title %>
@@ -8,11 +7,8 @@
 	<p>本文</p>
 	<%= f.text_area :content %>
 
-	<p>日付</p>
-	<%= f.date_field :date %>
-
-	<p>時間</p>
-	<%= f.time_field :time %>
+	<p>日時</p>
+	<%= f.datetime_select :start_time %>
 
 	<p>郵便番号</p>
 	<%= f.text_field :postal_code %>
@@ -20,5 +16,57 @@
 	<p>住所</p>
 	<%= f.text_field :address %>
 
+	<p>画像</p>
+  	<%= f.file_field :image, id: :event_image %>
+<!-- 画像プレビューを表示 -->
+  	<%= image_tag @event.image.url, width: 100, id: :image_prev %>
+
 	<%= f.submit '投稿' %>
 <% end %>
+
+
+<!-- 切り替えボタンの設定 -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  ココを押すと表示
+</button>
+
+<!-- モーダルの設定 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">モーダルのタイトル</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>モーダルのコンテンツ文。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        <button type="button" class="btn btn-primary">変更を保存</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<script type="text/javascript">
+$(function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#image_prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#event_image").change(function(){
+   readURL(this);
+ });
+});
+</script>
