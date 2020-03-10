@@ -72,7 +72,7 @@
   <%= @event.address %>
 </p>
 
-<p>
+<!-- <p>
   <strong>Latitude:</strong>
   <%= @event.latitude %>
 </p>
@@ -81,7 +81,9 @@
   <strong>Longitude:</strong>
   <%= @event.longitude %>
 </p>
+ -->
 
+<!-- 緯度と経度が取得されていないのに地図はちゃんと表示される -->
 
 
 <!-- Mapを表示 -->
@@ -109,7 +111,7 @@
            	console.log(location);
 
     		var map = new google.maps.Map(document.getElementById('map'), {
-      			zoom: 15,
+      			zoom: 16,
       			center: location
     		});
 
