@@ -48,13 +48,19 @@ class EventsController < ApplicationController
   def search_index
     # @events = Event.search(params[:search])
     if params[:selected] == 'Title'
+      # セレクトボックスがタイトルの時
       search = params[:search]
       @events = Event.where(['title LIKE ?', "%#{search}%"])
     elsif params[:selected] == 'Content'
+      # セレクトボックスが内容の時
       search = params[:search]
       @events = Event.where(['content LIKE ?', "%#{search}%"])
+    elsif params[:tag_name]
+      # タグをクリックした時に同じタグ名のイベントを表示
+      @events = Event.tagged_with("#{params[:tag_name]}")
     end
   end
+
 
   def search
     latitude = params[:latitude]
