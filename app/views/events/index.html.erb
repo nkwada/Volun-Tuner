@@ -2,7 +2,7 @@
 
 <% @events.each do |event| %>
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered">
 	<tr><th>タイトル</th><td><%= link_to event.title, event_path(event.id) %></td></tr>
 	<tr><th>内容</th><td><%= event.content %></td></tr>
 	<tr><th>日時</th><td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
@@ -10,6 +10,7 @@
 	<tr><th>参加人数</th><td><%= event.joined_users.count %></td></tr>
 	<tr><th>いいね数</th><td><%= event.liked_users.count %></td></tr>
 	<tr><th>主催者</th><td><%= link_to event.user.username, user_path(event.user.id) %></td></tr>
+	<tr><th>タグ</th><td><%= render 'events/tag_list', tag_list: event.tag_list %></td></tr>
 </table>
 <hr>
 

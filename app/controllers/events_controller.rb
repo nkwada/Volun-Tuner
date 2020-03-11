@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-  	@events = Event.all
+  	@events = Event.all.reverse_order
   end
 
   def show
@@ -65,7 +65,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image)
+  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image, :tag_list)
   end
 
 end

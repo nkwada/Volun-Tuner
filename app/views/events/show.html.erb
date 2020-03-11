@@ -8,13 +8,14 @@
 
 <%= image_tag @event.image_url, width: 100 %><br>
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered">
 	<tr><th>タイトル</th><td><%= @event.title %></td></tr>
 	<tr><th>内容</th><td><%= @event.content %></td></tr>
 	<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
 	<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
 	<tr><th>住所</th><td><%= @event.address %></td></tr>
 	<tr><th>主催者</th><td><%= @event.user.username %></td></tr>
+	<tr><th>タグ</th><td><%= render 'events/tag_list', tag_list: @event.tag_list %></td></tr>
 </table>
 
 <!-- 参加機能 -->

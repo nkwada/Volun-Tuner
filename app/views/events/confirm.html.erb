@@ -7,6 +7,7 @@
 <p>住所：<%= @event.address %></p>
 <p>画像：</p>
 <%= image_tag(@event.image_url, width: 100) if @event.image? %>
+<p>タグ：<%= render 'events/tag_list', tag_list: @event.tag_list %></p>
 
 <%= form_for(@event, url: events_path, method: :post) do |f| %>
 
@@ -16,6 +17,7 @@
 	<%= f.hidden_field :postal_code, :value => @event.postal_code %>
 	<%= f.hidden_field :address, :value => @event.address %>
 	<%= f.hidden_field :image, :value => @event.image %>
+	<%= f.hidden_field :tag_list, :value => @event.tag_list.join(',') %>
 
 	<%= f.submit 'ボランティアを主催する' %>
 <% end %>

@@ -16,6 +16,9 @@
 	<p>住所</p>
 	<%= f.text_field :address %>
 
+  <p>カテゴリータグ</p>
+  <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %>
+
 	<p>画像</p>
   	<%= f.file_field :image, id: :event_image %>
 <!-- 画像プレビューを表示 -->
