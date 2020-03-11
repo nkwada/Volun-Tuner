@@ -20,15 +20,26 @@
 
 <!-- 参加機能 -->
 <h5>参加人数: <%= @event.join_users.count %></h5>
-	<% if user_signed_in? && current_user.already_joined?(@event) %>
 
-	  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
+	<!-- 主催者の場合は参加ボタンを表示しない -->
+	<% if current_user == @event.user %>
+
+		<p>主催者は参加できません</p>
 
 	<% else %>
 
-	  <%= button_to '参加する', event_join_users_path(@event) %>
+		<% if user_signed_in? && current_user.already_joined?(@event) %>
+
+		  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
+
+		<% else %>
+
+		  <%= button_to '参加する', event_join_users_path(@event) %>
+
+		<% end %>
 
 	<% end %>
+	<!-- 参加ボタンここまで -->
 
 <hr>
 
@@ -43,11 +54,24 @@
 
 <!-- いいね機能 -->
 	<h5>いいね件数: <%= @event.likes.count %></h5>
-	<% if user_signed_in? && current_user.already_liked?(@event) %>
-	  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete %>
+
+	<!-- 主催者の場合はいいねボタンを表示しない -->
+	<% if current_user == @event.user %>
+
+		<p>主催者はいいねできません</p>
+
 	<% else %>
-	  <%= button_to 'いいね', event_likes_path(@event) %>
+
+		<% if user_signed_in? && current_user.already_liked?(@event) %>
+		  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete %>
+		<% else %>
+		  <%= button_to 'いいね', event_likes_path(@event) %>
+		<% end %>
+
 	<% end %>
+	<!-- いいねボタンここまで -->
+
+
 <hr>
 	<h5>いいねしたユーザー</h5>
 	<% @event.liked_users.each do |user| %>
