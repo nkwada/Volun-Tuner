@@ -1,7 +1,7 @@
 <h4>TOPページ</h4>
 
 <% if user_signed_in? %>
-
+	<%= current_user.username %>さんこんにちは
 	<%= link_to "マイページへ", user_path(current_user.id) %>
 
 <% else %>
@@ -10,6 +10,14 @@
 
 <% end %>
 
+
+<!-- 検索フォームの表示 -->
+<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
+  <%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
+  <%= f.text_field :search %>
+  <%= f.submit 'Search', name: nil %>
+<% end %>
+<!-- ここまで -->
 
 <!-- イベント全てをカレンダーに表示 -->
 <%= month_calendar events: @events do |date, events| %>
@@ -21,10 +29,6 @@
   <% end %>
 <% end %>
 <!-- ここまで -->
-
-
-
-
 
 
 <script type="text/javascript">

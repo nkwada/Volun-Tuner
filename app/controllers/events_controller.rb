@@ -36,6 +36,7 @@ class EventsController < ApplicationController
   def confirm
   	# パラメータで確認画面へ
   	@event = Event.new(event_params)
+    # event_paramsを書けば下記を省略できる
   	# @event.title = params[:event][:title]
   	# @event.content = params[:content]
   	# @event.date = params[:date]
@@ -44,10 +45,20 @@ class EventsController < ApplicationController
   	# @event.address = params[:address]
   end
 
+  def search_index
+    # @events = Event.search(params[:search])
+    if params[:selected] == 'Title'
+      search = params[:search]
+      @events = Event.where(['title LIKE ?', "%#{search}%"])
+    elsif params[:selected] == 'Content'
+      search = params[:search]
+      @events = Event.where(['content LIKE ?', "%#{search}%"])
+    end
+  end
+
   def search
     latitude = params[:latitude]
     longitude = params[:longitude]
-
     @places = Event.all.within(1000, origin: [latitude, longitude])
   end
 

@@ -1,0 +1,11 @@
+<h4>検索結果</h4>
+
+<% @events.each do |event| %>
+    ボランティアタイトル：<%= link_to event.title, event %>
+    内容：<%= event.content %>
+    集合場所：<%= event.address %>
+    主催者：<%= event.user.username %>
+<hr>
+<% end %>
+
+

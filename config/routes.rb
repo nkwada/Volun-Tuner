@@ -21,13 +21,16 @@ Rails.application.routes.draw do
     end
   end
 
+
   post 'events/confirm', to: 'events#confirm'
+  get 'events/search', to: 'events#search_index'
   resources :events do
     resources :join_users, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
     resource :comments, only: [:create, :destroy]
   end
-  resources :users
+
+
   resources :relationships, only: [:create, :destroy]
 end
 
