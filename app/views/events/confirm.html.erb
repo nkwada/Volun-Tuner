@@ -2,12 +2,12 @@
 
 <p>タイトル：<%= @event.title %></p>
 <p>内容：<%= @event.content %></p>
-<p>日時：<%= @event.start_time %></p>
+<p>日時：<%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></p>
 <p>郵便番号：<%= @event.postal_code %></p>
 <p>住所：<%= @event.address %></p>
-<p>画像：</p>
-<%= image_tag(@event.image_url, width: 100) if @event.image? %>
 <p>タグ：<%= render 'events/tag_list', tag_list: @event.tag_list %></p>
+<p>画像：<%= image_tag(@event.image_url, width: 100) if @event.image? %></p>
+
 
 <%= form_for(@event, url: events_path, method: :post) do |f| %>
 
