@@ -32,6 +32,7 @@
             <% elsif admin_signed_in? %>
 
                 <%= link_to "ユーザー一覧", admin_users_path, class: "nav-item nav-link" %>
+                <%= link_to "ボランティア一覧", admin_events_path, class: "nav-item nav-link" %>
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-item nav-link" %>
 
             <% else %>

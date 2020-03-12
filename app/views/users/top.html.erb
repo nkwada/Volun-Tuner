@@ -22,6 +22,7 @@
 <!-- イベント全てをカレンダーに表示 -->
 <%= month_calendar events: @events do |date, events| %>
   <%= date.day %>
+  <div><%= events.count %>件</div>
   <% events.each do |event| %>
     <div>
       <%= link_to event.title, event %>

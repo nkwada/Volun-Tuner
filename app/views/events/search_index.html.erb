@@ -1,5 +1,11 @@
 <h4>検索結果</h4>
 
+
+<!-- タグ一覧表示の時はどのタグなのかを表示 -->
+<% if params[:tag_name] %>
+	<p><span class="badge badge-info mr-1 p-2"><%= params[:tag_name] %></span>タグが付いている投稿一覧</p>
+<% end %>
+
 <% @events.each do |event| %>
     ボランティアタイトル：<%= link_to event.title, event %>
     内容：<%= event.content %>

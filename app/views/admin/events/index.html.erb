@@ -1,8 +1,9 @@
-<h3>イベント一覧</h3>
+<p>イベント一覧(管理画面)</p>
 
 	<% @events.each do |event| %>
 
 		<table class="table table-bordered">
+			<%= link_to "削除", admin_event_path(event.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 			<tr><th>タイトル</th><td><%= link_to event.title, event_path(event.id) %></td></tr>
 			<tr><th>内容</th><td><%= event.content %></td></tr>
 			<tr><th>日時</th><td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
@@ -15,5 +16,3 @@
 		<hr>
 
 	<% end %>
-
-
