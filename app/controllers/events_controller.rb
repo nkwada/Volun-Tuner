@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   	@events = Event.all.reverse_order
   end
 
+
   def show
   	@event = Event.find(params[:id])
   	@join_user = JoinUser.new
@@ -11,10 +12,12 @@ class EventsController < ApplicationController
     @comment = Comment.new
   end
 
+
   def new
+    # confirmにパラメータで渡す
     @event = Event.new
-  	# confirmにパラメータで渡す
   end
+
 
   def create
   	event = current_user.events.build(event_params)
@@ -22,15 +25,25 @@ class EventsController < ApplicationController
   	redirect_to event_path(event.id)
   end
 
+
   def edit
   	@event = Event.find(params[:id])
   end
 
+
   def update
-	event = Event.find(params[:id])
-	event.update(event_params)
-	redirect_to event_path(event.id)
+  	event = Event.find(params[:id])
+  	event.update(event_params)
+  	redirect_to event_path(event.id)
   end
+
+
+  def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    redirect_to admin_events_path
+  end
+
 
 # イベント確認画面
   def confirm
@@ -44,6 +57,7 @@ class EventsController < ApplicationController
   	# @event.postal_code = params[:postal_code]
   	# @event.address = params[:address]
   end
+
 
   def search_index
     # @events = Event.search(params[:search])
@@ -63,10 +77,11 @@ class EventsController < ApplicationController
 
 
   def search
-    latitude = params[:latitude]
-    longitude = params[:longitude]
-    @places = Event.all.within(1000, origin: [latitude, longitude])
+    # latitude = params[:latitude]
+    # longitude = params[:longitude]
+    # @places = Event.all.within(1000, origin: [latitude, longitude])
   end
+
 
   private
 

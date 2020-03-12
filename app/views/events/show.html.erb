@@ -1,9 +1,10 @@
 <h3>イベント詳細</h3>
 
-<!-- 主催者の場合のみ編集ボタンを表示 -->
+<!-- 主催者の場合のみ編集・削除ボタンを表示 -->
 <!-- 未ログイン時にcurrent_user.idでエラーが出たため、[user_signed_in? &&]を追加 -->
 <% if @event.user == current_user %>
 	<%= link_to "編集", edit_event_path(@event.id) %>
+	<%= link_to "削除", event_path(@event.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 <% end %>
 
 <%= image_tag @event.image_url, width: 100 %><br>
