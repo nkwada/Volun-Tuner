@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
 	def top
-		@events = Event.all
 	end
 
 	def show

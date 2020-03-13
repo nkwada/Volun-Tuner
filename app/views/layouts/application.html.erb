@@ -24,8 +24,7 @@
         <div class="collapse navbar-collapse" id="navmenu1">
           <div class="navbar-nav">
             <% if user_signed_in? %>
-
-                <%= link_to "イベント一覧", events_path, class: "nav-item nav-link" %>
+                <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
                 <%= link_to "マイページ", user_path(current_user.id), class: "nav-item nav-link" %>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
 
@@ -36,7 +35,7 @@
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-item nav-link" %>
 
             <% else %>
-
+                <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
                 <%= link_to "ログイン", new_user_session_path, class: "nav-item nav-link" %>
                 <%= link_to "新規登録", new_user_registration_path, class: "nav-item nav-link" %>
                 <%= link_to "管理画面へ", new_admin_session_path, class: "nav-item nav-link" %>

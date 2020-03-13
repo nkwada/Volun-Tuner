@@ -1,19 +1,82 @@
-<h3>イベント一覧</h3>
+<h4>ボランティアを探す</h4>
 
-	<% @events.each do |event| %>
+<%= link_to "新着順", events_search_path, class: "btn btn-primary rounded-pill" %>
 
-		<table class="table table-bordered">
-			<tr><th>タイトル</th><td><%= link_to event.title, event_path(event.id) %></td></tr>
-			<tr><th>内容</th><td><%= event.content %></td></tr>
-			<tr><th>日時</th><td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
-			<tr><th>集合場所</th><td>〒<%= event.postal_code %>　<%= event.address %></td></tr>
-			<tr><th>参加人数</th><td><%= event.joined_users.count %></td></tr>
-			<tr><th>いいね数</th><td><%= event.liked_users.count %></td></tr>
-			<tr><th>主催者</th><td><%= link_to event.user.username, user_path(event.user.id) %></td></tr>
-			<tr><th>タグ</th><td><%= render 'events/tag_list', tag_list: event.tag_list %></td></tr>
-		</table>
-		<hr>
+<hr>
 
-	<% end %>
+ <button onclick="getPosition();">現在地から探す</button>
+
+<hr>
+
+<!-- 検索フォームの表示 -->
+<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
+  <%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
+  <%= f.text_field :search %>
+  <%= f.submit 'Search', name: nil %>
+<% end %>
+<!-- ここまで -->
+
+<hr>
+
+<!-- タグ検索 -->
+<p>タグ検索</p>
+<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+<!-- ここまで -->
+
+<hr>
+
+<!-- イベント全てをカレンダーに表示 -->
+<%= month_calendar events: @events do |date, events| %>
+  <%= date.day %>
+  <div><%= events.count %>件</div>
+  <% events.each do |event| %>
+    <div>
+      <%= link_to event.title, event %>
+    </div>
+  <% end %>
+<% end %>
+<!-- ここまで -->
 
 
+
+
+
+<script>
+    // 現在地取得処理
+    function getPosition() {
+      // 現在地を取得
+      navigator.geolocation.getCurrentPosition(
+        // 取得成功した場合
+        function(position) {
+            window.location.href = "/events/search_location?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
+            // $.ajax({
+            //   url: "/events/search_location",
+            //   type: "GET",
+            //   dataType: 'html',
+            //   data: {latitude : position.coords.latitude,
+            //         longitude : position.coords.longitude},
+            // });
+        },
+        // 取得失敗した場合
+        function(error) {
+          switch(error.code) {
+            case 1: //PERMISSION_DENIED
+              alert("位置情報の利用が許可されていません");
+              break;
+            case 2: //POSITION_UNAVAILABLE
+              alert("現在位置が取得できませんでした");
+              break;
+            case 3: //TIMEOUT
+              alert("タイムアウトになりました");
+              break;
+            default:
+              alert("その他のエラー(エラーコード:"+error.code+")");
+              break;
+          }
+        }
+      );
+    }
+  </script>

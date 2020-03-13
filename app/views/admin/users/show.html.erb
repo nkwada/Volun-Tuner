@@ -1,4 +1,4 @@
- <h3>ユーザー詳細</h3>
+ <h5>ユーザー詳細</h5>
       <%= @user.id %>
       <%= @user.username %>
       <%= @user.lastname %>
@@ -7,4 +7,4 @@
       <%= @user.kana_firstname %>
       <%= @user.email %>
 
-	  <%= link_to '編集', edit_admin_user_path(@user.id) %>
+	  <%= link_to '編集', edit_admin_user_path(@user.id), class: "btn-sm btn-success" %>

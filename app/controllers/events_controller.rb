@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-  	@events = Event.all.reverse_order
+  	@events = Event.all
   end
 
 
@@ -21,6 +21,7 @@ class EventsController < ApplicationController
 
   def create
   	event = current_user.events.build(event_params)
+    event.address = event.address.gsub(/\d+/, "").gsub(/\-+/, "")
   	event.save
   	redirect_to event_path(event.id)
   end
@@ -41,7 +42,7 @@ class EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     event.destroy
-    redirect_to admin_events_path
+    redirect_to events_search_path
   end
 
 
@@ -72,21 +73,24 @@ class EventsController < ApplicationController
     elsif params[:tag_name]
       # タグをクリックした時に同じタグ名のイベントを表示
       @events = Event.tagged_with("#{params[:tag_name]}")
+    else
+      @events = Event.all.reverse_order
     end
   end
 
 
-  def search
-    # latitude = params[:latitude]
-    # longitude = params[:longitude]
-    # @places = Event.all.within(1000, origin: [latitude, longitude])
+  def search_location
+    latitude = params[:latitude].to_f
+    longitude = params[:longitude].to_f
+    @locations = Event.within_box(0.310686, latitude, longitude)
   end
+
 
 
   private
 
   def event_params
-  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image, :tag_list)
+  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
   end
 
 end

@@ -6,7 +6,16 @@ class Event < ApplicationRecord
  	has_many :liked_users, through: :likes, source: :user, dependent: :destroy
  	has_many :comments, dependent: :destroy
  	mount_uploader :image, ImageUploader
- # 	geocoded_by :address
-	# after_validation :geocode, if: :address_changed?
 	acts_as_taggable
+
+	geocoded_by :address
+	after_validation :geocode, if: :address_changed?
+
+    def within_box(distance, latitude, longitude)
+        distance = distance
+        center_point = [latitude, longitude]
+        box = Geocoder::Calculations.bounding_box(center_point, distance)
+        self.within_bounding_box(box)
+    end
+
 end

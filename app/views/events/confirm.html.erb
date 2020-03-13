@@ -18,6 +18,8 @@
 	<%= f.hidden_field :address, :value => @event.address %>
 	<%= f.hidden_field :image, :value => @event.image %>
 	<%= f.hidden_field :tag_list, :value => @event.tag_list.join(',') %>
+	<%= f.hidden_field :latitude, :value => @event.latitude %>
+	<%= f.hidden_field :longitude, :value => @event.longitude %>
 
 	<%= f.submit 'ボランティアを主催する' %>
 <% end %>
