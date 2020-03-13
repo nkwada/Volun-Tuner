@@ -17,7 +17,7 @@
 	<%= f.text_field :kana_firstname %>
 
 	<p>画像</p>
-	<%= f.file_field :image, id: :user_image %>
+	<%= f.file_field :image, id: :user_image %><br>
 	<%= image_tag @user.image.url, width: 100, id: :image_prev %>
 	<p><%= f.check_box :remove_image %>画像を削除する</p>
 

@@ -1,47 +1,113 @@
-<h3>My Page</h3>
+<h4><%= @user.username %>さんのマイページ</h4>
 
-<p>ユーザー名: <%= @user.username %></p>
+<div class="row">
+  <div class="col-sm-6 col-md-3 mt-5">
+    <div class="card img-thumbnail">
+      <%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
+      <div class="card-body px-2 py-3 text-center">
+        <h5 class="card-title">ユーザー名: <%= @user.username %></h5>
+        <p class="mb-2">
+        	<!-- フォロー機能 -->
+				<!-- フォロー、フォロワー数を表示 -->
+				<%= render 'stats' %>
 
-<%= image_tag @user.image_url, width: 100 %><br>
+				<!-- フォローボタンの表示 -->
+				<%= render 'follow_form' if user_signed_in? %>
+			<!-- フォロー機能ここまで -->
+        </p>
+    	<!-- 本人の場合のみボタンを表示 -->
+		<% if @user == current_user %>
+			<%= link_to "ユーザー情報編集", edit_user_path(current_user.id), class: "btn btn-primary btn-sm mb-2" %>
+			<%= link_to "ボランティアを主催する", new_event_path, class: "btn btn-success btn-sm" %>
+		<% end %>
 
-<%= link_to "ユーザー情報編集", edit_user_path(current_user.id) %><br>
+      </div><!-- /.card-body -->
+    </div><!-- /.card -->
+  </div><!-- /.col-sm-6.col-md-3 -->
 
-<%= link_to "ボランティアを主催する", new_event_path %>
-
-<!-- フォロー機能 -->
-<!-- フォロー、フォロワー数を表示 -->
-<%= render 'stats' %>
-
-<!-- フォローボタンの表示 -->
-<%= render 'follow_form' if user_signed_in? %>
-<!-- フォロー機能ここまで -->
-
-
-<!-- ユーザーが参加するイベントをカレンダーに表示 -->
-<%= month_calendar events: @user.joined_events do |date, events| %>
-  <%= date.day %>
-  <% events.each do |event| %>
-    <div>
-      <%= link_to event.title, event %>
-    </div>
-  <% end %>
-<% end %>
-<!-- ここまで -->
+	<!-- ユーザーが参加するイベントをカレンダーに表示 -->
+	<div class="col-sm-6 col-md-9">
+		<h5 class="text-center">予定表</h5>
+		<%= month_calendar events: @user.joined_events do |date, events| %>
+		  <%= date.day %>
+		  <% events.each do |event| %>
+		    <div>
+		      <p class="small"><%= link_to event.title, event %><%= event.start_time.strftime("%H:%M") %>から</p>
+		    </div>
+		  <% end %>
+		<% end %>
+	</div><!-- /.col-sm-6.col-md-9 -->
+	<!-- カレンダーここまで -->
+</div><!-- /.row -->
 
 
-<h5><%= @user.username %>さんがこれまで参加したボランティア活動</h5>
-	<% @user.joined_events.each do |event| %>
-	  <p>主催者：<%= event.user.username %> タイトル：<%= event.title %></p>
-	<% end %>
-<hr>
 
-<h5><%= @user.username %>さんがこれまで主催したボランティア活動</h5>
-	<% @user.events.each do |event| %>
-		<%= event.title %>
-	<% end %>
-<hr>
+<div class="row">
+	<div class="col-4">
+		<div class="card border-warning mr-4">
+		  <div class="card-header">
+		    <%= @user.username %>さんが参加したボランティア活動
+		  </div>
+		  <div class="card-body">
+		    	<!-- 参加イベントがない時は文章を表示 -->
+		    	<% if @user.joined_events.count == 0 %>
 
-<h5><%= @user.username %>さんがいいねしている投稿</h5>
-	<% @user.liked_events.each do |event| %>
-	  <%= event.title %>
-	<% end %>
+		    		<p>まだ参加したボランティアはありません...。</p>
+
+		    	<% else %>
+
+			    	<% @user.joined_events.each do |event| %>
+		 			 	<%= link_to event.title, event %>
+					<% end %>
+
+				<% end %>
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-4">
+		<div class="card border-success mr-4">
+		  <div class="card-header">
+		    <%= @user.username %>さんが主催したボランティア活動
+		  </div>
+		  <div class="card-body">
+		    	<!-- 主催イベントがない時は文章を表示 -->
+		    	<% if @user.events.count == 0 %>
+
+		    		<p>まだ主催したボランティアはありません...。</p>
+
+		    	<% else %>
+
+					<% @user.events.each do |event| %>
+						<%= link_to event.title, event %>
+					<% end %>
+
+				<% end %>
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-4">
+		<div class="card border-danger">
+		  <div class="card-header">
+		    <%= @user.username %>さんがいいねした投稿
+		  </div>
+		  <div class="card-body">
+		    	<!-- いいねしたイベントがない時は文章を表示 -->
+		    	<% if @user.liked_events.count == 0 %>
+
+		    		<p>まだいいねしたボランティアはありません...。</p>
+
+		    	<% else %>
+
+					<% @user.liked_events.each do |event| %>
+	  					<%= link_to event.title, event %><br>
+					<% end %>
+
+				<% end %>
+
+		  </div>
+		</div>
+	</div>
+</div>
+
