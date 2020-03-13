@@ -14,3 +14,22 @@
  *= require bootstrap-tagsinput
  */
  @import "bootstrap";
+
+
+/*リストをおしゃれに*/
+
+ul {
+  padding: 0;
+}
+
+ul li {
+  color: #404040;
+  border-left: solid 6px #1fa67a;/*左側の線*/
+  border-bottom: solid 2px #dadada;/*下に灰色線*/
+  background: whitesmoke;
+  margin-bottom: 5px;/*下のバーとの余白*/
+  line-height: 1.5;
+  padding: 0.5em;
+  list-style-type: none!important;/*ポチ消す*/
+  font-weight: bold;
+}

@@ -18,12 +18,14 @@
 
 	<p>画像</p>
 	<%= f.file_field :image, id: :user_image %><br>
-	<%= image_tag @user.image.url, width: 100, id: :image_prev %>
+	<%= image_tag @user.image.url, width: 100, id: :image_prev, class: "rounded-circle mt-2" %>
 	<p><%= f.check_box :remove_image %>画像を削除する</p>
 
     <%= f.submit '更新' %>
 <% end %>
 
+
+<!-- 画像のプレビュー機能 -->
 <script type="text/javascript">
 $(function() {
  function readURL(input) {
