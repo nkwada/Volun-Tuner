@@ -75,6 +75,11 @@ class EventsController < ApplicationController
     elsif params[:tag_name]
       # タグをクリックした時に同じタグ名のイベントを表示
       @events = Event.tagged_with("#{params[:tag_name]}")
+    elsif params[:latitude]
+      latitude = params[:latitude].to_f
+      longitude = params[:longitude].to_f
+      # 10kmは約6.21371マイル　半径10kmのイベントを表示
+      @events = Event.within_box(6.21371, latitude, longitude)
     else
       @events = Event.all.reverse_order
     end
@@ -82,9 +87,7 @@ class EventsController < ApplicationController
 
 
   def search_location
-    latitude = params[:latitude].to_f
-    longitude = params[:longitude].to_f
-    @locations = Event.within_box(0.310686, latitude, longitude)
+
   end
 
 

@@ -34,17 +34,17 @@
 
 <div class="row">
 	<div class="col-4">
-		<div class="card">
+		<div class="card text-center">
 		  <div class="card-header">
 		    新着順に全件表示
 		  </div>
 		  <div class="card-body">
-		  	<%= link_to "新着順", events_search_path, class: "btn btn-primary rounded-pill" %>
+		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-primary rounded-pill" %>
 		  </div>
 		</div>
 	</div>
 	<div class="col-8">
-		<div class="card">
+		<div class="card text-center">
 		  <div class="card-header">
 		    フリーワード検索
 		  </div>
@@ -65,18 +65,18 @@
 
 <div class="row">
 	<div class="col-4">
-		<div class="card">
+		<div class="card text-center">
 		  <div class="card-header">
 		    現在地から近い順に表示
 		  </div>
 		  <div class="card-body">
-		　	<button onclick="getPosition();">現在地から探す</button>
+		　	<button onclick="getPosition();" class="btn btn-warning">現在地から探す</button>
 		  </div>
 		</div>
 	</div>
 
 	<div class="col-8">
-		<div class="card">
+		<div class="card text-center">
 		  <div class="card-header">
 		    タグで検索
 		  </div>
@@ -99,9 +99,9 @@
 <%= month_calendar events: @events do |date, events| %>
   <%= date.day %>
   <!-- 切り替えボタンの設定 -->
-	<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#eventModalLong-<%= date.day %>">
+	<div class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#eventModalLong-<%= date.day %>">
 	 <%= events.count %>件
-	</button>
+	</button></div>
 
 <!-- モーダルの設定 -->
 <div class="modal fade" id="eventModalLong-<%= date.day %>" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
@@ -127,7 +127,6 @@
   </div>
 </div>
 
-
 <% end %>
 <!-- ここまで -->
 
@@ -137,7 +136,7 @@
 
 
 
-
+<!-- 現在地取得の記述 -->
 <script>
     // 現在地取得処理
     function getPosition() {
@@ -145,7 +144,7 @@
       navigator.geolocation.getCurrentPosition(
         // 取得成功した場合
         function(position) {
-            window.location.href = "/events/search_location?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
+            window.location.href = "/events/search?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
             // $.ajax({
             //   url: "/events/search_location",
             //   type: "GET",

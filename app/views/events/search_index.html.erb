@@ -12,6 +12,10 @@
 	<!-- どのタグなのかを表示 -->
 	<h5><span class="badge badge-info mr-1 p-2"><%= params[:tag_name] %></span>タグが付いている投稿一覧：<%= @events.count %>件</h5>
 
+<% elsif params[:latitude] %>
+
+	<h5>現在地から半径10km以内のボランティアを表示</h5>
+
 <% else %>
 
 	<h5>全件(新着順)</h5>
