@@ -1,99 +1,165 @@
-<h3>イベント詳細</h3>
+<h4>ボランティア詳細</h4>
 
-<!-- 主催者の場合のみ編集ボタンを表示 -->
+<div class="row">
+	<div class="col-4">
+		<%= image_tag @event.image_url, width: 350, class: "rounded" %>
+	</div>
+	<div class="col-8">
+		<table class="table table-bordered">
+			<tr><th>タイトル</th><td><%= @event.title %></td></tr>
+			<tr><th>内容</th><td><%= @event.content %></td></tr>
+			<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
+			<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
+			<tr><th>住所</th><td><%= @event.address %></td></tr>
+			<tr><th>主催者</th><td><%= link_to @event.user.username, user_path(@event.user.id) %></td></tr>
+			<tr><th>タグ</th><td><%= render 'events/tag_list', tag_list: @event.tag_list %></td></tr>
+		</table>
+	</div>
+</div>
+
+<!-- 主催者の場合のみ編集・削除ボタンを表示 -->
 <!-- 未ログイン時にcurrent_user.idでエラーが出たため、[user_signed_in? &&]を追加 -->
-<% if user_signed_in? && @event.user_id == current_user.id %>
-	<%= link_to "編集", edit_event_path(@event.id) %>
+<% if @event.user == current_user %>
+	<div class="text-right">
+		<%= link_to "編集", edit_event_path(@event.id), class: "btn btn-outline-secondary" %>
+		<%= link_to "削除", event_path(@event.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger" %>
+	</div>
 <% end %>
 
-<%= image_tag @event.image_url, width: 100 %><br>
-
-<table class="table table-bordered table-hover">
-	<tr><th>タイトル</th><td><%= @event.title %></td></tr>
-	<tr><th>内容</th><td><%= @event.content %></td></tr>
-	<tr><th>日時</th><td><%= @event.start_time %></td></tr>
-	<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
-	<tr><th>住所</th><td><%= @event.address %></td></tr>
-	<tr><th>主催者</th><td><%= @event.user.username %></td></tr>
-</table>
-
-<!-- 参加機能 -->
-<h5>参加人数: <%= @event.join_users.count %></h5>
-	<% if user_signed_in? && current_user.already_joined?(@event) %>
-
-	  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete %>
-
-	<% else %>
-
-	  <%= button_to '参加する', event_join_users_path(@event) %>
-
-	<% end %>
 
 <hr>
 
-	<h5>参加ユーザー</h5>
+<div class="row">
+	<div class="col-6"><!-- 参加機能 -->
+		<div class="card">
+		  <div class="card-header bg-white text-center">
+		    	<!-- 主催者の場合は参加ボタンを表示しない -->
+				<% if current_user == @event.user %>
 
-	<% @event.joined_users.each do |user| %>
-	  <li><%= user.username %></li>
-	<% end %>
+					<p>主催者は参加できません</p>
+
+				<% else %>
+
+					<% if user_signed_in? && current_user.already_joined?(@event) %>
+
+					  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete, class: "btn btn-secondary border-secondary disabled" %>
+
+					<% else %>
+
+					  <%= button_to '参加する', event_join_users_path(@event), class: "btn btn-outline-warning btn-lg" %>
+
+					<% end %>
+
+				<% end %>
+				<!-- 参加ボタンここまで -->
+		  </div>
+		  <div class="card-body text-center">
+		  	参加人数: <%= @event.join_users.count %><br>
+		  	<% @event.joined_users.each do |user| %>
+			  <%= user.username %>さん
+			<% end %>
+		  </div>
+		</div>
+	</div><!-- 参加機能ここまで -->
+	<div class="col-6"><!-- いいね機能 -->
+		<div class="card">
+		  <div class="card-header bg-white text-center">
+				<!-- 主催者の場合はいいねボタンを表示しない -->
+				<% if current_user == @event.user %>
+
+					<p>主催者はいいねできません</p>
+
+				<% else %>
+
+					<% if user_signed_in? && current_user.already_liked?(@event) %>
+					  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete, class: "btn btn-secondary disabled" %>
+					<% else %>
+					  <%= button_to 'いいね', event_likes_path(@event), class: "btn btn-outline-danger btn-lg" %>
+					<% end %>
+
+				<% end %>
+			<!-- いいねボタンここまで -->
+		  </div>
+		  <div class="card-body text-center">
+		  	いいね件数: <%= @event.likes.count %><br>
+			<% @event.liked_users.each do |user| %>
+			  <%= user.username %>さん
+			<% end %>
+		  </div>
+		</div>
+	</div><!-- いいね機能ここまで -->
+</div>
 
 <hr>
-<!-- ここまで -->
 
-<!-- いいね機能 -->
-	<h5>いいね件数: <%= @event.likes.count %></h5>
-	<% if user_signed_in? && current_user.already_liked?(@event) %>
-	  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete %>
-	<% else %>
-	  <%= button_to 'いいね', event_likes_path(@event) %>
-	<% end %>
-<hr>
-	<h5>いいねしたユーザー</h5>
-	<% @event.liked_users.each do |user| %>
-	  <li><%= user.username %></li>
-	<% end %>
-<hr>
-<!-- ここまで -->
 
 <!-- コメント機能 -->
-	<h5>コメント一覧</h5>
+<div class="text-center">
+	<h5>コメント</h5>
 	<% @comments.each do |comment| %>
-	  <div>
-	    <a href="/users/<%= @event.user.id %>"><%= comment.user.username %></a>
-	    <%= comment.content %>
-	    <% if comment.user == current_user %>
-			<%=link_to "削除", event_comments_path(comment.id), method: :delete %>
-		<% end %>
-	    <hr>
-	  </div>
+		<div class="row">
+		    <table class="table">
+		    	<tr>
+		    		<td><a href="/users/<%= @event.user.id %>"><%= comment.user.username %></a></td>
+		    		<td><%= comment.content %></td>
+		    		<td><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+
+			    	<% if comment.user == current_user %>
+			    		<td><%=link_to "削除", event_comments_path(comment.id), method: :delete, class: "btn-sm btn-danger" %></td>
+			    	<% else %>
+			    		<td></td>
+			    	<% end %>
+
+		    	</tr>
+		    </table>
+		</div>
 	<% end %>
 
 	<%= form_for [@event, @comment] do |f| %>
-	  <%= f.text_area :content %>
+	  <%= f.text_area :content, class: "col-8" %>
 	  <br>
-	  <%= f.submit 'コメントする' %>
+	  <%= f.submit 'コメントする', class: "text-right" %>
 	<% end %>
+</div>
+
 <!-- ここまで -->
+
+<hr>
+
+
+<!-- 地図を表示 -->
+<h5 class="text-center">集合場所</h5>
+<div id='map'></div>
+
+
+
+
+
+<!-- 地図ここまで -->
+
+
 
 
 <p>
   <strong>Address:</strong>
   <%= @event.address %>
 </p>
+<p>
+  <strong>Latitude:</strong>
+  <%= @event.latitude %>
+</p>
+<p>
+  <strong>Longitude:</strong>
+  <%= @event.longitude %>
+</p>
 
 
-<!-- 緯度と経度が取得されていないのに地図はちゃんと表示される -->
-
-
-<!-- 地図を表示 -->
-
-<div id='map'></div>
-
-
+<!-- 地図の設定 -->
 <style>
 #map{
   height: 400px;
-  width: 500px;
+  width: 700px;
+  margin: 0 auto;
 }
 </style>
 
@@ -140,10 +206,7 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap">
 </script>
-
-<!-- 地図ここまで -->
-
-
+<!-- 地図の設定ここまで -->
 
 
 

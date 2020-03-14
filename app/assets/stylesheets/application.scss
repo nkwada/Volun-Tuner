@@ -11,5 +11,46 @@
  * It is generally better to create a new file per style scope.
  *
  *= require simple_calendar
+ *= require bootstrap-tagsinput
  */
  @import "bootstrap";
+
+/*ヘッダーでずれたコンテンツの位置を調整*/
+#wrapper nav {
+  margin-bottom: 25px;
+}
+
+/*フッターを最下部に固定*/
+body,
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+  padding: 25px 0;
+  background-color: #40474e;
+  color: white;
+}
+
+
+
+/*リストをおしゃれに*/
+
+ul {
+  padding: 0;
+}
+
+ul li {
+  color: #404040;
+  border-left: solid 6px #1fa67a;/*左側の線*/
+  border-bottom: solid 2px #dadada;/*下に灰色線*/
+  background: whitesmoke;
+  margin-bottom: 5px;/*下のバーとの余白*/
+  line-height: 1.5;
+  padding: 0.5em;
+  list-style-type: none!important;/*ポチ消す*/
+  font-weight: bold;
+}

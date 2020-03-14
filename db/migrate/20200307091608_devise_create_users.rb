@@ -39,6 +39,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :kana_firstname
       t.string :area
       t.string :image
+      t.float :latitude
+      t.float :longitude
       t.boolean :status
       t.timestamps null: false
     end

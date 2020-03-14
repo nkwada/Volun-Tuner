@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   }
   namespace :admin do
     resources :users
+    resources :events, only: [:index, :destroy]
   end
 
   root to: 'users#top'
@@ -21,13 +22,15 @@ Rails.application.routes.draw do
     end
   end
 
+
   post 'events/confirm', to: 'events#confirm'
+  get 'events/search', to: 'events#search_index'
   resources :events do
     resources :join_users, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
     resource :comments, only: [:create, :destroy]
   end
-  resources :users
+
   resources :relationships, only: [:create, :destroy]
 end
 

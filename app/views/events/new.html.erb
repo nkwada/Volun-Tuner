@@ -1,5 +1,5 @@
 <h3>新規イベント</h3>
-<%= form_for @event, url: events_confirm_path, method: :post, local: true do |f| %>
+<%= form_for @event, url: events_path, method: :post, local: true do |f| %>
 
 	<p>タイトル</p>
 	<%= f.text_field :title %>
@@ -16,6 +16,9 @@
 	<p>住所</p>
 	<%= f.text_field :address %>
 
+  <p>カテゴリータグ</p>
+  <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %>
+
 	<p>画像</p>
   	<%= f.file_field :image, id: :event_image %>
 <!-- 画像プレビューを表示 -->
@@ -23,35 +26,6 @@
 
 	<%= f.submit '投稿' %>
 <% end %>
-
-
-<!-- 切り替えボタンの設定 -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  ココを押すと表示
-</button>
-
-<!-- モーダルの設定 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">モーダルのタイトル</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>モーダルのコンテンツ文。</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn btn-primary">変更を保存</button>
-      </div><!-- /.modal-footer -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
 
 
 <script type="text/javascript">

@@ -1,7 +1,10 @@
 class EventsController < ApplicationController
   def index
   	@events = Event.all
+    # ランダムに取得
+    @event_randoms = Event.order("RANDOM()").limit(3)
   end
+
 
   def show
   	@event = Event.find(params[:id])
@@ -11,31 +14,45 @@ class EventsController < ApplicationController
     @comment = Comment.new
   end
 
+
   def new
+    # confirmにパラメータで渡す
     @event = Event.new
-  	# confirmにパラメータで渡す
   end
+
 
   def create
   	event = current_user.events.build(event_params)
+    event.address = event.address.gsub(/\d+/, "").gsub(/\-+/, "")
   	event.save
   	redirect_to event_path(event.id)
   end
+
 
   def edit
   	@event = Event.find(params[:id])
   end
 
+
   def update
-	event = Event.find(params[:id])
-	event.update(event_params)
-	redirect_to event_path(event.id)
+  	event = Event.find(params[:id])
+  	event.update(event_params)
+  	redirect_to event_path(event.id)
   end
+
+
+  def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    redirect_to events_search_path
+  end
+
 
 # イベント確認画面
   def confirm
   	# パラメータで確認画面へ
   	@event = Event.new(event_params)
+    # event_paramsを書けば下記を省略できる
   	# @event.title = params[:event][:title]
   	# @event.content = params[:content]
   	# @event.date = params[:date]
@@ -44,17 +61,41 @@ class EventsController < ApplicationController
   	# @event.address = params[:address]
   end
 
-  def search
-    latitude = params[:latitude]
-    longitude = params[:longitude]
 
-    @places = Event.all.within(1000, origin: [latitude, longitude])
+  def search_index
+    # @events = Event.search(params[:search])
+    if params[:selected] == 'Title'
+      # セレクトボックスがタイトルの時
+      search = params[:search]
+      @events = Event.where(['title LIKE ?', "%#{search}%"])
+    elsif params[:selected] == 'Content'
+      # セレクトボックスが内容の時
+      search = params[:search]
+      @events = Event.where(['content LIKE ?', "%#{search}%"])
+    elsif params[:tag_name]
+      # タグをクリックした時に同じタグ名のイベントを表示
+      @events = Event.tagged_with("#{params[:tag_name]}")
+    elsif params[:latitude]
+      latitude = params[:latitude].to_f
+      longitude = params[:longitude].to_f
+      # 10kmは約6.21371マイル　半径10kmのイベントを表示
+      @events = Event.within_box(6.21371, latitude, longitude)
+    else
+      @events = Event.all.reverse_order
+    end
   end
+
+
+  def search_location
+
+  end
+
+
 
   private
 
   def event_params
-  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image)
+  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
   end
 
 end

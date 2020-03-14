@@ -1,0 +1,33 @@
+<h5>イベント一覧(管理画面)</h5>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>日時</th>
+      <th>集合場所</th>
+      <th>いいね数</th>
+      <th>参加人数</th>
+      <th>主催者</th>
+      <th>タグ</th>
+      <th></th>
+    </tr>
+  </thead>
+
+<% @events.each do |event| %>
+  <tbody>
+    <tr>
+      <td><%= event.title %></td>
+      <td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td>
+      <td><%= event.address %></td>
+      <td><%= event.liked_users.count %></td>
+      <td><%= event.joined_users.count %></td>
+      <td><%= event.user.username %></td>
+      <td><%= render 'events/tag_list', tag_list: event.tag_list %></td>
+      <td><%= link_to "削除", admin_event_path(event.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn-sm btn-danger" %></td>
+    </tr>
+  </tbody>
+<% end %>
+</table>
+
+

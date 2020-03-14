@@ -3,18 +3,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 	has_many :events, dependent: :destroy
 	has_many :join_users, dependent: :destroy
-	has_many :joined_events, through: :join_users, source: :event
+	has_many :joined_events, through: :join_users, source: :event, dependent: :destroy
 	has_many :likes, dependent: :destroy
-	has_many :liked_events, through: :likes, source: :event
-	has_many :comments
+	has_many :liked_events, through: :likes, source: :event, dependent: :destroy
+	has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
                                   dependent:   :destroy
   has_many :passive_relationships, class_name:  "Relationship",
                                    foreign_key: "followed_id",
                                    dependent:   :destroy
-  has_many :following, through: :active_relationships, source: :followed
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :following, through: :active_relationships, source: :followed, dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
   mount_uploader :image, ImageUploader
 
 

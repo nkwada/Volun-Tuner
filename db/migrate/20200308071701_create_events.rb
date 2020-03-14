@@ -9,6 +9,8 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 	  t.string :address
 	  t.string :image
 	  t.string :area
+	  t.float :latitude
+      t.float :longitude
 	  t.references :user, index: true
       t.timestamps
     end
