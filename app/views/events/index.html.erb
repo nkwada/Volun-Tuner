@@ -60,7 +60,9 @@
 		</div>
 	</div>
 </div>
+
 <hr>
+
 <div class="row">
 	<div class="col-4">
 		<div class="card">
@@ -72,6 +74,7 @@
 		  </div>
 		</div>
 	</div>
+
 	<div class="col-8">
 		<div class="card">
 		  <div class="card-header">
@@ -96,43 +99,38 @@
 <%= month_calendar events: @events do |date, events| %>
   <%= date.day %>
   <!-- 切り替えボタンの設定 -->
-	<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#eventModalLong">
+	<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#eventModalLong-<%= date.day %>">
 	 <%= events.count %>件
 	</button>
-	<% events.each do |event| %>
-		<%= event.title %>
-	<% end %>
-
-
-
-<% end %>
-<!-- ここまで -->
 
 <!-- モーダルの設定 -->
-<div class="modal fade" id="eventModalLong" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="eventModalLong-<%= date.day %>" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="eventModalLongTitle">モーダルのタイトル</h5>
+        <h5 class="modal-title" id="eventModalLongTitle"><%= date.day %>日のボランティア全件</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <%= week_calendar events: @events do |date, events| %>
- 			 	<%= date.day %>
- 			 <% events.each do |event| %>
-				<%= event.title %>
-			<% end %>
-<% end %>
+      	<ul>
+      	<% events.each do |event| %>
+      		<li><%= link_to event.title, event %></li>
+      	<% end %>
+      	</ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        <button type="button" class="btn btn-primary">変更を保存</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<% end %>
+<!-- ここまで -->
+
 
 
 

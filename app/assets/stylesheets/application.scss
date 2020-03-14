@@ -15,6 +15,27 @@
  */
  @import "bootstrap";
 
+/*ヘッダーでずれたコンテンツの位置を調整*/
+#wrapper nav {
+  margin-bottom: 25px;
+}
+
+/*フッターを最下部に固定*/
+body,
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+  padding: 25px 0;
+  background-color: #40474e;
+  color: white;
+}
+
+
 
 /*リストをおしゃれに*/
 

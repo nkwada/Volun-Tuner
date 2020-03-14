@@ -10,6 +10,7 @@
   </head>
 
   <body>
+    <div id="wrapper">
       <!-- ヘッダーの記述 -->
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <%= link_to "Volun-Tuner", root_path, class: "navbar-brand" %>
@@ -46,8 +47,15 @@
       </nav>
       <!-- ここまで -->
 
-    <div class="container">
-      <%= yield %>
+      <div class="container mb-5">
+        <%= yield %>
+      </div>
+
+      <!-- フッター -->
+      <footer class="text-center">
+        <p>Volun-Tuner</p>
+      </footer>
+      <!-- フッターここまで -->
     </div>
   </body>
 </html>

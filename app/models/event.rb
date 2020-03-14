@@ -11,7 +11,7 @@ class Event < ApplicationRecord
 	geocoded_by :address
 	after_validation :geocode, if: :address_changed?
 
-    def within_box(distance, latitude, longitude)
+    def self.within_box(distance, latitude, longitude)
         distance = distance
         center_point = [latitude, longitude]
         box = Geocoder::Calculations.bounding_box(center_point, distance)
