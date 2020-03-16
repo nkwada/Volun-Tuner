@@ -12,6 +12,8 @@
  *
  *= require simple_calendar
  *= require bootstrap-tagsinput
+ *= require_self
+ *= require_tree .
  */
  @import "bootstrap";
 
@@ -30,20 +32,18 @@ body,
 
 footer {
   margin-top: auto;
-  padding: 25px 0;
+  padding: 20px 0;
   background-color: #40474e;
   color: white;
 }
 
-
-
 /*リストをおしゃれに*/
 
-ul {
+.card-body ul, .modal-body ul {
   padding: 0;
 }
 
-ul li {
+.card-body ul li, .modal-body ul li {
   color: #404040;
   border-left: solid 6px #1fa67a;/*左側の線*/
   border-bottom: solid 2px #dadada;/*下に灰色線*/

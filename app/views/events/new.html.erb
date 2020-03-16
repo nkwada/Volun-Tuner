@@ -1,4 +1,4 @@
-<h3>新規イベント</h3>
+<h4>ボランティアを主催する</h4>
 <%= form_for @event, url: events_path, method: :post, local: true do |f| %>
 
 	<p>タイトル</p>
@@ -8,7 +8,7 @@
 	<%= f.text_area :content %>
 
 	<p>日時</p>
-	<%= f.datetime_select :start_time %>
+	<%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5  %>
 
 	<p>郵便番号</p>
 	<%= f.text_field :postal_code %>

@@ -1,4 +1,4 @@
-<h4>ボランティア詳細</h4>
+<h4><%= @event.title %></h4>
 
 <div class="row">
 	<div class="col-4">
@@ -6,7 +6,6 @@
 	</div>
 	<div class="col-8">
 		<table class="table table-bordered">
-			<tr><th>タイトル</th><td><%= @event.title %></td></tr>
 			<tr><th>内容</th><td><%= @event.content %></td></tr>
 			<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
 			<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
@@ -18,14 +17,13 @@
 </div>
 
 <!-- 主催者の場合のみ編集・削除ボタンを表示 -->
-<!-- 未ログイン時にcurrent_user.idでエラーが出たため、[user_signed_in? &&]を追加 -->
 <% if @event.user == current_user %>
 	<div class="text-right">
 		<%= link_to "編集", edit_event_path(@event.id), class: "btn btn-outline-secondary" %>
 		<%= link_to "削除", event_path(@event.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-outline-danger" %>
 	</div>
 <% end %>
-
+<!-- ボタンここまで -->
 
 <hr>
 
@@ -34,11 +32,18 @@
 		<div class="card">
 		  <div class="card-header bg-white text-center">
 		    	<!-- 主催者の場合は参加ボタンを表示しない -->
+		    	<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
 
 					<p>主催者は参加できません</p>
 
-				<% else %>
+				<% elsif %>
+
+					<% unless user_signed_in? %>
+
+						<p class="text-info">ログインすると参加できるようになるよ</p>
+
+					<% end %>
 
 					<% if user_signed_in? && current_user.already_joined?(@event) %>
 
@@ -46,7 +51,7 @@
 
 					<% else %>
 
-					  <%= button_to '参加する', event_join_users_path(@event), class: "btn btn-outline-warning btn-lg" %>
+					  <%= button_to '参加する', event_join_users_path(@event), class: "btn btn-outline-warning" %>
 
 					<% end %>
 
@@ -56,34 +61,40 @@
 		  <div class="card-body text-center">
 		  	参加人数: <%= @event.join_users.count %><br>
 		  	<% @event.joined_users.each do |user| %>
-			  <%= user.username %>さん
+			  <%= link_to user.username, user %>さん
 			<% end %>
 		  </div>
 		</div>
 	</div><!-- 参加機能ここまで -->
+
 	<div class="col-6"><!-- いいね機能 -->
 		<div class="card">
 		  <div class="card-header bg-white text-center">
 				<!-- 主催者の場合はいいねボタンを表示しない -->
+				<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
 
 					<p>主催者はいいねできません</p>
 
-				<% else %>
+				<% elsif %>
 
-					<% if user_signed_in? && current_user.already_liked?(@event) %>
-					  <%= button_to 'いいねを取り消す', event_like_path(@event), method: :delete, class: "btn btn-secondary disabled" %>
-					<% else %>
-					  <%= button_to 'いいね', event_likes_path(@event), class: "btn btn-outline-danger btn-lg" %>
+					<% unless user_signed_in? %>
+
+						<p class="text-info">ログインするといいねできるようになるよ</p>
+
 					<% end %>
+
+						<td id="like-<%= @event.id %>">
+						  <%= render partial: "likes/like", locals: { event: @event } %>
+						</td>
 
 				<% end %>
 			<!-- いいねボタンここまで -->
 		  </div>
 		  <div class="card-body text-center">
-		  	いいね件数: <%= @event.likes.count %><br>
+		  	いいね数: <%= @event.likes.count %><br>
 			<% @event.liked_users.each do |user| %>
-			  <%= user.username %>さん
+			  <%= link_to user.username, user %>さん
 			<% end %>
 		  </div>
 		</div>
@@ -92,10 +103,10 @@
 
 <hr>
 
-
 <!-- コメント機能 -->
 <div class="text-center">
 	<h5>コメント</h5>
+	<p><%= @comments.count %>件のコメント</p>
 	<% @comments.each do |comment| %>
 		<div class="row">
 		    <table class="table">
@@ -115,14 +126,23 @@
 		</div>
 	<% end %>
 
-	<%= form_for [@event, @comment] do |f| %>
-	  <%= f.text_area :content, class: "col-8" %>
-	  <br>
-	  <%= f.submit 'コメントする', class: "text-right" %>
+	<!-- ログインしていなければフォームを表示しない -->
+	<% if user_signed_in? %>
+
+		<%= form_for [@event, @comment] do |f| %>
+		  <%= f.text_area :content, class: "col-8" %>
+		  <br>
+		  <%= f.submit 'コメントする', class: "text-right" %>
+		<% end %>
+
+	<% else %>
+
+		<p class="text-info">ログインするとコメントできるようになるよ</p>
+
 	<% end %>
 </div>
 
-<!-- ここまで -->
+<!-- コメント機能ここまで -->
 
 <hr>
 
@@ -131,13 +151,7 @@
 <h5 class="text-center">集合場所</h5>
 <div id='map'></div>
 
-
-
-
-
 <!-- 地図ここまで -->
-
-
 
 
 <p>

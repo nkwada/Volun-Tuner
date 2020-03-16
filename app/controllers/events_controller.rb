@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :search_index]
+
   def index
   	@events = Event.all
     # ランダムに取得
@@ -24,8 +26,11 @@ class EventsController < ApplicationController
   def create
   	event = current_user.events.build(event_params)
     event.address = event.address.gsub(/\d+/, "").gsub(/\-+/, "")
-  	event.save
-  	redirect_to event_path(event.id)
+  	if event.save
+  	 redirect_to event_path(event.id)
+    else
+      redirect_back(fallback_location: root_path)
+    end
   end
 
 
@@ -44,7 +49,7 @@ class EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     event.destroy
-    redirect_to events_search_path
+    redirect_to user_path(current_user)
   end
 
 
@@ -83,11 +88,6 @@ class EventsController < ApplicationController
     else
       @events = Event.all.reverse_order
     end
-  end
-
-
-  def search_location
-
   end
 
 

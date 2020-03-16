@@ -39,7 +39,7 @@
 		    新着順に全件表示
 		  </div>
 		  <div class="card-body">
-		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-primary rounded-pill" %>
+		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-outline-primary rounded-pill" %>
 		  </div>
 		</div>
 	</div>
@@ -53,7 +53,7 @@
 				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
 					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
 				 	<%= f.search_field :search, :size=>"40" %>
-				  	<%= f.submit 'Search', name: nil %>
+				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm" %>
 				<% end %>
 				<!-- ここまで -->
 		  </div>
@@ -70,7 +70,7 @@
 		    現在地から近い順に表示
 		  </div>
 		  <div class="card-body">
-		　	<button onclick="getPosition();" class="btn btn-warning">現在地から探す</button>
+		　	<button onclick="getPosition();" class="btn btn-outline-danger">現在地から探す</button>
 		  </div>
 		</div>
 	</div>
@@ -86,6 +86,9 @@
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<!-- ここまで -->
 		  </div>
 		</div>
@@ -96,39 +99,53 @@
 
 
 <!-- イベント全てをカレンダーに表示 -->
+<h5>今月予定のボランティア</h5>
+
 <%= month_calendar events: @events do |date, events| %>
   <%= date.day %>
-  <!-- 切り替えボタンの設定 -->
+
+<!-- 0件の時はボタンを表示しない -->
+<% if events.count > 0 %>
+
+  	<!-- モーダルボタンの設定 -->
 	<div class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#eventModalLong-<%= date.day %>">
 	 <%= events.count %>件
 	</button></div>
 
-<!-- モーダルの設定 -->
-<div class="modal fade" id="eventModalLong-<%= date.day %>" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="eventModalLongTitle"><%= date.day %>日のボランティア全件</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<ul>
-      	<% events.each do |event| %>
-      		<li><%= link_to event.title, event %></li>
-      	<% end %>
-      	</ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-      </div>
-    </div>
-  </div>
-</div>
+<% else %>
+
+	<div class="text-center">
+		<%= events.count %>件
+	</div>
 
 <% end %>
-<!-- ここまで -->
+
+	<!-- モーダルの設定 -->
+	<div class="modal fade" id="eventModalLong-<%= date.day %>" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="eventModalLongTitle"><%= date.day %>日のボランティア全件</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<ul>
+	      	<% events.each do |event| %>
+	      		<li><%= link_to event.title, event %></li>
+	      	<% end %>
+	      	</ul>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<% end %>
+	<!-- ここまで -->
 
 
 

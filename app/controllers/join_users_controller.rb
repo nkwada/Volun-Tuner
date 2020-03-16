@@ -1,4 +1,6 @@
 class JoinUsersController < ApplicationController
+	before_action :authenticate_user!
+
   def create
     @join_user = current_user.join_users.create(event_id: params[:event_id])
     redirect_back(fallback_location: root_path)
