@@ -3,13 +3,13 @@ class LikesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     like = current_user.likes.create(event_id: @event.id)
-    # redirect_back(fallback_location: root_path)
+    # redirect_back(fallback_location: root_path) 非同期実装のためコメントアウト
   end
 
   def destroy
     @event = Event.find(params[:event_id])
     like = current_user.likes.find_by(event_id: @event.id)
     like.destroy
-    # redirect_back(fallback_location: root_path)
+    # redirect_back(fallback_location: root_path) 非同期実装のためコメントアウト
   end
 end

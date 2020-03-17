@@ -27,8 +27,10 @@ Rails.application.routes.draw do
   get 'events/search', to: 'events#search_index'
   post '/events/:event_id/likes' => "likes#create"
   delete '/events/:event_id/likes' => "likes#destroy"
+  get 'events/search', to: 'events#search_index'
+  post '/events/:event_id/join_users' => "join_users#create"
+  delete '/events/:event_id/join_users' => "join_users#destroy"
   resources :events do
-    resources :join_users, only: [:create, :destroy]
     resource :comments, only: [:create, :destroy]
   end
 

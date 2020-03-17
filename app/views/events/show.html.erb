@@ -29,8 +29,7 @@
 
 <div class="row">
 	<div class="col-6"><!-- 参加機能 -->
-		<div class="card">
-		  <div class="card-header bg-white text-center">
+		<div class="card text-center">
 		    	<!-- 主催者の場合は参加ボタンを表示しない -->
 		    	<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
@@ -45,26 +44,13 @@
 
 					<% end %>
 
-					<% if user_signed_in? && current_user.already_joined?(@event) %>
-
-					  <%= button_to '参加を取り消す', event_join_user_path(@event), method: :delete, class: "btn btn-secondary border-secondary disabled" %>
-
-					<% else %>
-
-					  <%= button_to '参加する', event_join_users_path(@event), class: "btn btn-outline-warning" %>
-
-					<% end %>
+						<div id="join-<%= @event.id %>" class="mt-3 mb-2">
+						  	<%= render partial: "join_users/join", locals: { event: @event } %>
+						</div>
 
 				<% end %>
 				<!-- 参加ボタンここまで -->
 		  </div>
-		  <div class="card-body text-center">
-		  	参加人数: <%= @event.join_users.count %><br>
-		  	<% @event.joined_users.each do |user| %>
-			  <%= link_to user.username, user %>さん
-			<% end %>
-		  </div>
-		</div>
 	</div><!-- 参加機能ここまで -->
 
 	<div class="col-6"><!-- いいね機能 -->
