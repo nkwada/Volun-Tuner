@@ -7,3 +7,9 @@
   	いいねする(アイコン入れたい)
   <% end %>
 <% end %>
+<div class="mt-2">
+	いいね数: <%= @event.likes.count %><br>
+	<% @event.liked_users.each do |user| %>
+	  <%= link_to user.username, user %>さん
+	<% end %>
+</div>

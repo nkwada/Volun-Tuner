@@ -11,10 +11,17 @@ class Event < ApplicationRecord
 	geocoded_by :address
   after_validation :geocode, if: lambda {|obj| obj.address_changed?}
 
-  validates :title, presence: true, length: { maximum: 10 }
-  validates :content, presence: true
-  validates :postal_code, presence: true
-  validates :address, presence: true
+  validates :title,
+      presence: { message: "が入力されていません。" }
+
+  validates :content,
+      presence: { message: "が入力されていません。" }
+
+  validates :postal_code,
+      presence: { message: "が入力されていません。" }
+
+  validates :address,
+      presence: { message: "が入力されていません。" }
 
     def self.within_box(distance, latitude, longitude)
         distance = distance

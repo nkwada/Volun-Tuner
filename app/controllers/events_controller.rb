@@ -28,7 +28,8 @@ class EventsController < ApplicationController
   	if event.save
   	 redirect_to event_path(event.id)
     else
-      redirect_back(fallback_location: root_path)
+      @event = Event.new
+      render 'new'
     end
   end
 
