@@ -1,10 +1,60 @@
- <h5>ユーザー詳細</h5>
-      <%= @user.id %>
-      <%= @user.username %>
-      <%= @user.lastname %>
-      <%= @user.firstname %>
-      <%= @user.kana_lastname %>
-      <%= @user.kana_firstname %>
-      <%= @user.email %>
+<div class="row">
+	<div class="col-6">
+		<h5>ユーザー詳細</h5>
 
-	  <%= link_to '編集', edit_admin_user_path(@user.id), class: "btn-sm btn-success" %>
+		<table class="table table-bordered">
+
+		  <tr>
+		    <th>ID</th><td><%= @user.id %></td>
+		  </tr>
+
+		  <tr>
+		    <th>ユーザーネーム</th><td><%= @user.username %></td>
+		  </tr>
+
+		  <tr>
+		    <th>姓</th><td><%= @user.lastname %></td>
+		  </tr>
+
+		  <tr>
+		    <th>名</th><td><%= @user.firstname %></td>
+		  </tr>
+
+		  <tr>
+		    <th>姓(カナ)</th><td><%= @user.kana_lastname %></td>
+		  </tr>
+
+		  <tr>
+		    <th>名(カナ)</th><td><%= @user.kana_firstname %></td>
+		  </tr>
+
+		  <tr>
+		    <th>メールアドレス</th><td><%= @user.email %></td>
+		  </tr>
+
+		</table>
+
+		<div class="text-right">
+			<%= link_to '編集', edit_admin_user_path(@user.id), class: "btn-sm btn-success" %>
+			<%= link_to "このユーザーを削除する", user_registration_path(@user), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn-sm btn-danger" %>
+		</div>
+
+	</div>
+
+	<div class="col-6">
+		<h5>主催ボランティア一覧</h5>
+
+		<% @user.events.each do |event| %>
+
+			<table class="table table-bordered">
+			<tr>
+			  <th><%= event.id %></th><td><%= event.title %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td>
+
+			</tr>
+			</table>
+
+		<% end %>
+	</div>
+</div>
+
+

@@ -1,11 +1,33 @@
- <h3>ユーザー一覧</h3>
-   <% @users.each do |user| %>
-      <%= user.id %>
-	  <%= image_tag user.image.url, width: 100 %>
-	  <%= link_to user.username, admin_user_path(user.id) %>
-      <%= user.lastname %>
-      <%= user.firstname %>
-      <%= user.kana_lastname %>
-      <%= user.kana_firstname %>
-      <%= user.email %>
-   <% end %>
+<h4>ユーザー一覧(管理画面)</h4>
+
+<table class="table table-bordered text-center">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>画像</th>
+      <th>ユーザーネーム</th>
+      <th>姓</th>
+      <th>名</th>
+      <th>姓(カナ)</th>
+      <th>名(カナ)</th>
+      <th>メールアドレス</th>
+    </tr>
+  </thead>
+
+<% @users.each do |user| %>
+
+  <tbody>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= image_tag user.image.url, width: 60 %></td>
+      <td><%= link_to user.username, admin_user_path(user.id) %></td>
+      <td><%= user.lastname %></td>
+      <td><%= user.firstname %></td>
+      <td><%= user.kana_lastname %></td>
+      <td><%= user.kana_firstname %></td>
+      <td><%= user.email %></td>
+    </tr>
+  </tbody>
+
+<% end %>
+</table>
