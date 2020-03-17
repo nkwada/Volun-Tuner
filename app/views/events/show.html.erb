@@ -50,7 +50,7 @@
 
 				<% end %>
 				<!-- 参加ボタンここまで -->
-		  </div>
+		</div>
 	</div><!-- 参加機能ここまで -->
 
 	<div class="col-6"><!-- いいね機能 -->
@@ -84,40 +84,12 @@
 <!-- コメント機能 -->
 <div class="text-center">
 	<h5>コメント</h5>
-	<p><%= @comments.count %>件のコメント</p>
-	<% @comments.each do |comment| %>
-		<div class="row">
-		    <table class="table">
-		    	<tr>
-		    		<td><a href="/users/<%= @event.user.id %>"><%= comment.user.username %></a></td>
-		    		<td><%= comment.content %></td>
-		    		<td><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
 
-			    	<% if comment.user == current_user %>
-			    		<td><%=link_to "削除", event_comments_path(comment.id), method: :delete, class: "btn-sm btn-danger" %></td>
-			    	<% else %>
-			    		<td></td>
-			    	<% end %>
+	<div id="comments_area">
+		<%= render partial: "comments/index", locals: { comments: @comments } %>
+	</div>
 
-		    	</tr>
-		    </table>
-		</div>
-	<% end %>
-
-	<!-- ログインしていなければフォームを表示しない -->
-	<% if user_signed_in? %>
-
-		<%= form_for [@event, @comment] do |f| %>
-		  <%= f.text_area :content, class: "col-8" %>
-		  <br>
-		  <%= f.submit 'コメントする', class: "text-right" %>
-		<% end %>
-
-	<% else %>
-
-		<p class="text-info">ログインするとコメントできるようになるよ</p>
-
-	<% end %>
+	<%= render partial: "comments/form", locals: { event: @event, comment: @comment } %>
 </div>
 
 <!-- コメント機能ここまで -->

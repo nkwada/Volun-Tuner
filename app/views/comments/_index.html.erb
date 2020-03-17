@@ -1,0 +1,19 @@
+<p><%= comments.count %>件のコメント</p>
+	<% comments.each do |comment| %>
+		<div class="row">
+		    <table class="table">
+		    	<tr>
+		    		<td><a href="/users/<%= @event.user.id %>"><%= comment.user.username %></a></td>
+		    		<td><%= comment.content %></td>
+		    		<td><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+
+			    	<% if comment.user == current_user %>
+			    		<td><%=link_to "削除", event_comments_path(comment.id), method: :delete, remote: true, class: "btn-sm btn-danger" %></td>
+			    	<% else %>
+			    		<td></td>
+			    	<% end %>
+
+		    	</tr>
+		    </table>
+		</div>
+	<% end %>
