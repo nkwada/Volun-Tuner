@@ -4,7 +4,14 @@ class EventsController < ApplicationController
   def index
   	@events = Event.all
     # ランダムに取得
-    @event_randoms = Event.order("RANDOM()").limit(3)
+    @event_randoms = Event.order("RANDOM()").limit(6)
+
+    if user_signed_in?
+      #フォローしているユーザーを取得
+      follow_users = current_user.following
+      #フォローユーザーのツイートを表示
+      @follow_events = Event.where(user_id: follow_users).limit(6)
+    end
   end
 
 
@@ -18,7 +25,6 @@ class EventsController < ApplicationController
 
 
   def new
-    # confirmにパラメータで渡す
     @event = Event.new
   end
 
@@ -28,7 +34,7 @@ class EventsController < ApplicationController
   	if event.save
   	 redirect_to event_path(event.id)
     else
-      @event = Event.new
+      @event = event
       render 'new'
     end
   end
@@ -85,6 +91,8 @@ class EventsController < ApplicationController
       longitude = params[:longitude].to_f
       # 10kmは約6.21371マイル　半径10km以内のイベントを表示
       @events = Event.within_box(6.21371, latitude, longitude)
+    elsif params[:prefecture]
+      @events = Event.where(prefecture: params[:prefecture])
     else
       @events = Event.all.reverse_order
     end
@@ -95,7 +103,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
+  	params.require(:event).permit(:title, :content, :start_time, :prefecture, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
   end
 
 end

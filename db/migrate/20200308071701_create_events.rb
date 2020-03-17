@@ -5,7 +5,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 	  t.string :title
 	  t.text :content
 	  t.datetime :start_time
-	  t.string :postal_code
+	  t.integer :prefecture
 	  t.string :address
 	  t.string :image
 	  t.string :area

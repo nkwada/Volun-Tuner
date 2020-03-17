@@ -6,11 +6,6 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
-
-		#フォローしているユーザーを取得
-	    follow_users = @user.following
-	   #フォローユーザーのツイートを表示
-	    @events = Event.where(user_id: follow_users)
 	end
 
 	def edit

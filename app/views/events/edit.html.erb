@@ -9,11 +9,8 @@
 	<p>日時</p>
 	<%= f.datetime_select :start_time %>
 
-	<h4>郵便番号</h4>
-	<%= f.text_field :postal_code %>
-
 	<h4>住所</h4>
-	<%= f.text_field :address %>
+    <%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %>	<%= f.text_field :address %>
 
 	<h4>画像</h4>
   	<%= f.file_field :image, id: :event_image %>

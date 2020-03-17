@@ -8,8 +8,7 @@
 		<table class="table table-bordered">
 			<tr><th>内容</th><td><%= @event.content %></td></tr>
 			<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
-			<tr><th>郵便番号</th><td><%= @event.postal_code %></td></tr>
-			<tr><th>住所</th><td><%= @event.address %></td></tr>
+			<tr><th>住所</th><td><%= @event.prefecture %><%= @event.address %></td></tr>
 			<tr><th>主催者</th><td><%= link_to @event.user.username, user_path(@event.user.id) %></td></tr>
 			<tr><th>タグ</th><td><%= render 'events/tag_list', tag_list: @event.tag_list %></td></tr>
 		</table>
@@ -130,7 +129,7 @@
 <script type="text/javascript">
   function initMap() {
     var geocoder = new google.maps.Geocoder();
-	var address = '<%= @event.address %>';
+	var address = '<%= @event.prefecture %><%= @event.address %>';
 	var location ='';
     console.log(address);
 
@@ -145,7 +144,7 @@
     		});
 
 
-    		var contentString = '住所：<%= @event.address %>';
+    		var contentString = '住所：<%= @event.prefecture %><%= @event.address %>';
     		var infowindow = new google.maps.InfoWindow({
       			content: contentString
     		});

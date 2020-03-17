@@ -1,34 +1,3 @@
-<h4>Pick Up</h4>
-
-<div class="row">
-	<% @event_randoms.each do |event| %>
-		<div class="col-4">
-			<div class="card border-success">
-			  <div class="card-header bg-success text-white">
-			    <%= event.title %>
-			  </div>
-
-			  <div class="card-body">
-			  	<ul>
-				  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-				  <li>集合場所：<%= event.address %></li>
-				  <li>いいね数：<%= event.liked_users.count %></li>
-				  <li>参加人数：<%= event.joined_users.count %></li>
-				  <li>主催者：<%= event.user.username %></li>
-				  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
-				</ul>
-			  </div>
-
-			</div>
-			<div class="text-right">
-				<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary mt-2" %>
-			</div>
-		</div>
-	<% end %>
-</div>
-
-<hr>
-
 
 <h4>ボランティアを探す</h4>
 
@@ -89,7 +58,7 @@
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
-			<!-- ここまで -->
+			<!-- タグ検索ここまで -->
 		  </div>
 		</div>
 	</div>
@@ -97,102 +66,315 @@
 
 <hr>
 
+<div class="row">
+	<div class="col-6"><!-- カレンダーここから -->
+		<div class="card">
+			<div class="card-header">
+				<h5>今月予定のボランティア</h5>
+			</div>
+			<div class="card-body">
+				<!-- イベント全てをカレンダーに表示 -->
+				<%= month_calendar events: @events do |date, events| %>
+				  <%= date.day %>
 
-<!-- イベント全てをカレンダーに表示 -->
-<h5>今月予定のボランティア</h5>
+				<!-- 0件の時はボタンを表示しない -->
+				<% if events.count > 0 %>
 
-<%= month_calendar events: @events do |date, events| %>
-  <%= date.day %>
+				  	<!-- モーダルボタンの設定 -->
+					<div class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#eventModalLong-<%= date.day %>">
+					 <%= events.count %>件
+					</button></div>
 
-<!-- 0件の時はボタンを表示しない -->
-<% if events.count > 0 %>
+				<% else %>
 
-  	<!-- モーダルボタンの設定 -->
-	<div class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#eventModalLong-<%= date.day %>">
-	 <%= events.count %>件
-	</button></div>
+					<div class="text-center">
+						<%= events.count %>件
+					</div>
 
-<% else %>
+				<% end %>
 
-	<div class="text-center">
-		<%= events.count %>件
-	</div>
+				<!-- モーダルの設定 -->
+				<div class="modal fade" id="eventModalLong-<%= date.day %>" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="eventModalLongTitle"><%= date.day %>日のボランティア全件</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				      	<ul>
+				      	<% events.each do |event| %>
+				      		<li><%= link_to event.title, event %></li>
+				      	<% end %>
+				      	</ul>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
 
-<% end %>
+				<% end %>
+				<!-- モーダル設定ここまで -->
+			</div>
+		</div>
+	</div><!-- カレンダーここまで -->
 
-	<!-- モーダルの設定 -->
-	<div class="modal fade" id="eventModalLong-<%= date.day %>" tabindex="-1" role="dialog" aria-labelledby="eventModalLongTitle" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="eventModalLongTitle"><%= date.day %>日のボランティア全件</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	      	<ul>
-	      	<% events.each do |event| %>
-	      		<li><%= link_to event.title, event %></li>
-	      	<% end %>
-	      	</ul>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	<div class="col-6"><!-- エリア検索ここから -->
+		<div class="card">
+			<div class="card-header">
+				エリアで探す
+			</div>
+			<div class="card-body">
+				<div class="japan_map">
+				    <img src="assets/japan.png" alt="日本地図">
+				    <span class="area_btn area1" data-area="1">北海道・東北</span>
+				    <span class="area_btn area2" data-area="2">関東</span>
+				    <span class="area_btn area3" data-area="3">中部</span>
+				    <span class="area_btn area4" data-area="4">近畿</span>
+				    <span class="area_btn area5" data-area="5">中国・四国</span>
+				    <span class="area_btn area6" data-area="6">九州・沖縄</span>
+
+				    <div class="area_overlay"></div>
+				    <div class="pref_area">
+				        <div class="pref_list" data-list="1">
+				            <div data-id="1"><%= link_to "北海道", events_search_path(prefecture: 1) %></div>
+				            <div data-id="2"><%= link_to "青森県", events_search_path(prefecture: 2) %></div>
+				            <div data-id="3"><%= link_to "岩手県", events_search_path(prefecture: 3) %></div>
+				            <div data-id="4"><%= link_to "宮城県", events_search_path(prefecture: 4) %></div>
+				            <div data-id="5"><%= link_to "秋田県", events_search_path(prefecture: 5) %></div>
+				            <div data-id="6"><%= link_to "山形県", events_search_path(prefecture: 6) %></div>
+				            <div data-id="7"><%= link_to "福島県", events_search_path(prefecture: 7) %></div>
+				            <div></div>
+				        </div>
+
+				        <div class="pref_list" data-list="2">
+				            <div data-id="8"><%= link_to "茨城県", events_search_path(prefecture: 8) %></div>
+				            <div data-id="9"><%= link_to "栃木県", events_search_path(prefecture: 9) %></div>
+				            <div data-id="10"><%= link_to "群馬県", events_search_path(prefecture: 10) %></div>
+				            <div data-id="11"><%= link_to "埼玉県", events_search_path(prefecture: 11) %></div>
+				            <div data-id="12"><%= link_to "千葉県", events_search_path(prefecture: 12) %></div>
+				            <div data-id="13"><%= link_to "東京都", events_search_path(prefecture: 13) %></div>
+				            <div data-id="14"><%= link_to "神奈川県", events_search_path(prefecture: 14) %></div>
+				            <div></div>
+				        </div>
+
+				        <div class="pref_list" data-list="3">
+				            <div data-id="15"><%= link_to "新潟県", events_search_path(prefecture: 15) %></div>
+				            <div data-id="16"><%= link_to "富山県", events_search_path(prefecture: 16) %></div>
+				            <div data-id="17"><%= link_to "石川県", events_search_path(prefecture: 17) %></div>
+				            <div data-id="18"><%= link_to "福井県", events_search_path(prefecture: 18) %></div>
+				            <div data-id="19"><%= link_to "山梨県", events_search_path(prefecture: 19) %></div>
+				            <div data-id="20"><%= link_to "長野県", events_search_path(prefecture: 20) %></div>
+				            <div data-id="21"><%= link_to "岐阜県", events_search_path(prefecture: 21) %></div>
+				            <div data-id="22"><%= link_to "静岡県", events_search_path(prefecture: 22) %></div>
+				            <div data-id="23"><%= link_to "愛知県", events_search_path(prefecture: 23) %></div>
+				            <div></div>
+				        </div>
+
+				        <div class="pref_list" data-list="4">
+				            <div data-id="24"><%= link_to "三重県", events_search_path(prefecture: 24) %></div>
+				            <div data-id="25"><%= link_to "滋賀県", events_search_path(prefecture: 25) %></div>
+				            <div data-id="26"><%= link_to "京都府", events_search_path(prefecture: 26) %></div>
+				            <div data-id="27"><%= link_to "大阪府", events_search_path(prefecture: 27) %></div>
+				            <div data-id="28"><%= link_to "兵庫県", events_search_path(prefecture: 28) %></div>
+				            <div data-id="29"><%= link_to "奈良県", events_search_path(prefecture: 29) %></div>
+				            <div data-id="30"><%= link_to "和歌山県", events_search_path(prefecture: 30) %></div>
+				            <div></div>
+				        </div>
+
+				        <div class="pref_list" data-list="5">
+				            <div data-id="31"><%= link_to "鳥取県", events_search_path(prefecture: 31) %></div>
+				            <div data-id="32"><%= link_to "島根県", events_search_path(prefecture: 32) %></div>
+				            <div data-id="33"><%= link_to "岡山県", events_search_path(prefecture: 33) %></div>
+				            <div data-id="34"><%= link_to "広島県", events_search_path(prefecture: 34) %></div>
+				            <div data-id="35"><%= link_to "山口県", events_search_path(prefecture: 35) %></div>
+				            <div data-id="36"><%= link_to "徳島県", events_search_path(prefecture: 36) %></div>
+				            <div data-id="37"><%= link_to "香川県", events_search_path(prefecture: 37) %></div>
+				            <div data-id="38"><%= link_to "愛媛県", events_search_path(prefecture: 38) %></div>
+				            <div data-id="39"><%= link_to "高知県", events_search_path(prefecture: 39) %></div>
+				            <div></div>
+				        </div>
+
+				        <div class="pref_list" data-list="6">
+				            <div data-id="40"><%= link_to "福岡県", events_search_path(prefecture: 40) %></div>
+				            <div data-id="41"><%= link_to "佐賀県", events_search_path(prefecture: 41) %></div>
+				            <div data-id="42"><%= link_to "長崎県", events_search_path(prefecture: 42) %></div>
+				            <div data-id="43"><%= link_to "熊本県", events_search_path(prefecture: 43) %></div>
+				            <div data-id="44"><%= link_to "大分県", events_search_path(prefecture: 44) %></div>
+				            <div data-id="45"><%= link_to "宮崎県", events_search_path(prefecture: 45) %></div>
+				            <div data-id="46"><%= link_to "鹿児島県", events_search_path(prefecture: 46) %></div>
+				            <div data-id="47"><%= link_to "沖縄県", events_search_path(prefecture: 47) %></div>
+				        </div>
+				    </div>
+				</div>
+
+			</div>
+		</div>
+	</div><!-- エリア検索ここまで -->
+</div>
+
+
+
+<hr>
+
+
+<h4>Pick Up</h4>
+
+<!-- タブメニュー
+ activeクラスに、クリック済のデザインを設定したcssを指定 -->
+<ul class="tab clearfix">
+  <li class="active">ランダム</li>
+  <li>タイムライン</li>
+  <li>エリア</li>
+</ul>
+
+<!-- コンテンツ
+ 全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
+<div class="area">
+	<ul class="show"><!-- タブメニュー１つ目 -->
+		<div class="row">
+			<% @event_randoms.each do |event| %>
+				<div class="col-4">
+					<div class="card border-success">
+					  <div class="card-header bg-success text-white">
+					    <%= event.title %>
+					  </div>
+
+					  <div class="card-body">
+						  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+						  <li>集合場所：<%= event.address %></li>
+						  <li>いいね数：<%= event.liked_users.count %></li>
+						  <li>参加人数：<%= event.joined_users.count %></li>
+						  <li>主催者：<%= event.user.username %></li>
+						  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+					  </div>
+					</div>
+					<div class="text-right mt-1 mb-3">
+						<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</ul>
+  <ul><!-- タブメニュー２つ目 -->
+	<% if user_signed_in? && @follow_events.present? %>
+		<div class="row">
+			<% @follow_events.each do |event| %>
+				<div class="col-4">
+					<div class="card border-success">
+					  <div class="card-header bg-success text-white">
+					    <%= event.title %>
+					  </div>
+
+					  <div class="card-body">
+						  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+						  <li>集合場所：<%= event.address %></li>
+						  <li>いいね数：<%= event.liked_users.count %></li>
+						  <li>参加人数：<%= event.joined_users.count %></li>
+						  <li>主催者：<%= event.user.username %></li>
+						  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+					  </div>
+					</div>
+					<div class="text-right">
+						<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary mt-2" %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+
+	<% elsif @follow_events.count == 0 %>
+
+		<p>まだフォローユーザーのイベントはありません。</p>
+
+	<% else %>
+
+		<p>ログインして誰かをフォローしてみよう!</p>
 
 	<% end %>
-	<!-- ここまで -->
+
+
+  </ul>
+  <ul><!-- タブメニュー３つ目 -->
+
+
+  </ul>
+</div>
+
+
+<hr>
 
 
 
+<!-- タブメニューの記述 -->
+<script>
+$(function() {
+
+  // ①タブをクリックしたら発動
+  $('.tab li').click(function() {
+
+    // ②クリックされたタブの順番を変数に格納
+    var index = $('.tab li').index(this);
+
+    // ③クリック済みタブのデザインを設定したcssのクラスを一旦削除
+    $('.tab li').removeClass('active');
+
+    // ④クリックされたタブにクリック済みデザインを適用する
+    $(this).addClass('active');
+
+    // ⑤コンテンツを一旦非表示にし、クリックされた順番のコンテンツのみを表示
+    $('.area ul').removeClass('show').eq(index).addClass('show');
+
+  });
+});
+</script>
 
 
+<!-- エリア選択の記述 -->
+<script>
+$(function(){
+    //地域を選択
+    $('.area_btn').click(function(){
+        $('.area_overlay').show();
+        $('.pref_area').show();
+        var area = $(this).data('area');
+        $('[data-list]').hide();
+        $('[data-list="' + area + '"]').show();
+    });
 
+    //レイヤーをタップ
+    $('.area_overlay').click(function(){
+        prefReset();
+    });
 
-<!-- 現在地取得の記述 -->
+    //都道府県をクリック
+    $('.pref_list [data-id]').click(function(){
+        if($(this).data('id')){
+            var id = $(this).data('id');
+            //このidを使用して行いたい操作をしてください
+            //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
+            //window.location.href = 'https://kinocolog.com/pref/' + id;
 
-<!--   <script>
-    // Geolocation APIに対応している
-    if (navigator.geolocation) {
-      alert("この端末では位置情報が取得できます");
-    // Geolocation APIに対応していない
-    } else {
-      alert("この端末では位置情報が取得できません");
-    }
-
-    // 現在地取得処理
-    function getPosition() {
-      // 現在地を取得
-      navigator.geolocation.getCurrentPosition(
-        // 取得成功した場合
-        function(position) {
-            alert("緯度:"+position.coords.latitude+",経度"+position.coords.longitude);
-        },
-        // 取得失敗した場合
-        function(error) {
-          switch(error.code) {
-            case 1: //PERMISSION_DENIED
-              alert("位置情報の利用が許可されていません");
-              break;
-            case 2: //POSITION_UNAVAILABLE
-              alert("現在位置が取得できませんでした");
-              break;
-            case 3: //TIMEOUT
-              alert("タイムアウトになりました");
-              break;
-            default:
-              alert("その他のエラー(エラーコード:"+error.code+")");
-              break;
-          }
+            prefReset();
         }
-      );
-    }
-  </script> -->
+    });
 
+    //表示リセット
+    function prefReset(){
+        $('[data-list]').hide();
+        $('.pref_area').hide();
+        $('.area_overlay').hide();
+    }
+});
+</script>
+
+
+
+
+<!-- 現在地検索の記述 -->
 <script>
     // 現在地取得処理
     function getPosition() {

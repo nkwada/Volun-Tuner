@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_11_081321) do
     t.string "title"
     t.text "content"
     t.datetime "start_time"
-    t.string "postal_code"
+    t.integer "prefecture"
     t.string "address"
     t.string "image"
     t.string "area"
