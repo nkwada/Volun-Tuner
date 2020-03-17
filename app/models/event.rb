@@ -9,7 +9,7 @@ class Event < ApplicationRecord
 	acts_as_taggable
 
 	geocoded_by :address
-	after_validation :geocode, if: :address_changed?
+  after_validation :geocode, if: lambda {|obj| obj.address_changed?}
 
   validates :title, presence: true, length: { maximum: 10 }
   validates :content, presence: true

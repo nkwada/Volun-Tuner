@@ -17,6 +17,11 @@
  */
  @import "bootstrap";
 
+/*全てのリストから黒点を消去*/
+li {
+  list-style: none;
+}
+
 /*ヘッダーでずれたコンテンツの位置を調整*/
 #wrapper nav {
   margin-bottom: 25px;
@@ -38,7 +43,6 @@ footer {
 }
 
 /*リストをおしゃれに*/
-
 .card-body ul, .modal-body ul {
   padding: 0;
 }

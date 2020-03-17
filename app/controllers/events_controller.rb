@@ -25,7 +25,6 @@ class EventsController < ApplicationController
 
   def create
   	event = current_user.events.build(event_params)
-    event.address = event.address.gsub(/\d+/, "").gsub(/\-+/, "")
   	if event.save
   	 redirect_to event_path(event.id)
     else
@@ -83,7 +82,7 @@ class EventsController < ApplicationController
     elsif params[:latitude]
       latitude = params[:latitude].to_f
       longitude = params[:longitude].to_f
-      # 10kmは約6.21371マイル　半径10kmのイベントを表示
+      # 10kmは約6.21371マイル　半径10km以内のイベントを表示
       @events = Event.within_box(6.21371, latitude, longitude)
     else
       @events = Event.all.reverse_order

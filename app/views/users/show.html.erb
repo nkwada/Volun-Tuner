@@ -112,3 +112,10 @@
 	</div>
 </div>
 
+<div>
+	<% @events.each do |event| %>
+		タイトル：<%= event.title %>
+		主催者：<%= event.user.username %>
+	<% end %>
+</div>
+
