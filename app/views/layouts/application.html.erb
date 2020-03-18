@@ -49,6 +49,22 @@
       </nav>
       <!-- ここまで -->
 
+      <!-- フラッシュメッセージを表示 -->
+      <div class="flash-wrapper"><!-- cssで位置を調整 -->
+        <% if flash[:notice] %>
+          <div class="notifications">
+            <div class="notice"><%= flash[:notice] %></div>
+            </div>
+        <% end %>
+
+        <% if flash[:alert] %>
+          <div class="notifications">
+            <div class="alert-notice"><%= flash[:alert] %></div>
+            </div>
+        <% end %>
+      </div>
+
+
       <div class="container mb-5">
         <%= yield %>
       </div>

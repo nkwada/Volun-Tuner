@@ -6,6 +6,7 @@ ja:
       event:
         title: タイトル
         content: 内容
+        prefecture: 都道府県
         address: 住所
         tag_list: カテゴリータグ
         latitude: 住所

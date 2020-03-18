@@ -20,6 +20,9 @@ class Event < ApplicationRecord
   validates :address,
       presence: { message: "が入力されていません。" }
 
+  validates :prefecture,
+      presence: { message: "を選択してください。" }
+
   validates :tag_list,
       presence: { message: "を一つ以上入力してください。" }
 

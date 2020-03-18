@@ -32,7 +32,7 @@ class EventsController < ApplicationController
   def create
   	event = current_user.events.build(event_params)
   	if event.save
-  	 redirect_to event_path(event.id)
+  	 redirect_to event_path(event.id), notice: '新しいボランティアを主催しました'
     else
       @event = event
       render 'new'
@@ -48,7 +48,7 @@ class EventsController < ApplicationController
   def update
   	event = Event.find(params[:id])
   	if event.update(event_params)
-  	redirect_to event_path(event.id)
+  	redirect_to event_path(event.id), notice: 'ボランティア情報を更新しました'
     else
       @event = event
       render 'edit'
@@ -59,7 +59,7 @@ class EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     event.destroy
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user), alert: 'ボランティアを削除しました'
   end
 
 

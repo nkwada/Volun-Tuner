@@ -22,8 +22,22 @@ li {
   list-style: none;
 }
 
+/*フラッシュメッセージの記述*/
+.notifications {
+  color: $white;
+  text-align: center;
+
+  .notice {
+    background-color: #2A7762;
+  }
+
+  .alert-notice {
+    background-color: #ff9966;
+  }
+}
+
 /*ヘッダーでずれたコンテンツの位置を調整*/
-#wrapper nav {
+#wrapper .flash-wrapper {
   margin-bottom: 25px;
 }
 
