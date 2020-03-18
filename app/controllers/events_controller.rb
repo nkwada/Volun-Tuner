@@ -93,23 +93,23 @@ class EventsController < ApplicationController
     if params[:selected] == 'Title'
       # セレクトボックスがタイトルの時
       search = params[:search]
-      @events = Event.where(['title LIKE ?', "%#{search}%"])
+      @events = Event.page(params[:page]).where(['title LIKE ?', "%#{search}%"]).reverse_order.per(5)
     elsif params[:selected] == 'Content'
       # セレクトボックスが内容の時
       search = params[:search]
-      @events = Event.where(['content LIKE ?', "%#{search}%"])
+      @events = Event.page(params[:page]).where(['content LIKE ?', "%#{search}%"]).reverse_order.per(5)
     elsif params[:tag_name]
       # タグをクリックした時に同じタグ名のイベントを表示
-      @events = Event.tagged_with("#{params[:tag_name]}")
+      @events = Event.page(params[:page]).tagged_with("#{params[:tag_name]}").reverse_order.per(5)
     elsif params[:latitude]
       latitude = params[:latitude].to_f
       longitude = params[:longitude].to_f
       # 10kmは約6.21371マイル　半径10km以内のイベントを表示
-      @events = Event.within_box(6.21371, latitude, longitude)
+      @events = Event.page(params[:page]).within_box(6.21371, latitude, longitude).reverse_order.per(5)
     elsif params[:prefecture]
-      @events = Event.where(prefecture: params[:prefecture])
+      @events = Event.page(params[:page]).where(prefecture: params[:prefecture]).reverse_order.per(5)
     else
-      @events = Event.all.reverse_order
+      @events = Event.page(params[:page]).reverse_order.per(5)
     end
   end
 

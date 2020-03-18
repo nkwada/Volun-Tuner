@@ -62,7 +62,7 @@
 		    タグで検索
 		  </div>
 		  <div class="card-body">
-			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
+			<%= link_to "ゴミ拾い", events_search_path(tag_name: "ゴミ拾い"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
@@ -238,8 +238,8 @@
 <ul class="tab clearfix">
   <li class="active">ランダム</li>
   <li>タイムライン</li>
-  <li>いいね数ランキンング</li>
-  <li>参加人数ランキンング</li>
+  <li>いいね数ランキング</li>
+  <li>参加人数ランキング</li>
 </ul>
 
 <!-- コンテンツ全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
@@ -292,8 +292,8 @@
 						  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
 					  </div>
 					</div>
-					<div class="text-right">
-						<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary mt-2" %>
+					<div class="text-right mt-1 mb-3">
+						<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
 					</div>
 				</div>
 			<% end %>
@@ -328,8 +328,8 @@
 					  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
 				  </div>
 				</div>
-				<div class="text-right">
-					<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary mt-2" %>
+				<div class="text-right mt-1 mb-3">
+					<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
 				</div>
 			</div>
 		<% end %>
@@ -354,8 +354,8 @@
 					  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
 				  </div>
 				</div>
-				<div class="text-right">
-					<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary mt-2" %>
+				<div class="text-right mt-1 mb-3">
+					<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
 				</div>
 			</div>
 		<% end %>
@@ -476,7 +476,7 @@ $(function(){
 <script>
 jQuery(function($){
     $(document).ajaxSend(function() {
-        $("#overlay").fadeIn(300);
+        $("#overlay").fadeIn(700);
     });
 
     $('#button').click(function(){
@@ -487,7 +487,7 @@ jQuery(function($){
             }
         }).done(function() {
             setTimeout(function(){
-                $("#overlay").fadeOut(300);
+                $("#overlay").fadeOut(700);
             },700);
         });
     });

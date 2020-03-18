@@ -3,7 +3,7 @@
 	    <div class="card img-thumbnail mt-4">
 	      <%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
 	      <div class="card-body px-2 py-3 text-center">
-	        <h5 class="card-title">ユーザー名: <%= @user.username %></h5>
+	        <h5 class="card-title"><%= @user.username %></h5>
 	        <hr>
 	        <div class="mb-3">
 	        	<!-- フォロー機能 -->
@@ -25,7 +25,7 @@
 
 
 
-		<div class="card card-body mt-5 pb-5">
+		<div class="card card-body mt-3 pb-5">
 			<nav>
 			  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
 			    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">参加</a>
@@ -43,10 +43,14 @@
 
 				<% else %>
 
-			    	<% @user.joined_events.each do |event| %>
-						 	<%= link_to event.title, event %><br>
-						 	<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から
-					<% end %>
+					<table class="table">
+						  <tr><th></th><th>日時</th></tr>
+						<% @user.joined_events.each do |event| %>
+						  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td></tr>
+
+						<% end %>
+					</table>
+
 				<% end %>
 
 			  </div>
@@ -59,10 +63,13 @@
 
 				<% else %>
 
-					<% @user.events.each do |event| %>
-						<%= link_to event.title, event %><br>
-						<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から
-					<% end %>
+					<table class="table">
+						  <tr><th></th><th>日時</th></tr>
+						<% @user.events.each do |event| %>
+						  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td></tr>
+
+						<% end %>
+					</table>
 				<% end %>
 
 			  </div>
@@ -75,11 +82,15 @@
 
 				<% else %>
 
-					<% @user.liked_events.each do |event| %>
-							<%= link_to event.title, event %>
-					<% end %>
-				<% end %>
+					<table class="table">
+						  <tr><th></th><th>日時</th></tr>
+						<% @user.liked_events.each do |event| %>
+						  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td></tr>
 
+						<% end %>
+					</table>
+
+				<% end %>
 			  </div>
 			</div>
 		</div>

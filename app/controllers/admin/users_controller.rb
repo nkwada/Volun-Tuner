@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 	def index
-		@users = User.all
+		@users = User.page(params[:page]).reverse_order.per(5)
 	end
 
 	def show

@@ -17,6 +17,11 @@
  */
  @import "bootstrap";
 
+/*kaminariの中央揃え*/
+.pagination {
+  justify-content: center;
+}
+
 /*全てのリストから黒点を消去*/
 li {
   list-style: none;

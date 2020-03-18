@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_081321) do
     t.integer "prefecture"
     t.string "address"
     t.string "image"
-    t.string "area"
     t.float "latitude"
     t.float "longitude"
     t.integer "user_id"

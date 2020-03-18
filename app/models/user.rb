@@ -41,6 +41,7 @@ class User < ApplicationRecord
       length: { maximum: 10, message: "は10文字以内です。" }
   # バリデーションここまで
 
+
 # ユーザーがイベントに対して、既に参加しているかどうかを判定
   def already_joined?(event)
     self.join_users.exists?(event_id: event.id)

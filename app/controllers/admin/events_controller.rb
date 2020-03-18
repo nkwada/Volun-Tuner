@@ -1,6 +1,6 @@
 class Admin::EventsController < ApplicationController
 	def index
-		@events = Event.all
+		@events = Event.page(params[:page]).reverse_order.per(5)
 	end
 
 	def destroy
