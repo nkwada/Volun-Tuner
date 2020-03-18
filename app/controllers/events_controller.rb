@@ -16,7 +16,12 @@ class EventsController < ApplicationController
     # いいね数ランキングの記述
     event_like_count = Event.joins(:likes).group(:event_id).count
     event_liked_ids = Hash[event_like_count.sort_by{ |_, v| -v }].keys
-    @event_ranking= Event.where(id: event_liked_ids)
+    @event_like_ranking = Event.where(id: event_liked_ids).limit(6)
+
+    # 参加人数ランキングの記述
+    event_join_count = Event.joins(:join_users).group(:event_id).count
+    event_joined_ids = Hash[event_join_count.sort_by{ |_, v| -v }].keys
+    @event_join_ranking= Event.where(id: event_joined_ids).limit(6)
   end
 
 
