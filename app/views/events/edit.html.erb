@@ -1,4 +1,16 @@
-<h3>編集画面</h3>
+<h4>編集する</h4>
+
+<% if @event.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <%= form_for(@event, url:"/events/#{@event.id}") do |f| %>
 	<h4>タイトル</h4>
 	<%= f.text_field :title %>

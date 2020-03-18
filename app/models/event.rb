@@ -22,8 +22,7 @@ class Event < ApplicationRecord
 
   validates :tag_list,
       presence: { message: "を一つ以上入力してください。" }
-  validates :latitude,
-      presence:{ message: "を正しく入力してください。" }
+
 
 
     enum prefecture: {
@@ -36,6 +35,7 @@ class Event < ApplicationRecord
     徳島県:36,香川県:37,愛媛県:38,高知県:39,
     福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,沖縄県:47
   }
+
 
     def self.within_box(distance, latitude, longitude)
         distance = distance

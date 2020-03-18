@@ -2,7 +2,7 @@
 <h4>ボランティアを探す</h4>
 
 <div class="row">
-	<div class="col-4">
+	<div class="col-4"><!-- 全件表示ここから -->
 		<div class="card text-center">
 		  <div class="card-header">
 		    新着順に全件表示
@@ -11,13 +11,14 @@
 		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-outline-primary rounded-pill" %>
 		  </div>
 		</div>
-	</div>
-	<div class="col-8">
+	</div><!-- 全件表示ここまで -->
+
+	<div class="col-8"><!-- フリーワード検索ここから -->
 		<div class="card text-center">
-		  <div class="card-header">
-		    フリーワード検索
-		  </div>
-		  <div class="card-body">
+			<div class="card-header">
+			フリーワード検索
+			</div>
+			<div class="card-body">
 				<!-- 検索フォームの表示 -->
 				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
 					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
@@ -25,15 +26,15 @@
 				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm" %>
 				<% end %>
 				<!-- ここまで -->
-		  </div>
+			</div>
 		</div>
-	</div>
+	</div><!-- フリーワード検索ここまで -->
 </div>
 
 <hr>
 
 <div class="row">
-	<div class="col-4">
+	<div class="col-4"><!-- 現在地検索ここから -->
 		<div class="card text-center">
 		  <div class="card-header">
 		    現在地から近い順に表示
@@ -42,15 +43,14 @@
 		　	<button onclick="getPosition();" class="btn btn-outline-danger">現在地から探す</button>
 		  </div>
 		</div>
-	</div>
+	</div><!-- 現在地検索ここまで -->
 
-	<div class="col-8">
+	<div class="col-8"><!-- タグ検索ここから -->
 		<div class="card text-center">
 		  <div class="card-header">
 		    タグで検索
 		  </div>
 		  <div class="card-body">
-			<!-- タグ検索 -->
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
@@ -58,24 +58,23 @@
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
 			<%= link_to "テスト", events_search_path(tag_name: "テスト"), class: "btn-sm btn-info" %>
-			<!-- タグ検索ここまで -->
 		  </div>
 		</div>
-	</div>
+	</div><!-- タグ検索ここまで -->
 </div>
 
 <hr>
 
 <div class="row">
 	<div class="col-6"><!-- カレンダーここから -->
-		<div class="card">
+		<div class="card text-center">
 			<div class="card-header">
 				<h5>今月予定のボランティア</h5>
 			</div>
 			<div class="card-body">
 				<!-- イベント全てをカレンダーに表示 -->
 				<%= month_calendar events: @events do |date, events| %>
-				  <%= date.day %>
+				  <div class="text-left"><%= date.day %></div>
 
 				<!-- 0件の時はボタンを表示しない -->
 				<% if events.count > 0 %>
@@ -124,9 +123,9 @@
 	</div><!-- カレンダーここまで -->
 
 	<div class="col-6"><!-- エリア検索ここから -->
-		<div class="card">
+		<div class="card text-center">
 			<div class="card-header">
-				エリアで探す
+				<h5>エリアで探す</h5>
 			</div>
 			<div class="card-body">
 				<div class="japan_map">
@@ -224,16 +223,14 @@
 
 <h4>Pick Up</h4>
 
-<!-- タブメニュー
- activeクラスに、クリック済のデザインを設定したcssを指定 -->
+<!-- タブメニュー activeクラスに、クリック済のデザインを設定したcssを指定 -->
 <ul class="tab clearfix">
   <li class="active">ランダム</li>
   <li>タイムライン</li>
   <li>エリア</li>
 </ul>
 
-<!-- コンテンツ
- 全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
+<!-- コンテンツ全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
 <div class="area">
 	<ul class="show"><!-- タブメニュー１つ目 -->
 		<div class="row">
@@ -286,7 +283,7 @@
 			<% end %>
 		</div>
 
-	<% elsif @follow_events.count == 0 %>
+	<% elsif user_signed_in? && @follow_events.count == 0 %>
 
 		<p>まだフォローユーザーのイベントはありません。</p>
 
@@ -295,10 +292,10 @@
 		<p>ログインして誰かをフォローしてみよう!</p>
 
 	<% end %>
-
-
   </ul>
   <ul><!-- タブメニュー３つ目 -->
+
+
 
 
   </ul>

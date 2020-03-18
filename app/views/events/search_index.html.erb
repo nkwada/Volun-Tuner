@@ -45,7 +45,7 @@
 	    <tr>
 	      <td><%= link_to event.title, event %></td>
 	      <td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td>
-	      <td><%= event.address %></td>
+	      <td><%= event.prefecture %><%= event.address %></td>
 	      <td><%= event.liked_users.count %></td>
 	      <td><%= event.joined_users.count %></td>
 	      <td><%= link_to event.user.username, user_path(event.user.id) %></td>

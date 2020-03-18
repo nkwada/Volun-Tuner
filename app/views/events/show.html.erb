@@ -8,7 +8,7 @@
 		<table class="table table-bordered">
 			<tr><th>内容</th><td><%= @event.content %></td></tr>
 			<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
-			<tr><th>住所</th><td><%= @event.prefecture %><%= @event.address %></td></tr>
+			<tr><th>集合場所</th><td><%= @event.prefecture %><%= @event.address %></td></tr>
 			<tr><th>主催者</th><td><%= link_to @event.user.username, user_path(@event.user.id) %></td></tr>
 			<tr><th>タグ</th><td><%= render 'events/tag_list', tag_list: @event.tag_list %></td></tr>
 		</table>
@@ -33,7 +33,7 @@
 		    	<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
 
-					<p>主催者は参加できません</p>
+					<p class="mt-3">主催者は参加できません</p>
 
 				<% elsif %>
 
@@ -58,7 +58,7 @@
 				<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
 
-					<p>主催者はいいねできません</p>
+					<p class="mt-3">主催者はいいねできません</p>
 
 				<% elsif %>
 
