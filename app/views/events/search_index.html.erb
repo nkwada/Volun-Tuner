@@ -14,7 +14,11 @@
 
 <% elsif params[:latitude] %>
 
-	<h5>現在地から半径10km以内のボランティアを表示</h5>
+	<h5>現在地から半径10km以内のボランティアを表示：<%= @events.count %>件</h5>
+
+<% elsif params[:prefecture] %>
+
+	<h5><%= params[:prefecture] %>のボランティア：<%= @events.count %>件</h5>
 
 <% else %>
 
@@ -41,7 +45,7 @@
 	    <tr>
 	      <td><%= link_to event.title, event %></td>
 	      <td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td>
-	      <td><%= event.address %></td>
+	      <td><%= event.prefecture %><%= event.address %></td>
 	      <td><%= event.liked_users.count %></td>
 	      <td><%= event.joined_users.count %></td>
 	      <td><%= link_to event.user.username, user_path(event.user.id) %></td>

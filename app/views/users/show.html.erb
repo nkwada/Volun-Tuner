@@ -33,7 +33,7 @@
 		  <%= date.day %>
 		  <% events.each do |event| %>
 		    <div>
-		      <p class="small"><%= link_to event.title, event %><%= event.start_time.strftime("%H:%M") %>から</p>
+		      <p class="small"><%= link_to event.title, event %><br><%= event.start_time.strftime("%H:%M") %>から</p>
 		    </div>
 		  <% end %>
 		<% end %>

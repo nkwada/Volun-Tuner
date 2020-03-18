@@ -1,4 +1,4 @@
 <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
              html: { method: :delete }) do |f| %>
-  <%= f.submit "フォローを外す", class: "btn btn-secondary" %>
+  <%= f.submit "フォローを外す", class: "btn btn-secondary mt-3" %>
 <% end %>

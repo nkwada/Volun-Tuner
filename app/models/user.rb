@@ -17,6 +17,29 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
   mount_uploader :image, ImageUploader
 
+  # 追加したカラムの新規登録のバリデーション
+  validates :username,
+      presence: { message: "が入力されていません。" },
+      length: { maximum: 15, minimum: 2, message: "は2文字以上15文字以内です。" }
+
+  validates :lastname,
+      presence: { message: "が入力されていません。" },
+      length: { maximum: 10, message: "は10文字以内です。" }
+
+  validates :firstname,
+      presence: { message: "が入力されていません。" },
+      length: { maximum: 10, message: "は10文字以内です。" }
+
+  validates :kana_lastname,
+      presence: { message: "が入力されていません。" },
+      format: { with: /\A[\p{katakana}]+\z/, message: "はカタカナで入力してください。"},
+      length: { maximum: 10, message: "は10文字以内です。" }
+
+  validates :kana_firstname,
+      presence: { message: "が入力されていません。" },
+      format: { with: /\A[\p{katakana}]+\z/, message: "はカタカナで入力してください。"},
+      length: { maximum: 10, message: "は10文字以内です。" }
+  # バリデーションここまで
 
 # ユーザーがイベントに対して、既に参加しているかどうかを判定
   def already_joined?(event)

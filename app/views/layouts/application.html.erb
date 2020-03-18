@@ -4,7 +4,7 @@
     <title>VolunTuner</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -25,6 +25,7 @@
         <div class="collapse navbar-collapse" id="navmenu1">
           <div class="navbar-nav">
             <% if user_signed_in? %>
+
                 <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
                 <%= link_to "マイページ", user_path(current_user.id), class: "nav-item nav-link" %>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
@@ -36,6 +37,7 @@
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-item nav-link" %>
 
             <% else %>
+
                 <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
                 <%= link_to "ログイン", new_user_session_path, class: "nav-item nav-link" %>
                 <%= link_to "新規登録", new_user_registration_path, class: "nav-item nav-link" %>
@@ -47,13 +49,29 @@
       </nav>
       <!-- ここまで -->
 
+      <!-- フラッシュメッセージを表示 -->
+      <div class="flash-wrapper"><!-- cssで位置を調整 -->
+        <% if flash[:notice] %>
+          <div class="notifications">
+            <div class="notice"><%= flash[:notice] %></div>
+            </div>
+        <% end %>
+
+        <% if flash[:alert] %>
+          <div class="notifications">
+            <div class="alert-notice"><%= flash[:alert] %></div>
+            </div>
+        <% end %>
+      </div>
+
+
       <div class="container mb-5">
         <%= yield %>
       </div>
 
       <!-- フッター -->
       <footer class="text-center">
-        <p>Volun-Tuner</p>
+        <p>© Volun-Tuner</p>
       </footer>
       <!-- フッターここまで -->
     </div>

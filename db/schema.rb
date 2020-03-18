@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_11_081321) do
     t.string "title"
     t.text "content"
     t.datetime "start_time"
-    t.string "postal_code"
+    t.integer "prefecture"
     t.string "address"
     t.string "image"
     t.string "area"
@@ -111,11 +111,11 @@ ActiveRecord::Schema.define(version: 2020_03_11_081321) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "username"
-    t.string "lastname"
-    t.string "firstname"
-    t.string "kana_lastname"
-    t.string "kana_firstname"
+    t.string "username", null: false
+    t.string "lastname", null: false
+    t.string "firstname", null: false
+    t.string "kana_lastname", null: false
+    t.string "kana_firstname", null: false
     t.string "area"
     t.string "image"
     t.float "latitude"

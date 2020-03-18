@@ -1,8 +1,22 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show, :search_index]
+
   def index
   	@events = Event.all
     # ランダムに取得
-    @event_randoms = Event.order("RANDOM()").limit(3)
+    @event_randoms = Event.order("RANDOM()").limit(6)
+
+    if user_signed_in?
+      #フォローしているユーザーを取得
+      follow_users = current_user.following
+      #フォローユーザーのツイートを表示
+      @follow_events = Event.where(user_id: follow_users).limit(6)
+    end
+
+    # いいね数ランキングの記述
+    event_like_count = Event.joins(:likes).group(:event_id).count
+    event_liked_ids = Hash[event_like_count.sort_by{ |_, v| -v }].keys
+    @event_ranking= Event.where(id: event_liked_ids)
   end
 
 
@@ -16,16 +30,18 @@ class EventsController < ApplicationController
 
 
   def new
-    # confirmにパラメータで渡す
     @event = Event.new
   end
 
 
   def create
   	event = current_user.events.build(event_params)
-    event.address = event.address.gsub(/\d+/, "").gsub(/\-+/, "")
-  	event.save
-  	redirect_to event_path(event.id)
+  	if event.save
+  	 redirect_to event_path(event.id), notice: '新しいボランティアを主催しました'
+    else
+      @event = event
+      render 'new'
+    end
   end
 
 
@@ -36,15 +52,19 @@ class EventsController < ApplicationController
 
   def update
   	event = Event.find(params[:id])
-  	event.update(event_params)
-  	redirect_to event_path(event.id)
+  	if event.update(event_params)
+  	redirect_to event_path(event.id), notice: 'ボランティア情報を更新しました'
+    else
+      @event = event
+      render 'edit'
+    end
   end
 
 
   def destroy
     event = Event.find(params[:id])
     event.destroy
-    redirect_to events_search_path
+    redirect_to user_path(current_user), alert: 'ボランティアを削除しました'
   end
 
 
@@ -78,16 +98,13 @@ class EventsController < ApplicationController
     elsif params[:latitude]
       latitude = params[:latitude].to_f
       longitude = params[:longitude].to_f
-      # 10kmは約6.21371マイル　半径10kmのイベントを表示
+      # 10kmは約6.21371マイル　半径10km以内のイベントを表示
       @events = Event.within_box(6.21371, latitude, longitude)
+    elsif params[:prefecture]
+      @events = Event.where(prefecture: params[:prefecture])
     else
       @events = Event.all.reverse_order
     end
-  end
-
-
-  def search_location
-
   end
 
 
@@ -95,7 +112,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-  	params.require(:event).permit(:title, :content, :start_time, :postal_code, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
+  	params.require(:event).permit(:title, :content, :start_time, :prefecture, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
   end
 
 end

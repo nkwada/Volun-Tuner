@@ -1,20 +1,29 @@
-<h3>新規イベント</h3>
+<h4>ボランティアを主催する</h4>
+
+<% if @event.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @event, url: events_path, method: :post, local: true do |f| %>
 
 	<p>タイトル</p>
 	<%= f.text_field :title %>
 
-	<p>本文</p>
+	<p>内容</p>
 	<%= f.text_area :content %>
 
 	<p>日時</p>
-	<%= f.datetime_select :start_time %>
+	<%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5  %>
 
-	<p>郵便番号</p>
-	<%= f.text_field :postal_code %>
 
 	<p>住所</p>
-	<%= f.text_field :address %>
+	  <%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %>
 
   <p>カテゴリータグ</p>
   <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %>
