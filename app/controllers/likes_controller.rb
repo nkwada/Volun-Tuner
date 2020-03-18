@@ -4,6 +4,7 @@ class LikesController < ApplicationController
     @event = Event.find(params[:event_id])
     like = current_user.likes.create(event_id: @event.id)
     # redirect_back(fallback_location: root_path) 非同期実装のためコメントアウト
+    @event.create_notification_like!(current_user)
   end
 
   def destroy

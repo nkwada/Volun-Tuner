@@ -7,6 +7,8 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.event_id = @event.id
     @comment.save
+    @event = @comment.event
+    @event.create_notification_comment!(current_user, @comment.id)
     # if @comment.save 非同期実装のためコメントアウト
     #   redirect_back(fallback_location: root_path)
     # else

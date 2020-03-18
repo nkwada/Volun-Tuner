@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :events do
     resource :comments, only: [:create, :destroy]
   end
-
+  resources :notifications, only: :index
   resources :relationships, only: [:create, :destroy]
 end
 
