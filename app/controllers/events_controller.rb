@@ -3,6 +3,7 @@ class EventsController < ApplicationController
 
   def index
   	@events = Event.all
+
     # ランダムに取得
     @event_randoms = Event.order("RANDOM()").limit(6)
 

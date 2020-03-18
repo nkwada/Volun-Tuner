@@ -1,4 +1,3 @@
-
 <h4>ボランティアを探す</h4>
 
 <div class="row">
@@ -36,14 +35,26 @@
 <div class="row">
 	<div class="col-4"><!-- 現在地検索ここから -->
 		<div class="card text-center">
-		  <div class="card-header">
-		    現在地から近い順に表示
-		  </div>
-		  <div class="card-body">
-		　	<button onclick="getPosition();" class="btn btn-outline-danger">現在地から探す</button>
-		  </div>
+			  <div class="card-header">
+			    現在地から近い順に表示
+			  </div>
+
+			  <div class="card-body row">
+
+			　		<button id="button" onclick="getPosition();" class="btn btn-outline-danger mx-auto">現在地から探す</button>
+
+					<!-- ボタンを押すとスピナーを表示 -->
+					<div id="overlay">
+					    <div class="cv-spinner">
+					        <span class="spinner"></span>
+					    </div>
+					</div>
+
+			  </div>
 		</div>
 	</div><!-- 現在地検索ここまで -->
+
+
 
 	<div class="col-8"><!-- タグ検索ここから -->
 		<div class="card text-center">
@@ -245,7 +256,7 @@
 
 					  <div class="card-body">
 						  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-						  <li>集合場所：<%= event.address %></li>
+						  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
 						  <li>いいね数：<%= event.liked_users.count %></li>
 						  <li>参加人数：<%= event.joined_users.count %></li>
 						  <li>主催者：<%= event.user.username %></li>
@@ -274,7 +285,7 @@
 
 					  <div class="card-body">
 						  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-						  <li>集合場所：<%= event.address %></li>
+						  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
 						  <li>いいね数：<%= event.liked_users.count %></li>
 						  <li>参加人数：<%= event.joined_users.count %></li>
 						  <li>主催者：<%= event.user.username %></li>
@@ -310,7 +321,7 @@
 
 				  <div class="card-body">
 					  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-					  <li>集合場所：<%= event.address %></li>
+					  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
 					  <li>いいね数：<%= event.liked_users.count %></li>
 					  <li>参加人数：<%= event.joined_users.count %></li>
 					  <li>主催者：<%= event.user.username %></li>
@@ -336,7 +347,7 @@
 
 				  <div class="card-body">
 					  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-					  <li>集合場所：<%= event.address %></li>
+					  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
 					  <li>いいね数：<%= event.liked_users.count %></li>
 					  <li>参加人数：<%= event.joined_users.count %></li>
 					  <li>主催者：<%= event.user.username %></li>
@@ -458,4 +469,27 @@ $(function(){
         }
       );
     }
-  </script>
+</script>
+
+
+<!-- 現在地検索のスピナー -->
+<script>
+jQuery(function($){
+    $(document).ajaxSend(function() {
+        $("#overlay").fadeIn(300);
+    });
+
+    $('#button').click(function(){
+        $.ajax({
+            type: 'GET',
+            success: function(data){
+                console.log(data);
+            }
+        }).done(function() {
+            setTimeout(function(){
+                $("#overlay").fadeOut(300);
+            },700);
+        });
+    });
+});
+</script>

@@ -1,114 +1,105 @@
-<h4><%= @user.username %>さんのマイページ</h4>
-
 <div class="row">
-  <div class="col-sm-6 col-md-3 mt-5">
-    <div class="card img-thumbnail">
-      <%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
-      <div class="card-body px-2 py-3 text-center">
-        <h5 class="card-title">ユーザー名: <%= @user.username %></h5>
-        <hr>
-        <div class="mb-3">
-        	<!-- フォロー機能 -->
-				<!-- フォロー、フォロワー数を表示 -->
-				<%= render 'stats' %>
+  <div class="col-md-4">
+	    <div class="card img-thumbnail mt-4">
+	      <%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
+	      <div class="card-body px-2 py-3 text-center">
+	        <h5 class="card-title">ユーザー名: <%= @user.username %></h5>
+	        <hr>
+	        <div class="mb-3">
+	        	<!-- フォロー機能 -->
+					<!-- フォロー、フォロワー数を表示 -->
+					<%= render 'stats' %>
 
-				<!-- フォローボタンの表示 -->
-				<%= render 'follow_form' if user_signed_in? %>
-			<!-- フォロー機能ここまで -->
-        </div>
-    	<!-- 本人の場合のみボタンを表示 -->
-		<% if @user == current_user %>
-			<%= link_to "ユーザー情報編集", edit_user_path(current_user.id), class: "btn btn-outline-primary btn-sm mb-2" %>
-			<%= link_to "ボランティアを主催する", new_event_path, class: "btn btn-success btn-sm" %>
-		<% end %>
+					<!-- フォローボタンの表示 -->
+					<%= render 'follow_form' if user_signed_in? %>
+				<!-- フォロー機能ここまで -->
+	        </div>
+	    	<!-- 本人の場合のみボタンを表示 -->
+			<% if @user == current_user %>
+				<%= link_to "ユーザー情報編集", edit_user_path(current_user.id), class: "btn btn-outline-primary btn-sm mb-2" %><br>
+				<%= link_to "ボランティアを主催する", new_event_path, class: "btn btn-success btn-sm" %>
+			<% end %>
 
-      </div><!-- /.card-body -->
-    </div><!-- /.card -->
-  </div><!-- /.col-sm-6.col-md-3 -->
+	      </div><!-- /.card-body -->
+	    </div><!-- /.card -->
+
+
+
+		<div class="card card-body mt-5 pb-5">
+			<nav>
+			  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+			    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">参加</a>
+			    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">主催</a>
+			    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">いいね</a>
+			  </div>
+			</nav>
+
+			<div class="tab-content mt-3" id="nav-tabContent">
+			  <div class="tab-pane active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+				<!-- 参加イベントがない時は文章を表示 -->
+				<% if @user.joined_events.count == 0 %>
+
+					<p>まだ参加したボランティアはありません...。</p>
+
+				<% else %>
+
+			    	<% @user.joined_events.each do |event| %>
+						 	<%= link_to event.title, event %><br>
+						 	<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から
+					<% end %>
+				<% end %>
+
+			  </div>
+
+			  <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				<!-- 主催イベントがない時は文章を表示 -->
+				<% if @user.events.count == 0 %>
+
+					<p>まだ主催したボランティアはありません...。</p>
+
+				<% else %>
+
+					<% @user.events.each do |event| %>
+						<%= link_to event.title, event %><br>
+						<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から
+					<% end %>
+				<% end %>
+
+			  </div>
+
+			  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+				<!-- いいねしたイベントがない時は文章を表示 -->
+				<% if @user.liked_events.count == 0 %>
+
+					<p>まだいいねしたボランティアはありません...。</p>
+
+				<% else %>
+
+					<% @user.liked_events.each do |event| %>
+							<%= link_to event.title, event %>
+					<% end %>
+				<% end %>
+
+			  </div>
+			</div>
+		</div>
+  </div><!-- /.col-md-4 -->
 
 	<!-- ユーザーが参加するイベントをカレンダーに表示 -->
-	<div class="col-sm-6 col-md-9">
-		<h5 class="text-center">予定表</h5>
+	<div class="col-md-8 text-center">
 		<%= month_calendar events: @user.joined_events do |date, events| %>
-		  <%= date.day %>
+		  <div class="text-left"><%= date.day %></div>
 		  <% events.each do |event| %>
 		    <div>
 		      <p class="small"><%= link_to event.title, event %><br><%= event.start_time.strftime("%H:%M") %>から</p>
 		    </div>
 		  <% end %>
 		<% end %>
-	</div><!-- /.col-sm-6.col-md-9 -->
+	</div><!-- /.col-md-8 -->
 	<!-- カレンダーここまで -->
 </div><!-- /.row -->
 
 
 
-<div class="row">
-	<div class="col-4">
-		<div class="card border-warning mr-4">
-		  <div class="card-header">
-		    <%= @user.username %>さんが参加したボランティア活動
-		  </div>
-		  <div class="card-body">
-		    	<!-- 参加イベントがない時は文章を表示 -->
-		    	<% if @user.joined_events.count == 0 %>
 
-		    		<p>まだ参加したボランティアはありません...。</p>
-
-		    	<% else %>
-
-			    	<% @user.joined_events.each do |event| %>
-		 			 	<%= link_to event.title, event %>
-					<% end %>
-
-				<% end %>
-		  </div>
-		</div>
-	</div>
-
-	<div class="col-4">
-		<div class="card border-success mr-4">
-		  <div class="card-header">
-		    <%= @user.username %>さんが主催したボランティア活動
-		  </div>
-		  <div class="card-body">
-		    	<!-- 主催イベントがない時は文章を表示 -->
-		    	<% if @user.events.count == 0 %>
-
-		    		<p>まだ主催したボランティアはありません...。</p>
-
-		    	<% else %>
-
-					<% @user.events.each do |event| %>
-						<%= link_to event.title, event %>
-					<% end %>
-
-				<% end %>
-		  </div>
-		</div>
-	</div>
-
-	<div class="col-4">
-		<div class="card border-danger">
-		  <div class="card-header">
-		    <%= @user.username %>さんがいいねした投稿
-		  </div>
-		  <div class="card-body">
-		    	<!-- いいねしたイベントがない時は文章を表示 -->
-		    	<% if @user.liked_events.count == 0 %>
-
-		    		<p>まだいいねしたボランティアはありません...。</p>
-
-		    	<% else %>
-
-					<% @user.liked_events.each do |event| %>
-	  					<%= link_to event.title, event %><br>
-					<% end %>
-
-				<% end %>
-
-		  </div>
-		</div>
-	</div>
-</div>
 
