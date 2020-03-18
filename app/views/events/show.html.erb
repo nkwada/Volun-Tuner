@@ -88,7 +88,16 @@
 		<%= render partial: "comments/index", locals: { comments: @comments } %>
 	</div>
 
-	<%= render partial: "comments/form", locals: { event: @event, comment: @comment } %>
+	<!-- ログインしていなければフォームを表示しない -->
+	<% if user_signed_in? %>
+
+		<%= render partial: "comments/form", locals: { event: @event, comment: @comment } %>
+
+	<% else %>
+
+		<p class="text-info">ログインするとコメントできるようになるよ</p>
+
+	<% end %>
 </div>
 
 <!-- コメント機能ここまで -->

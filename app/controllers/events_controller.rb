@@ -12,6 +12,11 @@ class EventsController < ApplicationController
       #フォローユーザーのツイートを表示
       @follow_events = Event.where(user_id: follow_users).limit(6)
     end
+
+    # いいね数ランキングの記述
+    event_like_count = Event.joins(:likes).group(:event_id).count
+    event_liked_ids = Hash[event_like_count.sort_by{ |_, v| -v }].keys
+    @event_ranking= Event.where(id: event_liked_ids)
   end
 
 
