@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'users#top'
+  get 'users/about', to: 'users#about'
 
   resources :users do
     member do

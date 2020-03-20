@@ -1,19 +1,30 @@
-<h4>ログイン</h4>
+<div class="align mt-4">
+  <div class="grid">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div id="login">
+
+      <h4><span class="fontawesome-lock"></span>ログインする</h4>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <fieldset>
+
+          <p><%= f.label :email, "メールアドレス" %></p>
+          <p><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "mail@address.com" %></p>
+
+          <p><%= f.label :password %></p>
+          <p><%= f.password_field :password, autocomplete: "current-password", placeholder: "password" %></p>
+
+          <p><%= f.submit "ログイン" %></p>
+
+          <div class="text-right">
+            <%= render "devise/shared/links" %>
+          </div>
+        </fieldset>
+
+      <% end %>
+
+    </div> <!-- end login -->
+
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions mt-3">
-    <%= f.submit "ログインする", class: "btn btn-success" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

@@ -59,8 +59,6 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
-    bootstrap-will_paginate (1.0.0)
-      will_paginate
     builder (3.2.4)
     byebug (11.1.1)
     capybara (3.31.0)
@@ -105,6 +103,8 @@ GEM
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.12.2)
+    font-awesome-sass (5.4.1)
+      sassc (>= 1.11)
     geocoder (1.6.2)
     geokit (1.13.1)
     geokit-rails (2.3.1)
@@ -261,7 +261,6 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    will_paginate (3.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -272,7 +271,6 @@ DEPENDENCIES
   acts-as-taggable-on (~> 6.0)
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3.1)
-  bootstrap-will_paginate
   byebug
   capybara (>= 2.15)
   carrierwave
@@ -280,6 +278,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   dotenv-rails
+  font-awesome-sass (~> 5.4.1)
   geocoder
   geokit-rails
   jbuilder (~> 2.5)

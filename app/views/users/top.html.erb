@@ -1,11 +1,7 @@
-<h4>TOPページ</h4>
+<div class="top-image">
+	<img src="assets/green.jpg" class="img-fluid shadow rounded mx-auto d-block" alt="top-image">
+	<h1>Volun-Tuner</h1>
+	<%= link_to "What's Volun-Tuner?", users_about_path, class: "btn btn-sm btn-info shadow rounded-pill" %>
+</div>
 
-<% if user_signed_in? %>
-	<%= current_user.username %>さんこんにちは
-	<%= link_to "マイページへ", user_path(current_user.id) %>
 
-<% else %>
-
-ログインしていません
-
-<% end %>

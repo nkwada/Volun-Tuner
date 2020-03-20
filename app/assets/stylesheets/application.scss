@@ -16,6 +16,148 @@
  *= require_tree .
  */
  @import "bootstrap";
+ @import 'font-awesome-sprockets';
+ @import 'font-awesome';
+
+
+/*全体の背景色を設定*/
+#wrapper {
+  background-color: #eaffd6;
+}
+
+
+.top-image {/*親div*/
+  position: relative;/*相対配置*/
+  }
+
+.top-image h1 {
+  position: absolute;/*絶対配置*/
+  color: white;/*文字は白に*/
+  top: 63%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  margin:0;
+  padding:0;
+  }
+
+.top-image .btn {
+  position: absolute;/*絶対配置*/
+  top: 77%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  }
+
+
+
+/*ログイン・新規登録画面*/
+
+/* ---------- FONTAWESOME ---------- */
+/* ---------- https://fortawesome.github.com/Font-Awesome/ ---------- */
+/* ---------- http://weloveiconfonts.com/ ---------- */
+
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+
+/* ---------- FONTAWESOME ---------- */
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+
+input {
+  background-image: none;
+  border: none;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  transition: all .3s;
+}
+
+/* ---------- ALIGN ---------- */
+
+.align {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ---------- GRID ---------- */
+
+.grid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  width: 400px;
+}
+
+/* ---------- LOGIN ---------- */
+
+#login {
+  box-shadow: 0 0 8px gray;
+  border-radius: 20px 20px;
+}
+
+#login h4 {
+    background: #228b22;
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+    padding: 20px 26px;
+    margin-bottom: 0;
+}
+
+#login h4 span {
+    margin-right: 14px;
+}
+
+#login fieldset {
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    padding: 20px 26px;
+}
+
+#login fieldset p {
+    color: #777;
+    margin-bottom: 7px;
+}
+
+#login fieldset p:last-child {
+    margin-bottom: 0;
+}
+
+#login fieldset input {
+    border-radius: 3px;
+}
+
+#login fieldset input[type="email"], #login fieldset input[type="password"], #login fieldset input[type="text"] {
+    background: #eee;
+    color: #777;
+    padding: 4px 10px;
+    width: 100%;
+}
+
+#login fieldset input[type="submit"] {
+    background: #33cc77;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    padding: 4px 0;
+    width: 100px;
+}
+
+#login fieldset input[type="submit"]:hover {
+    background: #28ad63;
+}
+
+
+/*ログイン・新規登録画面ここまで*/
+
+
 
 /*kaminariの中央揃え*/
 .pagination {
@@ -42,8 +184,9 @@ li {
 }
 
 /*ヘッダーでずれたコンテンツの位置を調整*/
-#wrapper .flash-wrapper {
-  margin-bottom: 25px;
+.flash-wrapper {
+  margin-top: 55px;
+  margin-bottom: 30px;
 }
 
 /*フッターを最下部に固定*/
@@ -56,9 +199,6 @@ body,
 
 footer {
   margin-top: auto;
-  padding: 20px 0;
-  background-color: #40474e;
-  color: white;
 }
 
 /*リストをおしゃれに*/
@@ -255,5 +395,9 @@ footer {
 }
 /*スピナーここまで*/
 
-
-
+.n-circle {
+  position: absolute;
+  padding-left: 1rem;
+  padding-top: 0rem;
+  color: #efa04c;
+}

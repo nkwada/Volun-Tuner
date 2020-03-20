@@ -2,19 +2,19 @@
 
 <div class="row">
 	<div class="col-4"><!-- 全件表示ここから -->
-		<div class="card text-center">
-		  <div class="card-header">
+		<div class="card shadow text-center">
+		  <div class="card-header bg-secondary text-white">
 		    新着順に全件表示
 		  </div>
 		  <div class="card-body">
-		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-outline-primary rounded-pill" %>
+		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-outline-primary shadow-sm rounded-pill" %>
 		  </div>
 		</div>
 	</div><!-- 全件表示ここまで -->
 
 	<div class="col-8"><!-- フリーワード検索ここから -->
-		<div class="card text-center">
-			<div class="card-header">
+		<div class="card shadow text-center">
+			<div class="card-header bg-secondary text-white">
 			フリーワード検索
 			</div>
 			<div class="card-body">
@@ -22,7 +22,7 @@
 				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
 					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
 				 	<%= f.search_field :search, :size=>"40" %>
-				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm" %>
+				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm shadow-sm" %>
 				<% end %>
 				<!-- ここまで -->
 			</div>
@@ -34,14 +34,14 @@
 
 <div class="row">
 	<div class="col-4"><!-- 現在地検索ここから -->
-		<div class="card text-center">
-			  <div class="card-header">
+		<div class="card shadow text-center">
+			  <div class="card-header bg-secondary text-white">
 			    現在地から近い順に表示
 			  </div>
 
 			  <div class="card-body row">
 
-			　		<button id="button" onclick="getPosition();" class="btn btn-outline-danger mx-auto">現在地から探す</button>
+			　		<button id="button" onclick="getPosition();" class="btn btn-outline-danger shadow-sm mx-auto">現在地から探す</button>
 
 					<!-- ボタンを押すとスピナーを表示 -->
 					<div id="overlay">
@@ -57,8 +57,8 @@
 
 
 	<div class="col-8"><!-- タグ検索ここから -->
-		<div class="card text-center">
-		  <div class="card-header">
+		<div class="card shadow text-center">
+		  <div class="card-header bg-secondary text-white">
 		    タグで検索
 		  </div>
 		  <div class="card-body">
@@ -78,9 +78,9 @@
 
 <div class="row">
 	<div class="col-6"><!-- カレンダーここから -->
-		<div class="card text-center">
-			<div class="card-header">
-				<h5>今月予定のボランティア</h5>
+		<div class="card shadow text-center">
+			<div class="card-header bg-secondary text-white">
+				今月予定のボランティア
 			</div>
 			<div class="card-body">
 				<!-- イベント全てをカレンダーに表示 -->
@@ -134,9 +134,9 @@
 	</div><!-- カレンダーここまで -->
 
 	<div class="col-6"><!-- エリア検索ここから -->
-		<div class="card text-center">
-			<div class="card-header">
-				<h5>エリアで探す</h5>
+		<div class="card shadow text-center">
+			<div class="card-header bg-secondary text-white">
+				エリアで探す
 			</div>
 			<div class="card-body">
 				<div class="japan_map">
@@ -232,136 +232,149 @@
 <hr>
 
 
-<h4>Pick Up</h4>
 
-<!-- タブメニュー activeクラスに、クリック済のデザインを設定したcssを指定 -->
-<ul class="tab clearfix">
-  <li class="active">ランダム</li>
-  <li>タイムライン</li>
-  <li>いいね数ランキング</li>
-  <li>参加人数ランキング</li>
-</ul>
-
-<!-- コンテンツ全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
-<div class="area">
-	<ul class="show"><!-- タブメニュー１つ目 -->
-		<p class="text-center">ランダムに表示します。</p>
-		<div class="row">
-			<% @event_randoms.each do |event| %>
-				<div class="col-4">
-					<div class="card border-success">
-					  <div class="card-header bg-success text-white">
-					    <%= event.title %>
-					  </div>
-
-					  <div class="card-body">
-						  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-						  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
-						  <li>いいね数：<%= event.liked_users.count %></li>
-						  <li>参加人数：<%= event.joined_users.count %></li>
-						  <li>主催者：<%= event.user.username %></li>
-						  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
-					  </div>
-					</div>
-					<div class="text-right mt-1 mb-3">
-						<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
-					</div>
-				</div>
-			<% end %>
-		</div>
-	</ul>
-  <ul><!-- タブメニュー２つ目 -->
-
-  	<p class="text-center">フォローしているユーザーが主催したボランティアを新着順に表示します。</p>
-	<% if user_signed_in? && @follow_events.present? %>
-
-		<div class="row">
-			<% @follow_events.each do |event| %>
-				<div class="col-4">
-					<div class="card border-success">
-					  <div class="card-header bg-success text-white">
-					    <%= event.title %>
-					  </div>
-
-					  <div class="card-body">
-						  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-						  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
-						  <li>いいね数：<%= event.liked_users.count %></li>
-						  <li>参加人数：<%= event.joined_users.count %></li>
-						  <li>主催者：<%= event.user.username %></li>
-						  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
-					  </div>
-					</div>
-					<div class="text-right mt-1 mb-3">
-						<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
-					</div>
-				</div>
-			<% end %>
-		</div>
-
-	<% elsif user_signed_in? && @follow_events.count == 0 %>
-
-		<p>まだフォローユーザーのイベントはありません。</p>
-
-	<% else %>
-
-		<p>ログインして誰かをフォローしてみよう!</p>
-
-	<% end %>
-  </ul>
-  <ul><!-- タブメニュー３つ目 -->
-	<div class="row">
-		<% @event_like_ranking.each.with_index(1) do |event, index| %>
-			<div class="col-4">
-				<p class="text-center text-danger"><%= index %>位</p>
-				<div class="card border-success">
-				  <div class="card-header bg-success text-white">
-				    <%= event.title %>
-				  </div>
-
-				  <div class="card-body">
-					  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-					  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
-					  <li>いいね数：<%= event.liked_users.count %></li>
-					  <li>参加人数：<%= event.joined_users.count %></li>
-					  <li>主催者：<%= event.user.username %></li>
-					  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
-				  </div>
-				</div>
-				<div class="text-right mt-1 mb-3">
-					<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
-				</div>
-			</div>
-		<% end %>
+<div class="card shadow text-center"><!-- pickupここから -->
+	<div class="card-header bg-secondary text-white">
+		Pick Up
 	</div>
-  </ul>
-  <ul><!-- タブメニュー４つ目 -->
-	<div class="row">
-		<% @event_join_ranking.each.with_index(1) do |event, index| %>
-			<div class="col-4">
-				<p class="text-center text-danger"><%= index %>位</p>
-				<div class="card border-success">
-				  <div class="card-header bg-success text-white">
-				    <%= event.title %>
-				  </div>
 
-				  <div class="card-body">
-					  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-					  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
-					  <li>いいね数：<%= event.liked_users.count %></li>
-					  <li>参加人数：<%= event.joined_users.count %></li>
-					  <li>主催者：<%= event.user.username %></li>
-					  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
-				  </div>
+	<div class="card-body">
+
+		<!-- タブメニュー activeクラスに、クリック済のデザインを設定したcssを指定 -->
+		<ul class="tab clearfix">
+		  <li class="active">ランダム</li>
+		  <li>タイムライン</li>
+		  <li>いいね数ランキング</li>
+		  <li>参加人数ランキング</li>
+		</ul>
+
+		<!-- コンテンツ全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
+		<div class="area">
+			<ul class="show"><!-- タブメニュー１つ目 -->
+				<p class="text-center">ランダムに表示します。</p>
+				<div class="row">
+					<% @event_randoms.each do |event| %>
+						<div class="col-4">
+							<div class="card shadow border-success">
+							  <div class="card-header bg-success text-white">
+							    <%= event.title %>
+							  </div>
+
+							  <div class="card-body">
+								  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+								  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
+								  <li>いいね数：<%= event.liked_users.count %></li>
+								  <li>参加人数：<%= event.joined_users.count %></li>
+								  <li>主催者：<%= event.user.username %></li>
+								  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+							  </div>
+							</div>
+							<div class="text-right mt-1 mb-3">
+								<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+							</div>
+						</div>
+					<% end %>
 				</div>
-				<div class="text-right mt-1 mb-3">
-					<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+			</ul>
+		  <ul><!-- タブメニュー２つ目 -->
+
+		  	<p class="text-center">フォローしているユーザーが主催したボランティアを新着順に表示します。</p>
+			<% if user_signed_in? && @follow_events.present? %>
+
+				<div class="row">
+					<% @follow_events.each do |event| %>
+						<div class="col-4">
+							<div class="card shadow border-success">
+							  <div class="card-header bg-success text-white">
+							    <%= event.title %>
+							  </div>
+
+							  <div class="card-body">
+								  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+								  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
+								  <li>いいね数：<%= event.liked_users.count %></li>
+								  <li>参加人数：<%= event.joined_users.count %></li>
+								  <li>主催者：<%= event.user.username %></li>
+								  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+							  </div>
+							</div>
+							<div class="text-right mt-1 mb-3">
+								<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+							</div>
+						</div>
+					<% end %>
 				</div>
+
+			<% elsif user_signed_in? && @follow_events.count == 0 %>
+
+				<p>まだフォローユーザーのイベントはありません。</p>
+
+			<% else %>
+
+				<p>ログインして誰かをフォローしてみよう!</p>
+
+			<% end %>
+		  </ul>
+		  <ul><!-- タブメニュー３つ目 -->
+			<div class="row">
+				<% @event_like_ranking.each.with_index(1) do |event, index| %>
+					<div class="col-4">
+						<p class="badge badge-danger text-center"><%= index %>位</p>
+						<div class="card shadow border-success">
+						  <div class="card-header bg-success text-white">
+						    <%= event.title %>
+						  </div>
+
+						  <div class="card-body">
+							  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+							  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
+							  <li>いいね数：<%= event.liked_users.count %></li>
+							  <li>参加人数：<%= event.joined_users.count %></li>
+							  <li>主催者：<%= event.user.username %></li>
+							  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+						  </div>
+						</div>
+						<div class="text-right mt-1 mb-3">
+							<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+						</div>
+					</div>
+				<% end %>
 			</div>
-		<% end %>
+		  </ul>
+		  <ul><!-- タブメニュー４つ目 -->
+			<div class="row">
+				<% @event_join_ranking.each.with_index(1) do |event, index| %>
+					<div class="col-4">
+						<p class="badge badge-danger text-center"><%= index %>位</p>
+						<div class="card shadow border-success">
+						  <div class="card-header bg-success text-white">
+						    <%= event.title %>
+						  </div>
+
+						  <div class="card-body">
+							  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+							  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
+							  <li>いいね数：<%= event.liked_users.count %></li>
+							  <li>参加人数：<%= event.joined_users.count %></li>
+							  <li>主催者：<%= event.user.username %></li>
+							  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+						  </div>
+						</div>
+						<div class="text-right mt-1 mb-3">
+							<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		  </ul>
+		</div>
 	</div>
-  </ul>
-</div>
+</div><!-- pickupここまで -->
+
+
+
+
+
 
 
 <hr>

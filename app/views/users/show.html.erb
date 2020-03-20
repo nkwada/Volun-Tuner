@@ -1,11 +1,15 @@
-<%= link_to "通知", notifications_path %>
-
 <div class="row">
-  <div class="col-md-4">
-	    <div class="card img-thumbnail mt-4">
+  <div class="col-md-4 mt-2">
+	    <div class="card shadow img-thumbnail">
 	      <%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
 	      <div class="card-body px-2 py-3 text-center">
 	        <h5 class="card-title"><%= @user.username %></h5>
+
+	        <!-- 本人の場合のみ通知へのリンクを表示 -->
+	        <% if @user == current_user %>
+	        	<%= render 'circle' %>
+	        <% end %>
+
 	        <hr>
 	        <div class="mb-3">
 	        	<!-- フォロー機能 -->
@@ -27,7 +31,7 @@
 
 
 
-		<div class="card card-body mt-3 pb-5">
+		<div class="card shadow card-body mt-3 pb-5">
 			<nav>
 			  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
 			    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">参加</a>
@@ -99,15 +103,22 @@
   </div><!-- /.col-md-4 -->
 
 	<!-- ユーザーが参加するイベントをカレンダーに表示 -->
-	<div class="col-md-8 text-center">
-		<%= month_calendar events: @user.joined_events do |date, events| %>
-		  <div class="text-left"><%= date.day %></div>
-		  <% events.each do |event| %>
-		    <div>
-		      <p class="small"><%= link_to event.title, event %><br><%= event.start_time.strftime("%H:%M") %>から</p>
-		    </div>
-		  <% end %>
-		<% end %>
+	<div class="col-md-8 text-center mt-2">
+		<div class="card shadow">
+		  <div class="card-header bg-secondary text-white">
+		    <%= @user.username %>さんの予定表
+		  </div>
+		  <div class="card-body">
+			<%= month_calendar events: @user.joined_events do |date, events| %>
+			  <div class="text-left"><%= date.day %></div>
+			  <% events.each do |event| %>
+			    <div>
+			      <p class="small"><%= link_to event.title, event %><br><%= event.start_time.strftime("%H:%M") %>から</p>
+			    </div>
+			  <% end %>
+			<% end %>
+		  </div>
+		</div>
 	</div><!-- /.col-md-8 -->
 	<!-- カレンダーここまで -->
 </div><!-- /.row -->

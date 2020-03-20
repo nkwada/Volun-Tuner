@@ -14,12 +14,12 @@
       <% when 'follow' then %>
         あなたをフォローしました
       <% when 'like' then %>
-        <%= link_to "あなたの投稿", notification.event, style: "font-weight: bold;"  %>にいいねしました
+        <%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;"  %>にいいねしました
       <% when 'join' then %>
-        <%= link_to "あなたの投稿", notification.event, style: "font-weight: bold;"  %>に参加しました
+        <%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;"  %>に参加しました
       <% when 'comment' then %>
         <% if notification.event.user_id == visited.id %>
-          <%= link_to "あなたの投稿", notification.event, style: "font-weight: bold;" %>
+          <%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;" %>
         <% else %>
           <span>
             <%= link_to event_path(notification.event) do %>
