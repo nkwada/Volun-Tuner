@@ -2,7 +2,7 @@
 
 <div class="row">
 	<div class="col-4">
-		<%= image_tag @event.image_url, width: 350, class: "rounded" %>
+		<%= image_tag @event.image_url, width: 350, class: "img-thumbnail rounded shadow" %>
 	</div>
 	<div class="col-8">
 		<table class="table table-bordered">
@@ -26,9 +26,9 @@
 
 <hr>
 
-<div class="row">
-	<div class="col-6"><!-- 参加機能 -->
-		<div class="card text-center">
+<div class="row justify-content-center">
+	<div class="col-4"><!-- 参加機能 -->
+		<div class="card shadow rounded-pill text-center">
 		    	<!-- 主催者の場合は参加ボタンを表示しない -->
 		    	<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
@@ -38,7 +38,7 @@
 					<div class="mb-3">
 						参加人数: <%= @event.join_users.count %><br>
 						<% @event.joined_users.each do |user| %>
-					  		<%= link_to user.username, user %>さん
+					  		<%= link_to user.username, user %>さん<br>
 						<% end %>
 					</div>
 
@@ -51,7 +51,7 @@
 						<div class="mb-3">
 							参加人数: <%= @event.join_users.count %><br>
 							<% @event.joined_users.each do |user| %>
-						  		<%= link_to user.username, user %>さん
+						  		<%= link_to user.username, user %>さん<br>
 							<% end %>
 						</div>
 
@@ -66,8 +66,8 @@
 		</div>
 	</div><!-- 参加機能ここまで -->
 
-	<div class="col-6"><!-- いいね機能 -->
-		<div class="card text-center">
+	<div class="col-4"><!-- いいね機能 -->
+		<div class="card shadow rounded-pill text-center">
 				<!-- 主催者の場合はいいねボタンを表示しない -->
 				<!-- ログインしていなければボタンを表示しない -->
 				<% if current_user == @event.user %>
@@ -77,7 +77,7 @@
 					<div class="mb-3">
 						いいね数: <%= @event.likes.count %><br>
 						<% @event.liked_users.each do |user| %>
-						  <%= link_to user.username, user %>さん
+						  <%= link_to user.username, user %>さん<br>
 						<% end %>
 					</div>
 
@@ -90,7 +90,7 @@
 						<div class="mb-3">
 							いいね数: <%= @event.likes.count %><br>
 							<% @event.liked_users.each do |user| %>
-							  <%= link_to user.username, user %>さん
+							  <%= link_to user.username, user %>さん<br>
 							<% end %>
 						</div>
 

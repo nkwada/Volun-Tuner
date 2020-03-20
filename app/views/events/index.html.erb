@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-4"><!-- 全件表示ここから -->
 		<div class="card shadow text-center">
-		  <div class="card-header bg-secondary text-white">
+		  <div class="card-header text-white">
 		    新着順に全件表示
 		  </div>
 		  <div class="card-body">
@@ -14,7 +14,7 @@
 
 	<div class="col-8"><!-- フリーワード検索ここから -->
 		<div class="card shadow text-center">
-			<div class="card-header bg-secondary text-white">
+			<div class="card-header text-white">
 			フリーワード検索
 			</div>
 			<div class="card-body">
@@ -35,7 +35,7 @@
 <div class="row">
 	<div class="col-4"><!-- 現在地検索ここから -->
 		<div class="card shadow text-center">
-			  <div class="card-header bg-secondary text-white">
+			  <div class="card-header text-white">
 			    現在地から近い順に表示
 			  </div>
 
@@ -58,7 +58,7 @@
 
 	<div class="col-8"><!-- タグ検索ここから -->
 		<div class="card shadow text-center">
-		  <div class="card-header bg-secondary text-white">
+		  <div class="card-header text-white">
 		    タグで検索
 		  </div>
 		  <div class="card-body">
@@ -79,7 +79,7 @@
 <div class="row">
 	<div class="col-6"><!-- カレンダーここから -->
 		<div class="card shadow text-center">
-			<div class="card-header bg-secondary text-white">
+			<div class="card-header text-white">
 				今月予定のボランティア
 			</div>
 			<div class="card-body">
@@ -135,7 +135,7 @@
 
 	<div class="col-6"><!-- エリア検索ここから -->
 		<div class="card shadow text-center">
-			<div class="card-header bg-secondary text-white">
+			<div class="card-header text-white">
 				エリアで探す
 			</div>
 			<div class="card-body">
@@ -234,7 +234,7 @@
 
 
 <div class="card shadow text-center"><!-- pickupここから -->
-	<div class="card-header bg-secondary text-white">
+	<div class="card-header text-white">
 		Pick Up
 	</div>
 
@@ -255,8 +255,8 @@
 				<div class="row">
 					<% @event_randoms.each do |event| %>
 						<div class="col-4">
-							<div class="card shadow border-success">
-							  <div class="card-header bg-success text-white">
+							<div class="card shadow">
+							  <div class="card-header text-white">
 							    <%= event.title %>
 							  </div>
 
@@ -284,8 +284,8 @@
 				<div class="row">
 					<% @follow_events.each do |event| %>
 						<div class="col-4">
-							<div class="card shadow border-success">
-							  <div class="card-header bg-success text-white">
+							<div class="card shadow">
+							  <div class="card-header text-white">
 							    <%= event.title %>
 							  </div>
 
@@ -320,8 +320,8 @@
 				<% @event_like_ranking.each.with_index(1) do |event, index| %>
 					<div class="col-4">
 						<p class="badge badge-danger text-center"><%= index %>位</p>
-						<div class="card shadow border-success">
-						  <div class="card-header bg-success text-white">
+						<div class="card shadow">
+						  <div class="card-header text-white">
 						    <%= event.title %>
 						  </div>
 
@@ -346,8 +346,8 @@
 				<% @event_join_ranking.each.with_index(1) do |event, index| %>
 					<div class="col-4">
 						<p class="badge badge-danger text-center"><%= index %>位</p>
-						<div class="card shadow border-success">
-						  <div class="card-header bg-success text-white">
+						<div class="card shadow">
+						  <div class="card-header text-white">
 						    <%= event.title %>
 						  </div>
 

@@ -153,10 +153,18 @@ input {
 #login fieldset input[type="submit"]:hover {
     background: #28ad63;
 }
-
-
 /*ログイン・新規登録画面ここまで*/
 
+
+.card-header {
+  background-color: #c49a6a;
+}
+
+
+/*イベント一覧のタブの色*/
+.area .card-header {
+  background-color: #47a62d;
+}
 
 
 /*kaminariの中央揃え*/
@@ -208,7 +216,7 @@ footer {
 
 .card-body li, .modal-body li {
   color: #404040;
-  border-left: solid 6px #1fa67a;/*左側の線*/
+  border-left: solid 6px #47a62d;/*左側の線*/
   border-bottom: solid 2px #dadada;/*下に灰色線*/
   background: whitesmoke;
   margin-bottom: 5px;/*下のバーとの余白*/
