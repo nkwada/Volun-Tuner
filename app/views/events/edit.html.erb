@@ -1,5 +1,3 @@
-<h4>編集する</h4>
-
 <% if @event.errors.any? %>
   <div id="error_explanation" class="alert alert-danger">
     <ul>
@@ -10,28 +8,52 @@
   </div>
 <% end %>
 
+<div class="align mt-4">
+  <div class="grid">
 
-<%= form_for(@event, url:"/events/#{@event.id}") do |f| %>
-	<h4>タイトル</h4>
-	<%= f.text_field :title %>
+    <div id="login">
 
-	<h4>本文</h4>
-	<%= f.text_area :content %>
+      <h4><span class="fas fa-edit"></span>編集</h4>
 
-	<p>日時</p>
-	<%= f.datetime_select :start_time %>
+        <%= form_for(@event, url:"/events/#{@event.id}") do |f| %>
 
-	<h4>住所</h4>
-    <%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %>	<%= f.text_field :address %>
+        <fieldset>
 
-	<h4>画像</h4>
-  	<%= f.file_field :image, id: :event_image %>
-<!-- 画像プレビューを表示 -->
-  	<%= image_tag @event.image.url, width: 100, id: :image_prev %>
-  	<p><%= f.check_box :remove_image %>画像を削除する</p>
+          <p><%= f.label :title, "タイトル" %></p>
+          <p><%= f.text_field :title %></p><hr>
 
-    <%= f.submit '更新' %>
-<% end %>
+          <p><%= f.label :content, "内容" %></p>
+          <p><%= f.text_field :content %></p><hr>
+
+          <p><%= f.label :start_time, "日時" %></p>
+          <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %></p><hr>
+
+          <p><%= f.label :prefecture, "集合場所の住所" %></p>
+          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %></p><hr>
+
+          <p><%= f.label :tag_list, "カテゴリータグ" %></p>
+           <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %><hr>
+
+          <p><%= f.label :image, "画像" %></p>
+          <p><%= f.file_field :image, id: :event_image %></p>
+          <!-- 画像プレビューを表示 -->
+          <%= image_tag @event.image.url, width: 100, id: :image_prev %>
+          <p><%= f.check_box :remove_image %>画像を削除する</p><hr>
+
+
+          <p><%= f.submit "更新" %></p>
+
+        </fieldset>
+
+      <% end %>
+
+    </div> <!-- end login -->
+
+  </div>
+</div>
+
+
+
 
 <script type="text/javascript">
 $(function() {

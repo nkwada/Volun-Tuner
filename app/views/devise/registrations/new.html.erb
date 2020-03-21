@@ -19,35 +19,35 @@
           <div class="row mb-3">
             <div class="col-6">
               <p><%= f.label :lastname, "姓" %></p>
-              <p><%= f.text_field :lastname, autofocus: true, placeholder: "五味" %></p>
+              <p><%= f.text_field :lastname, placeholder: "五味" %></p>
             </div>
             <div class="col-6">
               <p><%= f.label :firstname, "名" %></p>
-              <p><%= f.text_field :firstname, autofocus: true, placeholder: "浩夫" %></p>
+              <p><%= f.text_field :firstname, placeholder: "浩夫" %></p>
             </div>
           </div>
 
           <div class="row">
             <div class="col-6">
               <p><%= f.label :kana_lastname, "姓(カナ)" %></p>
-              <p><%= f.text_field :kana_lastname, autofocus: true, placeholder: "ゴミ" %></p>
+              <p><%= f.text_field :kana_lastname, placeholder: "ゴミ" %></p>
             </div>
             <div class="col-6">
               <p><%= f.label :kana_firstname, "名(カナ)" %></p>
-              <p><%= f.text_field :kana_firstname, autofocus: true, placeholder: "ヒロオ" %></p>
+              <p><%= f.text_field :kana_firstname, placeholder: "ヒロオ" %></p>
             </div>
           </div>
 
           <hr>
 
           <p><%= f.label :email, "メールアドレス" %></p>
-          <p><%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "mail@address.com" %></p>
+          <p><%= f.email_field :email, autocomplete: "email", placeholder: "mail@address.com" %></p>
 
           <p><%= f.label :password %>(<%= @minimum_password_length %>文字以上)</p>
           <p><%= f.password_field :password, autocomplete: "new-password", placeholder: "password" %></p>
 
           <p><%= f.label :password_confirmation %></p>
-          <p><%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password" %></p>
+          <p><%= f.password_field :password_confirmation,  placeholder: "password" %></p>
 
           <%= render "devise/shared/error_messages", resource: resource %>
 
