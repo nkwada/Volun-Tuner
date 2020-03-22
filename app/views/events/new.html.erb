@@ -1,5 +1,3 @@
-<h4>ボランティアを主催する</h4>
-
 <% if @event.errors.any? %>
   <div id="error_explanation" class="alert alert-danger">
     <ul>
@@ -10,31 +8,53 @@
   </div>
 <% end %>
 
-<%= form_for @event, url: events_path, method: :post, local: true do |f| %>
-
-	<p>タイトル</p>
-	<%= f.text_field :title %>
-
-	<p>内容</p>
-	<%= f.text_area :content %>
-
-	<p>日時</p>
-	<%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5  %>
 
 
-	<p>住所</p>
-	  <%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %>
+<div class="align mt-4">
+  <div class="grid">
 
-  <p>カテゴリータグ</p>
-  <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %>
+    <div id="login">
 
-	<p>画像</p>
-  	<%= f.file_field :image, id: :event_image %>
-<!-- 画像プレビューを表示 -->
-  	<%= image_tag @event.image.url, width: 100, id: :image_prev %>
+      <h4><span class="fas fa-edit"></span>主催する</h4>
 
-	<%= f.submit '投稿' %>
-<% end %>
+        <%= form_for @event, url: events_path, method: :post, local: true do |f| %>
+
+        <fieldset>
+
+          <p><%= f.label :title, "タイトル" %></p>
+          <p><%= f.text_field :title %></p><hr>
+
+          <p><%= f.label :content, "内容" %></p>
+          <p><%= f.text_field :content %></p><hr>
+
+          <p><%= f.label :start_time, "日時" %></p>
+          <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %></p><hr>
+
+          <p><%= f.label :prefecture, "集合場所の住所" %></p>
+          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %></p>
+          <p class="text-info">番地まで正確にご記入ください</p><hr>
+
+            <p><%= f.label :tag_list, "カテゴリータグ" %></p>
+           <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %><hr>
+
+          <p><%= f.label :image, "画像" %></p>
+          <p><%= f.file_field :image, id: :event_image %></p>
+          <!-- 画像プレビューを表示 -->
+          <%= image_tag @event.image.url, width: 100, id: :image_prev %>
+          <p><%= f.check_box :remove_image %>画像を削除する</p><hr>
+
+
+          <p><%= f.submit "投稿" %></p>
+
+        </fieldset>
+
+      <% end %>
+
+    </div> <!-- end login -->
+
+  </div>
+</div>
+
 
 
 <script type="text/javascript">

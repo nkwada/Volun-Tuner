@@ -15,10 +15,17 @@ Rails.application.routes.draw do
   end
 
   root to: 'users#top'
+  get 'users/about', to: 'users#about'
 
   resources :users do
     member do
       get :following, :followers
+    end
+  end
+
+  resources :notifications do
+    collection do
+      patch :read
     end
   end
 
@@ -33,7 +40,6 @@ Rails.application.routes.draw do
   resources :events do
     resource :comments, only: [:create, :destroy]
   end
-
   resources :relationships, only: [:create, :destroy]
 end
 

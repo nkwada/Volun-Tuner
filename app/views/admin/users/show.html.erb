@@ -44,11 +44,11 @@
 	<div class="col-6">
 		<h5>主催ボランティア一覧</h5>
 
-		<% @user.events.each do |event| %>
+		<% @user.events.each.with_index(1) do |event, index| %>
 
 			<table class="table table-bordered">
 			<tr>
-			  <th><%= event.id %></th><td><%= event.title %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td>
+			  <th><%= index %></th><td><%= event.title %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td>
 
 			</tr>
 			</table>

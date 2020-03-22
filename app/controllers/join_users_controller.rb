@@ -5,6 +5,7 @@ class JoinUsersController < ApplicationController
     @event = Event.find(params[:event_id])
     join_user = current_user.join_users.create(event_id: @event.id)
     # redirect_back(fallback_location: root_path) 非同期実装のためコメントアウト
+    @event.create_notification_join!(current_user)
   end
 
   def destroy

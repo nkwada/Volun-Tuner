@@ -15,6 +15,8 @@ class User < ApplicationRecord
                                    dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed, dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower, dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   mount_uploader :image, ImageUploader
 
   # 追加したカラムの新規登録のバリデーション
@@ -41,6 +43,7 @@ class User < ApplicationRecord
       length: { maximum: 10, message: "は10文字以内です。" }
   # バリデーションここまで
 
+
 # ユーザーがイベントに対して、既に参加しているかどうかを判定
   def already_joined?(event)
     self.join_users.exists?(event_id: event.id)
@@ -64,6 +67,21 @@ class User < ApplicationRecord
 # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def create_notification_follow!(current_user)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
+  end
+
+  def unchecked_notifications
+    current_user.passive_notifications.where(checked: false)
   end
 end
 

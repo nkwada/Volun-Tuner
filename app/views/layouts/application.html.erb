@@ -12,7 +12,7 @@
   <body>
     <div id="wrapper">
       <!-- ヘッダーの記述 -->
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
         <%= link_to "Volun-Tuner", root_path, class: "navbar-brand" %>
         <button class="navbar-toggler" type="button"
             data-toggle="collapse"
@@ -23,12 +23,18 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navmenu1">
+          <div class="navbar-nav mr-auto">
+            <% if user_signed_in? %>
+              <div class="text-white"><%= current_user.username + "さん、こんにちは" %></div>
+            <% end %>
+          </div>
           <div class="navbar-nav">
             <% if user_signed_in? %>
 
                 <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
                 <%= link_to "マイページ", user_path(current_user.id), class: "nav-item nav-link" %>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
+
 
             <% elsif admin_signed_in? %>
 
@@ -48,6 +54,7 @@
         </div>
       </nav>
       <!-- ここまで -->
+
 
       <!-- フラッシュメッセージを表示 -->
       <div class="flash-wrapper"><!-- cssで位置を調整 -->
@@ -69,9 +76,11 @@
         <%= yield %>
       </div>
 
+
+
       <!-- フッター -->
-      <footer class="text-center">
-        <p>© Volun-Tuner</p>
+      <footer class="text-center text-white">
+        <p class="mt-3">Volun-Tuner</p>
       </footer>
       <!-- フッターここまで -->
     </div>

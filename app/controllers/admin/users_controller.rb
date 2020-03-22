@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 	def index
-		@users = User.all
+		@users = User.page(params[:page]).reverse_order.per(5)
 	end
 
 	def show
@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
 	def update
         user = User.find(params[:id])
         user.update(user_params)
-        redirect_to admin_user_path(user.id)
+        redirect_to admin_user_path(user.id), notice: 'ユーザー情報を更新しました'
     end
 
 	private

@@ -1,11 +1,22 @@
 class UsersController < ApplicationController
-	before_action :authenticate_user!, except: [:top]
+	before_action :authenticate_user!, except: [:top, :about]
 
 	def top
 	end
 
+	def about
+	end
+
 	def show
 		@user = User.find(params[:id])
+
+    	@notifications = current_user.passive_notifications.page(params[:page]).per(5)
+
+
+    	respond_to do |format|
+	      format.html
+	      format.js
+   		 end
 	end
 
 	def edit
@@ -21,14 +32,18 @@ class UsersController < ApplicationController
 	def following
 		@title = "フォロー"
 		@user  = User.find(params[:id])
-		@users = @user.following.paginate(page: params[:page])
+		# @users = @user.following.page(params[:page]).per(5)
+		# 上記ではエラーが出るので下記に変更
+		@users = @user.following
+		@users = Kaminari.paginate_array(@users).page(params[:page]).per(5)
 		render 'show_follow'
 	end
 
 	def followers
 		@title = "フォロワー"
 		@user  = User.find(params[:id])
-		@users = @user.followers.paginate(page: params[:page])
+		@users = @user.followers
+		@users = Kaminari.paginate_array(@users).page(params[:page]).per(5)
 		render 'show_follow'
 	end
 

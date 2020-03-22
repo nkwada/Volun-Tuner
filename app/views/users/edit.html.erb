@@ -1,28 +1,65 @@
-<h4>ユーザー情報編集</h4>
+<div class="align mt-4">
+  <div class="grid">
 
-<%= form_for(@user) do |f| %>
-	<p>ユーザーネーム</p>
-	<%= f.text_field :username %>
+    <div id="login">
 
-	<p>姓</p>
-	<%= f.text_field :lastname %>
+      <h4><span class="fas fa-user-edit"></span>編集する</h4>
 
-	<p>名</p>
-	<%= f.text_field :firstname %>
+        <%= form_for(@user) do |f| %>
 
-	<p>カナ姓</p>
-	<%= f.text_field :kana_lastname %>
+        <fieldset>
 
-	<p>カナ名</p>
-	<%= f.text_field :kana_firstname %>
 
-	<p>画像</p>
-	<%= f.file_field :image, id: :user_image %><br>
-	<%= image_tag @user.image.url, width: 100, id: :image_prev, class: "rounded-circle mt-2" %>
-	<p><%= f.check_box :remove_image %>画像を削除する</p>
+          <p><%= f.label :username, "ユーザーネーム" %></p>
+          <p><%= f.text_field :username %></p><hr>
 
-    <%= f.submit '更新' %>
-<% end %>
+          <div class="row mb-3">
+            <div class="col-6">
+              <p><%= f.label :lastname, "姓" %></p>
+              <p><%= f.text_field :lastname %></p>
+            </div>
+            <div class="col-6">
+              <p><%= f.label :firstname, "名" %></p>
+              <p><%= f.text_field :firstname %></p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <p><%= f.label :kana_lastname, "カナ姓" %></p>
+              <p><%= f.text_field :kana_lastname %></p>
+            </div>
+
+            <div class="col-6">
+              <p><%= f.label :kana_firstname, "カナ名" %></p>
+              <p><%= f.text_field :kana_firstname %></p>
+            </div>
+          </div>
+
+          <hr>
+
+          <p><%= f.label :image, "画像" %></p>
+          <p><%= f.file_field :image, id: :user_image %></p>
+          <!-- 画像プレビューを表示 -->
+          <%= image_tag @user.image.url, width: 100, id: :image_prev, class: "rounded-circle mt-2" %>
+		　<p><%= f.check_box :remove_image %>画像を削除する</p><hr>
+
+
+          <p><%= f.submit "更新" %></p>
+
+        </fieldset>
+
+      <% end %>
+
+    </div> <!-- end login -->
+
+  </div>
+</div>
+
+
+
 
 
 <!-- 画像のプレビュー機能 -->

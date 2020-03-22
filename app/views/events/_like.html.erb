@@ -1,9 +1,0 @@
-<% if user_signed_in? && current_user.already_liked?(event) %>
-  <%= link_to "/events/#{event.id}/likes", method: :delete, class: "btn btn-secondary", remote: true do %>
-  		いいねを取り消す(アイコン入れたい)
-  <% end %>
-<% else %>
-  <%= link_to "/events/#{event.id}/likes", method: :post, class: "btn btn-outline-danger", remote: true do %>
-  	いいねする(アイコン入れたい)
-  <% end %>
-<% end %>

@@ -15,7 +15,172 @@
  *= require_self
  *= require_tree .
  */
+
  @import "bootstrap";
+ @import 'font-awesome-sprockets';
+ @import 'font-awesome';
+
+
+$main_color: #3cb371;
+$card_header: #98fb98;
+
+body {
+  /*user/showの通知スライド*/
+  position: relative;
+  left: 0;
+  overflow-x: hidden;
+}
+
+
+/*全体の背景色を設定*/
+#wrapper {
+  background-color: #efffe0;
+  /*ヘッダーの背景色を設定*/
+  .navbar {
+    background-color: $main_color;
+  }
+}
+
+.top-image {/*親div*/
+  position: relative;/*相対配置*/
+  h1 {
+    position: absolute;/*絶対配置*/
+    color: white;/*文字は白に*/
+    top: 63%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    margin:0;
+    padding:0;
+    }
+
+  .btn {
+    position: absolute;/*絶対配置*/
+    top: 77%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    }
+  }
+
+
+
+
+/*ログイン・新規登録画面(idは全てlogin)*/
+
+/* ---------- FONTAWESOME ---------- */
+/* ---------- https://fortawesome.github.com/Font-Awesome/ ---------- */
+/* ---------- http://weloveiconfonts.com/ ---------- */
+
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+
+/* ---------- FONTAWESOME ---------- */
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+
+input {
+  background-image: none;
+  border: none;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  transition: all .3s;
+}
+
+/* ---------- ALIGN ---------- */
+
+.align {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ---------- GRID ---------- */
+
+.grid {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  width: 400px;
+}
+
+/* ---------- LOGIN ---------- */
+
+#login {
+  box-shadow: 0 0 8px gray;
+  border-radius: 20px 20px;
+  h4 {
+    background: $main_color;
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+    padding: 20px 26px;
+    margin-bottom: 0;
+    span {
+      margin-right: 14px;
+    }
+  }
+  fieldset {
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    padding: 20px 26px;
+    p {
+      color: #777;
+      margin-bottom: 7px;
+      &:last-child {
+        margin-bottom: 0;
+        }
+      }
+    input {
+      border-radius: 3px;
+      &[type="email"], &[type="password"], &[type="text"] {
+        background: #eee;
+        color: #777;
+        padding: 4px 10px;
+        width: 100%;
+          }
+      &[type="submit"]{
+        background: #33cc77;
+        color: #fff;
+        display: block;
+        margin: 0 auto;
+        padding: 4px 0;
+        width: 100px;
+        &:hover {
+          background: #28ad63;
+        }
+      }
+    }
+  }
+}
+
+
+/*ログイン・新規登録画面ここまで*/
+
+
+
+.card-header {
+  color: black;
+  background-color: $card_header;
+}
+
+
+/*イベント一覧のタブの色*/
+.area .card-header {
+  background-color: $main_color;
+}
+
+
+/*kaminariの中央揃え*/
+.pagination {
+  justify-content: center;
+}
 
 /*全てのリストから黒点を消去*/
 li {
@@ -37,8 +202,9 @@ li {
 }
 
 /*ヘッダーでずれたコンテンツの位置を調整*/
-#wrapper .flash-wrapper {
-  margin-bottom: 25px;
+.flash-wrapper {
+  margin-top: 55px;
+  margin-bottom: 30px;
 }
 
 /*フッターを最下部に固定*/
@@ -51,74 +217,76 @@ body,
 
 footer {
   margin-top: auto;
-  padding: 20px 0;
-  background-color: #40474e;
-  color: white;
+  background-color: $main_color;
 }
 
 /*リストをおしゃれに*/
-.card-body ul, .modal-body ul {
-  padding: 0;
+.card-body, .modal-body {
+  ul {
+    padding: 0;
+  }
+  li {
+    color: #404040;
+    border-left: solid 6px $main_color;/*左側の線*/
+    border-bottom: solid 2px #dadada;/*下に灰色線*/
+    background: whitesmoke;
+    margin-bottom: 5px;/*下のバーとの余白*/
+    line-height: 1.5;
+    padding: 0.5em;
+    list-style-type: none!important;/*ポチ消す*/
+    font-weight: bold;
+  }
 }
 
-.card-body li, .modal-body li {
-  color: #404040;
-  border-left: solid 6px #1fa67a;/*左側の線*/
-  border-bottom: solid 2px #dadada;/*下に灰色線*/
-  background: whitesmoke;
-  margin-bottom: 5px;/*下のバーとの余白*/
-  line-height: 1.5;
-  padding: 0.5em;
-  list-style-type: none!important;/*ポチ消す*/
-  font-weight: bold;
-}
+
 
 /*events/indexのタブメニュー*/
 .tab {
-  border-bottom: 3px solid green;
+  border-bottom: 3px solid $main_color;
+  li {
+    color: #333;
+    float: left;
+    margin: 0 10px -1px 0;
+    padding: 10px 20px;
+    border: 1px solid $main_color;
+    cursor: pointer;
+    list-style: none;
+    transition: .3s;
+    &.active {
+      color: #fff;
+      background: $main_color;
+      cursor: auto;
+    }
+  }
 }
-.tab li {
-  color: #333;
-  float: left;
-  margin: 0 10px -1px 0;
-  padding: 10px 20px;
-  border: 1px solid green;
-  cursor: pointer;
-  list-style: none;
-  transition: .3s;
-}
-.tab li.active {
-  color: #fff;
-  background: green;
-  cursor: auto;
-}
+
 
 .area ul {
   display: none;
+  &.show {
+    display: block;
+  }
 }
-.area ul.show {
-  display: block;
-}
+
 
 
 
 /*地図エリア選択ここから*/
 /* 日本地図DOM */
 .japan_map{
-    position: relative;
-    box-sizing: border-box;
-    margin: 0 auto;
-    display: table;
-}
-/* 日本地図画像（スマホ対応用） */
-.japan_map img{
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: table;
+  /* 日本地図画像（スマホ対応用） */
+  img {
     max-width: 100%;
     height: auto;
     border: 0;
     -webkit-backface-visibility: hidden;
-}
-/* 日本地図ボタン */
-.japan_map .area_btn{
+  }
+  /* 日本地図ボタン */
+  .area_btn {
     position: absolute;
     z-index: 1;
     box-sizing: border-box;
@@ -130,41 +298,40 @@ footer {
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
-}
-
-/* ボタン配置（使用する日本地図画像により微調整） */
-.japan_map .area_btn.area1{
-    top: 30%;
-    right: 0;
-    width: 30%;
-}
-.japan_map .area_btn.area2{
-    top: 58%;
-    right: 11%;
-    width: 13%;
-}
-.japan_map .area_btn.area3{
-    top: 56%;
-    right: 27.5%;
-    width: 13%;
-}
-.japan_map .area_btn.area4{
-    top: 65%;
-    right: 44%;
-    width: 13%;
-}
-.japan_map .area_btn.area5{
-    top: 52%;
-    left: 20%;
-    width: 25%;
-}
-.japan_map .area_btn.area6{
-    top: 70%;
-    left: 0;
-    width: 25%;
-}
-/* オーバーレイ */
-.japan_map .area_overlay{
+    /* ボタン配置（使用する日本地図画像により微調整） */
+    &.area1 {
+      top: 30%;
+      right: 0;
+      width: 30%;
+    }
+    &.area2 {
+      top: 58%;
+      right: 11%;
+      width: 13%;
+    }
+    &.area3 {
+      top: 56%;
+      right: 27.5%;
+      width: 13%;
+    }
+    &.area4 {
+      top: 65%;
+      right: 44%;
+      width: 13%;
+    }
+    &.area5 {
+      top: 52%;
+      left: 20%;
+      width: 25%;
+    }
+    &.area6 {
+      top: 70%;
+      left: 0;
+      width: 25%;
+    }
+  }
+  /* オーバーレイ */
+  .area_overlay {
     display: none;
     position: absolute;
     z-index: 2;
@@ -177,15 +344,13 @@ footer {
     background-color: #111;
     opacity: 0.5;
     cursor: pointer;
-}
-
-/* 選択前は表示を隠す */
-.japan_map .pref_area{
+  }
+  /* 選択前は表示を隠す */
+  .pref_area {
     display: none;
-}
-
-/* 地域毎の都道府県リスト */
-.japan_map .pref_list{
+  }
+  /* 地域毎の都道府県リスト */
+  .pref_list {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -199,15 +364,16 @@ footer {
     flex-wrap: wrap;
     width: 90%;
     background-color: #FFF;
-}
-.japan_map .pref_list > div{
-    box-sizing: border-box;
-    width: 50%;
-    border: 1px solid #CCC;
-    font-weight: bold;
-    text-align: center;
-    padding: 0.5em;
-    cursor: pointer;
+    > div {
+      box-sizing: border-box;
+      width: 50%;
+      border: 1px solid #CCC;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5em;
+      cursor: pointer;
+    }
+  }
 }
 
 @media screen and (max-width: 480px){
@@ -218,3 +384,53 @@ footer {
 }
 
 /*地図エリア選択ここまで*/
+
+
+
+/*現在地検索ボタンのスピナー表示*/
+#overlay{
+    z-index: 100;
+    display: none;
+    position: absolute;
+    left: 270px;
+}
+.cv-spinner {
+    display: flex;
+    align-items: center;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px #ddd solid;
+    border-top: 4px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.is-hide{
+    display:none;
+}
+/*スピナーここまで*/
+
+.n-flag {
+  position: absolute;
+  left: 225px;
+  top: 155px;
+  color: #ffd700;
+}
+
+
+
+#slide_menu{
+    position: fixed;
+    top: 0;
+    left: -500px;
+    width: 500px;
+    height: 100%;
+    background: #f5f5f5;
+}
+

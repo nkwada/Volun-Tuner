@@ -3,6 +3,7 @@ class EventsController < ApplicationController
 
   def index
   	@events = Event.all
+
     # ランダムに取得
     @event_randoms = Event.order("RANDOM()").limit(6)
 
@@ -14,9 +15,16 @@ class EventsController < ApplicationController
     end
 
     # いいね数ランキングの記述
-    event_like_count = Event.joins(:likes).group(:event_id).count
-    event_liked_ids = Hash[event_like_count.sort_by{ |_, v| -v }].keys
-    @event_ranking= Event.where(id: event_liked_ids)
+    @event_like_ranking = Event.find(Like.group(:event_id).order('count(event_id) desc').limit(6).pluck(:event_id))
+
+    # 参加人数ランキングの記述
+    @event_join_ranking = Event.find(JoinUser.group(:event_id).order('count(event_id) desc').limit(6).pluck(:event_id))
+
+    # ユーザーの参加数ランキングの記述
+    @user_join_ranking = User.find(JoinUser.group(:user_id).order('count(user_id) desc').limit(9).pluck(:user_id))
+
+    # ユーザーの主催数ランキングの記述
+    @user_event_ranking = User.find(Event.group(:user_id).order('count(user_id) desc').limit(9).pluck(:user_id))
   end
 
 
@@ -87,23 +95,27 @@ class EventsController < ApplicationController
     if params[:selected] == 'Title'
       # セレクトボックスがタイトルの時
       search = params[:search]
-      @events = Event.where(['title LIKE ?', "%#{search}%"])
+      @events = Event.page(params[:page]).where(['title LIKE ?', "%#{search}%"]).reverse_order.per(5)
     elsif params[:selected] == 'Content'
       # セレクトボックスが内容の時
       search = params[:search]
-      @events = Event.where(['content LIKE ?', "%#{search}%"])
+      @events = Event.page(params[:page]).where(['content LIKE ?', "%#{search}%"]).reverse_order.per(5)
     elsif params[:tag_name]
       # タグをクリックした時に同じタグ名のイベントを表示
-      @events = Event.tagged_with("#{params[:tag_name]}")
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).tagged_with("#{params[:tag_name]}").reverse_order.per(5)
     elsif params[:latitude]
       latitude = params[:latitude].to_f
       longitude = params[:longitude].to_f
       # 10kmは約6.21371マイル　半径10km以内のイベントを表示
-      @events = Event.within_box(6.21371, latitude, longitude)
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).within_box(6.21371, latitude, longitude).reverse_order.per(5)
     elsif params[:prefecture]
-      @events = Event.where(prefecture: params[:prefecture])
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).where(prefecture: params[:prefecture]).reverse_order.per(5)
     else
-      @events = Event.all.reverse_order
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).reverse_order.per(5)
     end
   end
 

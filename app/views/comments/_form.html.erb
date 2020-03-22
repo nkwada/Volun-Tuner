@@ -1,6 +1,6 @@
 <%= form_for [event, comment], url: event_comments_path(event.id), remote: true do |f| %>
   <%= f.text_area :content, class: "col-8" %>
   <br>
-  <%= f.submit 'コメントする', class: "text-right" %>
+  <%= f.submit 'コメントする', class: "btn btn-outline-dark" %>
 <% end %>
 
