@@ -17,9 +17,7 @@
 	<h5>現在地から半径10km以内のボランティアを表示：<%= @events.total_count %>件</h5>
 
 <% elsif params[:prefecture] %>
-
-	<h5><%= params[:prefecture] %>のボランティア：<%= @events.total_count %>件</h5>
-
+	<h5><%= Event.prefectures.invert.fetch(params[:prefecture].to_i()) %>のボランティア：<%= @events.total_count %>件</h5>
 
 <% else %>
 

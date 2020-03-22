@@ -21,11 +21,25 @@
  @import 'font-awesome';
 
 
-/*全体の背景色を設定*/
-#wrapper {
-  background-color: #eaffd6;
+$main_color: #3cb371;
+$card_header: #98fb98;
+
+body {
+  /*user/showの通知スライド*/
+  position: relative;
+  left: 0;
+  overflow-x: hidden;
 }
 
+
+/*全体の背景色を設定*/
+#wrapper {
+  background-color: #efffe0;
+  /*ヘッダーの背景色を設定*/
+  .navbar {
+    background-color: $main_color;
+  }
+}
 
 .top-image {/*親div*/
   position: relative;/*相対配置*/
@@ -103,7 +117,7 @@ input {
   box-shadow: 0 0 8px gray;
   border-radius: 20px 20px;
   h4 {
-    background: #228b22;
+    background: $main_color;
     border-radius: 20px 20px 0 0;
     color: #fff;
     padding: 20px 26px;
@@ -150,15 +164,16 @@ input {
 /*ログイン・新規登録画面ここまで*/
 
 
+
 .card-header {
-  background-color: #d3ffa8;
-  color: #783c1d;
+  color: black;
+  background-color: $card_header;
 }
 
 
 /*イベント一覧のタブの色*/
 .area .card-header {
-  background-color: #47a62d;
+  background-color: $main_color;
 }
 
 
@@ -202,6 +217,7 @@ body,
 
 footer {
   margin-top: auto;
+  background-color: $main_color;
 }
 
 /*リストをおしゃれに*/
@@ -211,7 +227,7 @@ footer {
   }
   li {
     color: #404040;
-    border-left: solid 6px #47a62d;/*左側の線*/
+    border-left: solid 6px $main_color;/*左側の線*/
     border-bottom: solid 2px #dadada;/*下に灰色線*/
     background: whitesmoke;
     margin-bottom: 5px;/*下のバーとの余白*/
@@ -226,19 +242,19 @@ footer {
 
 /*events/indexのタブメニュー*/
 .tab {
-  border-bottom: 3px solid green;
+  border-bottom: 3px solid $main_color;
   li {
     color: #333;
     float: left;
     margin: 0 10px -1px 0;
     padding: 10px 20px;
-    border: 1px solid green;
+    border: 1px solid $main_color;
     cursor: pointer;
     list-style: none;
     transition: .3s;
     &.active {
       color: #fff;
-      background: green;
+      background: $main_color;
       cursor: auto;
     }
   }
@@ -400,9 +416,21 @@ footer {
 }
 /*スピナーここまで*/
 
-.n-circle {
+.n-flag {
   position: absolute;
-  padding-left: 1rem;
-  padding-top: 0rem;
-  color: #efa04c;
+  left: 225px;
+  top: 155px;
+  color: #ffd700;
 }
+
+
+
+#slide_menu{
+    position: fixed;
+    top: 0;
+    left: -500px;
+    width: 500px;
+    height: 100%;
+    background: #f5f5f5;
+}
+

@@ -9,6 +9,14 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+
+    	@notifications = current_user.passive_notifications.page(params[:page]).per(5)
+
+
+    	respond_to do |format|
+	      format.html
+	      format.js
+   		 end
 	end
 
 	def edit

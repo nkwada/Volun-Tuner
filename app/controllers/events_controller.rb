@@ -102,16 +102,20 @@ class EventsController < ApplicationController
       @events = Event.page(params[:page]).where(['content LIKE ?', "%#{search}%"]).reverse_order.per(5)
     elsif params[:tag_name]
       # タグをクリックした時に同じタグ名のイベントを表示
-      @events = Event.page(params[:page]).tagged_with("#{params[:tag_name]}").reverse_order.per(5)
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).tagged_with("#{params[:tag_name]}").reverse_order.per(5)
     elsif params[:latitude]
       latitude = params[:latitude].to_f
       longitude = params[:longitude].to_f
       # 10kmは約6.21371マイル　半径10km以内のイベントを表示
-      @events = Event.page(params[:page]).within_box(6.21371, latitude, longitude).reverse_order.per(5)
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).within_box(6.21371, latitude, longitude).reverse_order.per(5)
     elsif params[:prefecture]
-      @events = Event.page(params[:page]).where(prefecture: params[:prefecture]).reverse_order.per(5)
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).where(prefecture: params[:prefecture]).reverse_order.per(5)
     else
-      @events = Event.page(params[:page]).reverse_order.per(5)
+      # 現在の日時を過ぎたイベントは表示しない
+      @events = Event.where("events.start_time > ?", DateTime.now).reorder(:start_time).page(params[:page]).reverse_order.per(5)
     end
   end
 
