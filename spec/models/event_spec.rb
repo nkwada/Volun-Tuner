@@ -1,31 +1,31 @@
 require 'rails_helper'
 
-RSpec.describe 'Bookモデルのテスト', type: :model do
+RSpec.describe 'Eventモデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     let(:user) { create(:user) }
-    let!(:book) { build(:book, user_id: user.id) }
+    let!(:event) { build(:event, user_id: user.id) }
 
     context 'titleカラム' do
       it '空欄でないこと' do
-        book.title = ''
-        expect(book.valid?).to eq false;
+        event.title = ''
+        expect(event.valid?).to eq false;
       end
     end
-    context 'bodyカラム' do
+    context 'contentカラム' do
       it '空欄でないこと' do
-        book.body = ''
-        expect(book.valid?).to eq false;
+        event.content = ''
+        expect(event.valid?).to eq false;
       end
       it '200文字以下であること' do
-        book.body = Faker::Lorem.characters(number:201)
-        expect(book.valid?).to eq false;
+        event.content = Faker::Lorem.characters(number:201)
+        expect(event.valid?).to eq false;
       end
     end
   end
   describe 'アソシエーションのテスト' do
     context 'Userモデルとの関係' do
       it 'N:1となっている' do
-        expect(Book.reflect_on_association(:user).macro).to eq :belongs_to
+        expect(Event.reflect_on_association(:user).macro).to eq :belongs_to
       end
     end
   end

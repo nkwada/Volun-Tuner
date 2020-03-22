@@ -25,6 +25,11 @@
         <div class="collapse navbar-collapse" id="navmenu1">
           <div class="navbar-nav mr-auto">
             <% if user_signed_in? %>
+              <div class="text-white"><%= current_user.username + "さん、こんにちは" %></div>
+            <% end %>
+          </div>
+          <div class="navbar-nav">
+            <% if user_signed_in? %>
 
                 <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
                 <%= link_to "マイページ", user_path(current_user.id), class: "nav-item nav-link" %>
@@ -44,11 +49,6 @@
                 <%= link_to "新規登録", new_user_registration_path, class: "nav-item nav-link" %>
                 <%= link_to "管理画面へ", new_admin_session_path, class: "nav-item nav-link" %>
 
-            <% end %>
-          </div>
-          <div class="navbar-nav">
-            <% if user_signed_in? %>
-              <div class="text-white"><%= current_user.username + "さん、こんにちは" %></div>
             <% end %>
           </div>
         </div>
