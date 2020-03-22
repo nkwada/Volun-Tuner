@@ -1,0 +1,56 @@
+<!-- 検索結果により表題を変化 -->
+<% if params[:selected] == 'Title' %>
+
+	<h5>"<%= params[:search] %>"がタイトルに含まれる検索結果：<%= @events.total_count %>件</h5>
+
+<% elsif params[:selected] == 'Content' %>
+
+	<h5>"<%= params[:search] %>"が内容に含まれる検索結果：<%= @events.total_count %>件</h5>
+
+<% elsif params[:tag_name] %>
+	<!-- どのタグなのかを表示 -->
+	<h5><span class="badge badge-info mr-1 p-2"><%= params[:tag_name] %></span>タグが付いている投稿一覧：<%= @events.total_count %>件</h5>
+
+<% elsif params[:latitude] %>
+
+	<h5>現在地から半径10km以内のボランティアを表示：<%= @events.total_count %>件</h5>
+
+<% elsif params[:prefecture] %>
+	<h5><%= Event.prefectures.invert.fetch(params[:prefecture].to_i()) %>のボランティア：<%= @events.total_count %>件</h5>
+
+<% else %>
+
+	<h5>全件(新着順)：<%= @events.total_count %>件</h5>
+
+<% end %>
+
+	<table class="table table-bordered">
+		  <thead>
+		    <tr>
+		      <th>タイトル</th>
+		      <th>日時</th>
+		      <th>集合場所</th>
+		      <th>いいね数</th>
+		      <th>参加人数</th>
+		      <th>主催者</th>
+		      <th>タグ</th>
+		    </tr>
+		  </thead>
+
+		<% @events.each do |event| %>
+
+		  <tbody>
+		    <tr>
+		      <td><%= link_to event.title, event %></td>
+		      <td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td>
+		      <td><%= event.prefecture %><%= event.address %></td>
+		      <td><%= event.liked_users.count %></td>
+		      <td><%= event.joined_users.count %></td>
+		      <td><%= link_to event.user.username, user_path(event.user.id) %></td>
+		      <td><%= render 'events/tag_list', tag_list: event.tag_list %></td>
+		    </tr>
+		  </tbody>
+
+		<% end %>
+	</table>
+	<%= paginate @events, remote: true %>
