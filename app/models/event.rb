@@ -13,10 +13,12 @@ class Event < ApplicationRecord
   after_validation :geocode, if: lambda {|obj| obj.address_changed?}
 
   validates :title,
-      presence: { message: "が入力されていません。" }
+      presence: { message: "が入力されていません。" },
+      length: { maximum: 30, message: "は30文字以内です。" }
 
   validates :content,
-      presence: { message: "が入力されていません。" }
+      presence: { message: "が入力されていません。" },
+      length: { maximum: 200, message: "は200文字以内です。" }
 
   validates :address,
       presence: { message: "が入力されていません。" }
@@ -26,7 +28,6 @@ class Event < ApplicationRecord
 
   validates :tag_list,
       presence: { message: "を一つ以上入力してください。" }
-
 
 
     enum prefecture: {
