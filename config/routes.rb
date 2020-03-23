@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    registrations: 'users/registrations',
+    # registrations: 'users/registrations',
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   root to: 'users#top'
   get 'users/about', to: 'users#about'
+  get 'events/search', to: 'events#search_index'
+  get 'events/pickup', to: 'events#pickup'
 
   resources :users do
     member do
@@ -32,10 +34,8 @@ Rails.application.routes.draw do
   end
 
   post 'events/confirm', to: 'events#confirm'
-  get 'events/search', to: 'events#search_index'
   post '/events/:event_id/likes' => 'likes#create'
   delete '/events/:event_id/likes' => 'likes#destroy'
-  get 'events/search', to: 'events#search_index'
   post '/events/:event_id/join_users' => 'join_users#create'
   delete '/events/:event_id/join_users' => 'join_users#destroy'
   resources :events do

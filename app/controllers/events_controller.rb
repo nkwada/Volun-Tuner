@@ -1,32 +1,10 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show search_index]
+  before_action :authenticate_user!, except: %i[index show search_index pickup]
 
   def index
     @events = Event.all
-
-    # ランダムに取得
-    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RANDOM()').limit(6)
-
-    if user_signed_in?
-      # フォローしているユーザーを取得
-      follow_users = current_user.following
-      # フォローユーザーのツイートを表示
-      @follow_events = Event.where(user_id: follow_users).limit(6)
-    end
-
-    # いいね数ランキングの記述
-    @event_like_ranking = Event.find(Like.group(:event_id).order('count(event_id) desc').limit(6).pluck(:event_id))
-
-    # 参加人数ランキングの記述
-    @event_join_ranking = Event.find(JoinUser.group(:event_id).order('count(event_id) desc').limit(6).pluck(:event_id))
-
-    # ユーザーの参加数ランキングの記述
-    @user_join_ranking = User.find(JoinUser.group(:user_id).order('count(user_id) desc').limit(9).pluck(:user_id))
-
-    # ユーザーの主催数ランキングの記述
-    @user_event_ranking = User.find(Event.group(:user_id).order('count(user_id) desc').limit(9).pluck(:user_id))
   end
 
   def show
@@ -115,6 +93,30 @@ class EventsController < ApplicationController
       # 現在の日時を過ぎたイベントは表示しない
       @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).reverse_order.per(5)
     end
+  end
+
+  def pickup
+    # ランダムに取得
+    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RANDOM()').limit(6)
+
+      if user_signed_in?
+        # フォローしているユーザーを取得
+        follow_users = current_user.following
+        # フォローユーザーのツイートを表示
+        @follow_events = Event.where(user_id: follow_users).limit(6)
+      end
+
+    # いいね数ランキングの記述
+    @event_like_ranking = Event.find(Like.group(:event_id).order('count(event_id) desc').limit(6).pluck(:event_id))
+
+    # 参加人数ランキングの記述
+    @event_join_ranking = Event.find(JoinUser.group(:event_id).order('count(event_id) desc').limit(6).pluck(:event_id))
+
+    # ユーザーの参加数ランキングの記述
+    @user_join_ranking = User.find(JoinUser.group(:user_id).order('count(user_id) desc').limit(9).pluck(:user_id))
+
+    # ユーザーの主催数ランキングの記述
+    @user_event_ranking = User.find(Event.group(:user_id).order('count(user_id) desc').limit(9).pluck(:user_id))
   end
 
   private

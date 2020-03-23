@@ -1,8 +1,16 @@
-describe 'ユーザー認証のテスト' do
-  describe 'ユーザー新規登録' do
-      let!(:user) { create(:user) }
-      let!(:test_user) { create(:user) }
-      let!(:event) { create(:event, user: test_user) }
+require 'rails_helper'
+
+describe 'ajaxでのいいねテスト' do
+    let(:user) { create(:user) }
+    let!(:test_user) { create(:user) }
+    let!(:event) { create(:event, user: test_user) }
+  before do
+    visit new_user_session_path
+    fill_in 'user[email]', with: user.email
+    fill_in 'user[password]', with: user.password
+    click_button 'ログイン'
+  end
+  describe 'ボランティア詳細画面' do
     before do
       visit event_path(event)
     end

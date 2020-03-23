@@ -1,2 +1,3 @@
 $(".paginate").html("<%= j(render :partial => 'notify') %>");
 $("#calendar").html("<%= j(render :partial => 'calendar') %>");
+$("#tab_joins, #tab_hosts, #tab_likes").html("<%= j(render :partial => 'mypage_tab', locals: { event: @user_joins }) %>");

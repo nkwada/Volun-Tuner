@@ -10,12 +10,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @notifications = current_user.passive_notifications.page(params[:page]).per(5)
+    @notifications = current_user.passive_notifications.page(params[:page]).per(4)
 
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @user_joins = @user.joined_events.page(params[:page]).per(3)
+    @user_hosts = @user.events.page(params[:page]).per(3)
+    @user_likes = @user.liked_events.page(params[:page]).per(3)
+
   end
 
   def edit

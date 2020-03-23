@@ -1,14 +1,14 @@
 <% visitor = notification.visitor %>
 <% visited = notification.visited %>
 
-<div class="col-10 mx-auto">
+<div class="col-11 mx-auto">
   <div class="form_inline">
     <span>
       <%= link_to user_path(visitor) do %>
         <%= visitor.username %>
       <% end %>
       さんが
-    </span>
+    </span><br>
 
     <% case notification.action %>
       <% when 'follow' then %>
@@ -35,7 +35,7 @@
     <% end %>
 
         <div class="small text-muted text-right">
-          <%= time_ago_in_words(notification.created_at) %>
+          <%= time_ago_in_words(notification.created_at) %>前
         </div>
 <hr>
 

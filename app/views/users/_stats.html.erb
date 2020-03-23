@@ -1,11 +1,12 @@
-<% @user ||= current_user %>
+<% user ||= current_user %>
 <div class="stats">
-  <a href="<%= following_user_path(@user) %>" class="btn btn-outline-info btn-sm mr-1">
-      <b><%= @user.following.count %></b>
+  <a href="<%= following_user_path(user) %>" class="btn btn-outline-info btn-sm mr-1">
+      <b><%= user.following.count %></b>
     フォロー
   </a>
-  <a href="<%= followers_user_path(@user) %>" class="btn btn-outline-info btn-sm">
-      <b><%= @user.followers.count %></b>
+  <a href="<%= followers_user_path(user) %>" class="btn btn-outline-info btn-sm">
+      <b><%= user.followers.count %></b>
     フォロワー
   </a>
 </div>
+<span class="bg-warning"><%= flash[:follow] %></span>
