@@ -1,1 +1,1 @@
-$("#paginate").html("<%= j(render :partial => 'search_index') %>");
+$("#paginate").html("<%= j(render :partial => 'search_index', locals: { events: @events }) %>");

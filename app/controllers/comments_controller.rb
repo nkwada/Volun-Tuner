@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
@@ -17,7 +19,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-  	@comment = Comment.find(params[:event_id])
+    @comment = Comment.find(params[:event_id])
     @event = @comment.event
     @comments = @event.comments
     @comment.destroy
@@ -25,6 +27,7 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def comment_params
     params.require(:comment).permit(:content)
   end

@@ -31,8 +31,12 @@
           <div class="navbar-nav">
             <% if user_signed_in? %>
 
-                <%= link_to "ボランティアを探す", events_path, class: "nav-item nav-link" %>
-                <%= link_to "マイページ", user_path(current_user.id), class: "nav-item nav-link" %>
+                <%= link_to events_path, class: "nav-item nav-link" do %>
+                  <i class="fas fa-search mr-1"></i>ボランティアを探す
+                <% end %>
+                <%= link_to user_path(current_user.id), class: "nav-item nav-link" do %>
+                  <i class="fas fa-user mr-1"></i>マイページ
+                <% end %>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
 
 

@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Eventモデルのテスト', type: :model do
-    before do
-      @event = build(:event)
-    end
-    it '値が全て適切' do
-      expect(@event.valid?).to eq(true)
-    end
+  before do
+    @event = build(:event)
+  end
+  it '値が全て適切' do
+    expect(@event.valid?).to eq(true)
+  end
 
   describe 'バリデーションのテスト' do
     let(:user) { create(:user) }
@@ -15,35 +17,35 @@ RSpec.describe 'Eventモデルのテスト', type: :model do
     context 'titleカラム' do
       it '空欄でないこと' do
         event.title = ''
-        expect(event.valid?).to eq false;
+        expect(event.valid?).to eq false
       end
     end
     context 'contentカラム' do
       it '空欄でないこと' do
         event.content = ''
-        expect(event.valid?).to eq false;
+        expect(event.valid?).to eq false
       end
       it '200文字以下であること' do
-        event.content = Faker::Lorem.characters(number:201)
-        expect(event.valid?).to eq false;
+        event.content = Faker::Lorem.characters(number: 201)
+        expect(event.valid?).to eq false
       end
     end
     context 'addressカラム' do
       it '空欄でないこと' do
         event.address = ''
-        expect(event.valid?).to eq false;
+        expect(event.valid?).to eq false
       end
     end
     context 'prefectureカラム' do
       it '空欄でないこと' do
         event.prefecture = ''
-        expect(event.valid?).to eq false;
+        expect(event.valid?).to eq false
       end
     end
     context 'tag_listカラム' do
       it '空欄でないこと' do
         event.tag_list = ''
-        expect(event.valid?).to eq false;
+        expect(event.valid?).to eq false
       end
     end
   end
@@ -83,17 +85,17 @@ RSpec.describe 'Eventモデルのテスト', type: :model do
 
   describe '外部キーのテスト' do
     context '保存できない場合' do
-        it "user_idが無ければ無効" do
-          @event = Event.new(user_id: nil)
-          @event.valid?
-          expect(@event.valid?).to eq(false)
-        end
+      it 'user_idが無ければ無効' do
+        @event = Event.new(user_id: nil)
+        @event.valid?
+        expect(@event.valid?).to eq(false)
+      end
     end
     context '保存できる場合' do
-        it "user_idあれば有効" do
-          @user = build(:user)
-          expect(FactoryBot.create(:event,user_id: @user.id)).to be_valid
-        end
+      it 'user_idあれば有効' do
+        @user = build(:user)
+        expect(FactoryBot.create(:event, user_id: @user.id)).to be_valid
+      end
     end
   end
 end

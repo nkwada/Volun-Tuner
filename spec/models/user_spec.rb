@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Userモデルのテスト', type: :model do
@@ -5,12 +7,12 @@ RSpec.describe 'Userモデルのテスト', type: :model do
   # バリデーションしていない状態で失敗→設定したら成功
   # 登録できるかできないか 登録できたら失敗
   # エラーメッセージがなければ失敗
-    before do
-      @user = build(:user)
-    end
-    it '値が全て適切' do
-      expect(@user.valid?).to eq(true)
-    end
+  before do
+    @user = build(:user)
+  end
+  it '値が全て適切' do
+    expect(@user.valid?).to eq(true)
+  end
 
   describe 'バリデーションのテスト' do
     let(:user) { build(:user) }
@@ -18,60 +20,60 @@ RSpec.describe 'Userモデルのテスト', type: :model do
     context 'usernameカラム' do
       let(:test_user) { user }
       it '空欄でないこと' do
-        test_user.username = ''
-        is_expected.to eq false;
+        test_user.username = nil
+        is_expected.to eq false
       end
       it '2文字以上であること' do
-        test_user.username = Faker::Lorem.characters(number:1)
-        is_expected.to eq false;
+        test_user.username = Faker::Lorem.characters(number: 1)
+        is_expected.to eq false
       end
       it '15文字以下であること' do
-        test_user.username = Faker::Lorem.characters(number:16)
-        is_expected.to eq false;
+        test_user.username = Faker::Lorem.characters(number: 16)
+        is_expected.to eq false
       end
     end
     context 'lastnameカラム' do
       let(:test_user) { user }
       it '空欄でないこと' do
-        test_user.lastname = ''
-        is_expected.to eq false;
+        test_user.lastname = nil
+        is_expected.to eq false
       end
       it '10文字以下であること' do
-        test_user.lastname = Faker::Lorem.characters(number:11)
-        is_expected.to eq false;
+        test_user.lastname = Faker::Lorem.characters(number: 11)
+        is_expected.to eq false
       end
     end
     context 'firstnameカラム' do
       let(:test_user) { user }
       it '空欄でないこと' do
-        test_user.firstname = ''
-        is_expected.to eq false;
+        test_user.firstname = nil
+        is_expected.to eq false
       end
       it '10文字以下であること' do
-        test_user.firstname = Faker::Lorem.characters(number:11)
-        is_expected.to eq false;
+        test_user.firstname = Faker::Lorem.characters(number: 11)
+        is_expected.to eq false
       end
     end
     context 'kana_lastnameカラム' do
       let(:test_user) { user }
       it '空欄でないこと' do
-        test_user.kana_lastname = ''
-        is_expected.to eq false;
+        test_user.kana_lastname = nil
+        is_expected.to eq false
       end
       it '10文字以下であること' do
-        test_user.kana_lastname = Faker::Lorem.characters(number:11)
-        is_expected.to eq false;
+        test_user.kana_lastname = Faker::Lorem.characters(number: 11)
+        is_expected.to eq false
       end
     end
     context 'kana_lastnameカラム' do
       let(:test_user) { user }
       it '空欄でないこと' do
-        test_user.kana_firstname = ''
-        is_expected.to eq false;
+        test_user.kana_firstname = nil
+        is_expected.to eq false
       end
       it '10文字以下であること' do
-        test_user.kana_firstname = Faker::Lorem.characters(number:11)
-        is_expected.to eq false;
+        test_user.kana_firstname = Faker::Lorem.characters(number: 11)
+        is_expected.to eq false
       end
     end
   end
