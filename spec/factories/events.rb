@@ -6,6 +6,7 @@ FactoryBot.define do
     content { Faker::Lorem.characters(number: 20) }
     address { Faker::Lorem.characters(number: 20) }
     prefecture { '東京都' }
+    start_time { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
     tag_list { Faker::Lorem.characters(number: 5) }
     user
   end

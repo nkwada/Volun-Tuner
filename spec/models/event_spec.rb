@@ -16,13 +16,13 @@ RSpec.describe 'Eventモデルのテスト', type: :model do
 
     context 'titleカラム' do
       it '空欄でないこと' do
-        event.title = ''
+        event.title = nil
         expect(event.valid?).to eq false
       end
     end
     context 'contentカラム' do
       it '空欄でないこと' do
-        event.content = ''
+        event.content = nil
         expect(event.valid?).to eq false
       end
       it '200文字以下であること' do
@@ -32,19 +32,19 @@ RSpec.describe 'Eventモデルのテスト', type: :model do
     end
     context 'addressカラム' do
       it '空欄でないこと' do
-        event.address = ''
+        event.address = nil
         expect(event.valid?).to eq false
       end
     end
     context 'prefectureカラム' do
       it '空欄でないこと' do
-        event.prefecture = ''
+        event.prefecture = nil
         expect(event.valid?).to eq false
       end
     end
     context 'tag_listカラム' do
       it '空欄でないこと' do
-        event.tag_list = ''
+        event.tag_list = nil
         expect(event.valid?).to eq false
       end
     end
@@ -92,7 +92,7 @@ RSpec.describe 'Eventモデルのテスト', type: :model do
       end
     end
     context '保存できる場合' do
-      it 'user_idあれば有効' do
+      it 'user_idがあれば有効' do
         @user = build(:user)
         expect(FactoryBot.create(:event, user_id: @user.id)).to be_valid
       end

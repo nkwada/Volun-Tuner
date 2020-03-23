@@ -10,6 +10,8 @@ ja:
         address: 住所
         tag_list: カテゴリータグ
         latitude: 住所
+      comment:
+        content: コメント
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

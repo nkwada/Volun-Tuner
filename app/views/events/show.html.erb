@@ -121,7 +121,7 @@
 	<h5>コメント</h5>
 
 	<div id="comments_area">
-		<%= render partial: "comments/index", locals: { comments: @comments } %>
+		<%= render partial: "comments/index", locals: { comments: @comments, comment: @comment } %>
 	</div>
 
 	<!-- ログインしていなければフォームを表示しない -->
