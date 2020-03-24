@@ -5,4 +5,4 @@
 
 	<% end %>
 </table>
-<%= paginate user_hosts, remote: true %>
+<%= paginate user_hosts, :param_name => 'user_hosts', remote: true %>

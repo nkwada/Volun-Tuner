@@ -20,8 +20,11 @@
           <p><%= f.label :start_time, "日時" %></p>
           <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %></p><hr>
 
-          <p><%= f.label :prefecture, "集合場所の住所" %></p>
-          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %></p>
+          <p><%= f.label :prefecture, "都道府県" %></p>
+          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %>
+          <p><%= f.label :address, "住所" %></p>
+
+            <%= f.text_field :address %></p>
           <p class="text-info">番地まで正確にご記入ください</p><hr>
 
             <p><%= f.label :tag_list, "カテゴリータグ" %></p>

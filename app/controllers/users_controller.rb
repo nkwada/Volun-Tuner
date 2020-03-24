@@ -12,9 +12,9 @@ class UsersController < ApplicationController
 
     @notifications = current_user.passive_notifications.page(params[:page]).per(4)
 
-    @user_joins = @user.joined_events.page(params[:page]).per(3)
-    @user_hosts = @user.events.page(params[:page]).per(3)
-    @user_likes = @user.liked_events.page(params[:page]).per(3)
+    @user_joins = @user.joined_events.page(params[:user_joins]).per(3)
+    @user_hosts = @user.events.page(params[:user_hosts]).per(3)
+    @user_likes = @user.liked_events.page(params[:user_likes]).per(3)
 
   end
 

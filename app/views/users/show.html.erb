@@ -34,7 +34,7 @@
 					</div>
 
 					<!-- フォローボタンの表示 -->
-					<%= render 'follow_form' if user_signed_in? %>
+					<%= render 'follow_form', cached: true if user_signed_in? %>
 				<!-- フォロー機能ここまで -->
 	        </div>
 	    	<!-- 本人の場合のみボタンを表示 -->

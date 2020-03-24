@@ -5,4 +5,4 @@
 
 	<% end %>
 </table>
-<%= paginate user_joins, remote: true %>
+<%= paginate user_joins, :param_name => 'user_joins', remote: true %>
