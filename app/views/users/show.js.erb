@@ -1,3 +1,5 @@
 $(".paginate").html("<%= j(render :partial => 'notify') %>");
 $("#calendar").html("<%= j(render :partial => 'calendar') %>");
-$("#tab_joins, #tab_hosts, #tab_likes").html("<%= j(render :partial => 'mypage_tab', locals: { event: @user_joins }) %>");
+$("#tab_joins").html("<%= j(render :partial => 'tab_join', locals: { user_joins: @user_joins }) %>");
+$("#tab_hosts").html("<%= j(render :partial => 'tab_host', locals: { user_hosts: @user_hosts }) %>");
+$("#tab_likes").html("<%= j(render :partial => 'tab_like', locals: { user_likes: @user_likes }) %>");

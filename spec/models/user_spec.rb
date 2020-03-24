@@ -7,12 +7,24 @@ RSpec.describe 'Userモデルのテスト', type: :model do
   # バリデーションしていない状態で失敗→設定したら成功
   # 登録できるかできないか 登録できたら失敗
   # エラーメッセージがなければ失敗
+  describe User do
+    it '有効なファクトリを持つこと' do
+      expect(FactoryBot.build(:user)).to be_valid
+    end
+  end
+
   before do
     @user = build(:user)
   end
   it '値が全て適切' do
     expect(@user.valid?).to eq(true)
   end
+
+  # it "名前がなければ無効な状態であること" do
+  #   user = FactoryBot.build(:user, firstname: nil)
+  #   user.valid?
+  #   expect(user.errors[:firstname]).to include("が入力されていません。")
+  # end
 
   describe 'バリデーションのテスト' do
     let(:user) { build(:user) }
@@ -76,7 +88,22 @@ RSpec.describe 'Userモデルのテスト', type: :model do
         is_expected.to eq false
       end
     end
+    context 'emailカラム' do
+      let(:test_user) { user }
+      it '空欄でないこと' do
+        test_user.email = nil
+        is_expected.to eq false
+      end
+      it '重複したメールアドレスなら無効であること' do
+        FactoryBot.create(:user, email: "test@example.com")
+        user = FactoryBot.build(:user, email: "test@example.com")
+        user.valid?
+        expect(user.errors[:email]).to include("はすでに存在します")
+      end
+    end
   end
+
+
   describe 'アソシエーションのテスト' do
     context 'Eventモデルとの関係' do
       it '1:Nとなっている' do

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :event do
-    title { Faker::Lorem.characters(number: 5) }
+    sequence(:title) { |n| "ボランティア #{n}" }
     content { Faker::Lorem.characters(number: 20) }
     address { Faker::Lorem.characters(number: 20) }
     prefecture { '東京都' }

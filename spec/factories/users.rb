@@ -7,7 +7,7 @@ FactoryBot.define do
     firstname { Faker::Lorem.characters(number: 10) }
     kana_lastname { 'テスト' }
     kana_firstname { 'テスト' }
-    email { Faker::Internet.email }
+    sequence(:email) { |n| "test#{n}@example.com" }
     password { 'password' }
     password_confirmation { 'password' }
   end

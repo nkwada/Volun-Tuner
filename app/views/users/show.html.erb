@@ -69,7 +69,7 @@
 				<% else %>
 
 					<div id="tab_joins">
-						<%= render 'mypage_tab', event: @user_joins %>
+						<%= render 'tab_join', user_joins: @user_joins %>
 					</div>
 
 				<% end %>
@@ -84,7 +84,7 @@
 
 				<% else %>
 					<div id="tab_hosts">
-						<%= render 'mypage_tab', event: @user_hosts %>
+						<%= render 'tab_host', user_hosts: @user_hosts %>
 					</div>
 
 
@@ -100,7 +100,7 @@
 
 				<% else %>
 					<div id="tab_likes">
-						<%= render 'mypage_tab', event: @user_likes %>
+						<%= render 'tab_like', user_likes: @user_likes %>
 					</div>
 
 

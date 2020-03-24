@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 describe 'ユーザー認証のテスト' do
   describe 'ユーザー新規登録' do
     before do

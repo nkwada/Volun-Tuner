@@ -31,12 +31,18 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    if @event.user_id != current_user.id
+      redirect_to event_path(@event)
+    end
   end
 
   def update
     event = Event.find(params[:id])
-    if event.update(event_params)
-      redirect_to event_path(event.id), notice: 'ボランティア情報を更新しました'
+
+    if event.user_id != current_user.id
+      redirect_to event_path(event)
+    elsif event.update(event_params)
+      redirect_to event_path(event), notice: 'ボランティア情報を更新しました'
     else
       @event = event
       render 'edit'
@@ -45,8 +51,11 @@ class EventsController < ApplicationController
 
   def destroy
     event = Event.find(params[:id])
-    event.destroy
-    redirect_to user_path(current_user), alert: 'ボランティアを削除しました'
+    if event.user_id != current_user.id
+      redirect_to event_path(event)
+    elsif event.destroy
+      redirect_to user_path(current_user), alert: 'ボランティアを削除しました'
+    end
   end
 
   # イベント確認画面
@@ -124,4 +133,5 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:title, :content, :start_time, :prefecture, :address, :image, :image_cache, :remove_image, :tag_list, :latitude, :longitude)
   end
+
 end
