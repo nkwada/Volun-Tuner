@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
-	before_action :authenticate_user!
+  before_action :authenticate_user!
   def create
     @event = Event.find(params[:event_id])
     like = current_user.likes.create(event_id: @event.id)

@@ -1,14 +1,4 @@
-<% if @event.errors.any? %>
-  <div id="error_explanation" class="alert alert-danger">
-    <ul>
-      <% @event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-
+<%= render 'error_messages', event: @event %>
 
 <div class="align mt-4">
   <div class="grid">
@@ -21,30 +11,63 @@
 
         <fieldset>
 
+
           <p><%= f.label :title, "タイトル" %></p>
-          <p><%= f.text_field :title %></p><hr>
+          <p><%= f.text_field :title, id: "title" %></p><hr>
 
           <p><%= f.label :content, "内容" %></p>
-          <p><%= f.text_field :content %></p><hr>
+          <p><%= f.text_field :content, id: "content" %></p><hr>
 
           <p><%= f.label :start_time, "日時" %></p>
-          <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %></p><hr>
+          <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5, id: "start_time" %></p><hr>
 
-          <p><%= f.label :prefecture, "集合場所の住所" %></p>
-          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %></p>
+          <p><%= f.label :prefecture, "集合場所" %></p>
+          <p><%= f.label :prefecture, "都道府県" %></p>
+          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3", id: "prefecture" %>
+          <p><%= f.label :address, "住所" %></p>
+          <P><%= f.text_field :address, id: "address" %></p>
           <p class="text-info">番地まで正確にご記入ください</p><hr>
 
             <p><%= f.label :tag_list, "カテゴリータグ" %></p>
-           <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %><hr>
+           <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"}, id: "tag_list" %><hr>
 
           <p><%= f.label :image, "画像" %></p>
           <p><%= f.file_field :image, id: :event_image %></p>
           <!-- 画像プレビューを表示 -->
-          <%= image_tag @event.image.url, width: 100, id: :image_prev %>
-          <p><%= f.check_box :remove_image %>画像を削除する</p><hr>
+          <%= image_tag @event.image.url, width: 100, id: :image_prev %><hr>
 
+          <!-- 切り替えボタンの設定 -->
+          <p><button type="button" id="button" data-toggle="modal" data-target="#Modal">主催する</button></p>
 
-          <p><%= f.submit "投稿" %></p>
+          <!-- モーダルの設定 -->
+          <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">ボランティア主催確認</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p class="mb-4">こちらの内容でお間違いありませんか？</p>
+                  <p>タイトル：<span id="title-confirm"></span><span id="error-title" class="text-danger"></span></p>
+                  <p>内容：<span id="content-confirm"></span><span id="error-content" class="text-danger"></span></p>
+                  <p>日時：<span id="start_time1-confirm"></span><span id="start_time2-confirm"></span><span id="start_time3-confirm"></span><span id="start_time4-confirm"></span><span id="start_time5-confirm"></span></p>
+                  <p>住所：<span id="prefecture-confirm"></span><span id="address-confirm"></span><span id="error-prefecture" class="text-danger"></span><br><span id="error-address" class="text-danger ml-5"></span></p>
+                  <p>タグ：<span id="tag_list-confirm"></span><span id="error-tag_list" class="text-danger"></span></p>
+                  <!-- 画像プレビューを表示 -->
+                  <%= image_tag @event.image.url, width: 100, id: :image_prev2 %>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                  <p><%= f.submit "主催する" %></p>
+                </div><!-- /.modal-footer -->
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
 
         </fieldset>
 
@@ -57,13 +80,81 @@
 
 
 
+
+
+
+
+
+<script>
+$(function() {
+  $('#button').click(function() {
+    var title = $('#title').val();
+    var content = $('#content').val();
+    var start_time1 = $('select[name="event[start_time(1i)]"]').val();
+    var start_time2 = $('select[name="event[start_time(2i)]"]').val();
+    var start_time3 = $('select[name="event[start_time(3i)]"]').val();
+    var start_time4 = $('select[name="event[start_time(4i)]"]').val();
+    var start_time5 = $('select[name="event[start_time(5i)]"]').val();
+    var prefecture= $('#prefecture').val();
+    var address = $('#address').val();
+    var tag_list = $('#tag_list').val();
+
+    if ( title == '') {
+      $('#error-title').text('タイトルを記入してください')
+    } else {
+      $('#error-title').text('')
+    }
+
+    if ( content == '') {
+      $('#error-content').text('内容を記入してください')
+    } else {
+      $('#error-content').text('')
+    }
+
+    if ( prefecture == '') {
+      $('#error-prefecture').text('都道府県を選択してください')
+    } else {
+      $('#error-prefecture').text('')
+    }
+
+    if ( address == '') {
+      $('#error-address').text('住所を記入してください')
+    } else {
+      $('#error-address').text('')
+    }
+
+    if ( tag_list == '') {
+      $('#error-tag_list').text('タグを一つ以上記入してください')
+    } else {
+      $('#error-tag_list').text('')
+    }
+
+    $('#title-confirm').text(title);
+    $('#content-confirm').text(content);
+    $('#start_time1-confirm').text(start_time1 + "年");
+    $('#start_time2-confirm').text(start_time2 + "月");
+    $('#start_time3-confirm').text(start_time3 + "日");
+    $('#start_time4-confirm').text(start_time4 + "時");
+    $('#start_time5-confirm').text(start_time5 + "分");
+    $('#prefecture-confirm').text(prefecture);
+    $('#address-confirm').text(address);
+    $('#tag_list-confirm').text(tag_list);
+
+  });
+});
+
+</script>
+
+
+
+
 <script type="text/javascript">
 $(function() {
  function readURL(input) {
    if (input.files && input.files[0]) {
      var reader = new FileReader();
      reader.onload = function (e) {
-       $('#image_prev').attr('src', e.target.result);
+       $('#image_prev, #image_prev2').attr('src', e.target.result);
      }
      reader.readAsDataURL(input.files[0]);
    }

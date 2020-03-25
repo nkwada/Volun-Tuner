@@ -1,2 +1,2 @@
-$("#comments_area").html("<%= j(render 'index', { comments: @event.comments }) %>")
+$("#comments_area").html("<%= j(render 'index', { comments: @event.comments, comment: @comment }) %>")
 $("textarea").val('')

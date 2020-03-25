@@ -1,0 +1,4 @@
+参加人数: <%= event.join_users.count %><br>
+<% event.joined_users.each do |user| %>
+		<%= link_to user.username, user %>さん<br>
+<% end %>

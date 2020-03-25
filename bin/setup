@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby2.5
+# frozen_string_literal: true
+
 require 'fileutils'
 include FileUtils
 

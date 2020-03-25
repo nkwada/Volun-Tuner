@@ -19,7 +19,7 @@
  @import "bootstrap";
  @import 'font-awesome-sprockets';
  @import 'font-awesome';
-
+ @import url(http://weloveiconfonts.com/api/?family=fontawesome);
 
 $main_color: #3cb371;
 $card_header: #98fb98;
@@ -69,14 +69,6 @@ body {
 
 
 /*ログイン・新規登録画面(idは全てlogin)*/
-
-/* ---------- FONTAWESOME ---------- */
-/* ---------- https://fortawesome.github.com/Font-Awesome/ ---------- */
-/* ---------- http://weloveiconfonts.com/ ---------- */
-
-@import url(http://weloveiconfonts.com/api/?family=fontawesome);
-
-
 /* ---------- FONTAWESOME ---------- */
 
 [class*="fontawesome-"]:before {
@@ -157,8 +149,20 @@ input {
         }
       }
     }
+    #button {
+      background: #33cc77;
+      color: #fff;
+      display: block;
+      margin: 0 auto;
+      padding: 4px 0;
+      width: 100px;
+      &:hover {
+        background: #28ad63;
+      }
+    }
   }
 }
+
 
 
 /*ログイン・新規登録画面ここまで*/
@@ -221,7 +225,7 @@ footer {
 }
 
 /*リストをおしゃれに*/
-.card-body, .modal-body {
+.area, .modal-content .modal-body {
   ul {
     padding: 0;
   }
@@ -416,21 +420,20 @@ footer {
 }
 /*スピナーここまで*/
 
+/*user/showのお知らせスライド画面*/
+#slide_menu{
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 400px;
+    height: 100%;
+    background: #f5f5f5;
+}
+
 .n-flag {
   position: absolute;
   left: 225px;
   top: 155px;
   color: #ffd700;
 }
-
-
-
-#slide_menu{
-    position: fixed;
-    top: 0;
-    left: -500px;
-    width: 500px;
-    height: 100%;
-    background: #f5f5f5;
-}
-
+/*スライド画面ここまで*/

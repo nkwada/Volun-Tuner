@@ -29,10 +29,12 @@
 	        <div class="mb-3">
 	        	<!-- フォロー機能 -->
 					<!-- フォロー、フォロワー数を表示 -->
-					<%= render 'stats' %>
+					<div id="stats">
+						<%= render 'stats' %>
+					</div>
 
 					<!-- フォローボタンの表示 -->
-					<%= render 'follow_form' if user_signed_in? %>
+					<%= render 'follow_form', cached: true if user_signed_in? %>
 				<!-- フォロー機能ここまで -->
 	        </div>
 	    	<!-- 本人の場合のみボタンを表示 -->
@@ -66,13 +68,9 @@
 
 				<% else %>
 
-					<table class="table">
-						  <tr><th></th><th>日時</th></tr>
-						<% @user.joined_events.each do |event| %>
-						  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td></tr>
-
-						<% end %>
-					</table>
+					<div id="tab_joins">
+						<%= render 'tab_join', user_joins: @user_joins %>
+					</div>
 
 				<% end %>
 
@@ -85,14 +83,11 @@
 					<p>まだ主催したボランティアはありません...。</p>
 
 				<% else %>
+					<div id="tab_hosts">
+						<%= render 'tab_host', user_hosts: @user_hosts %>
+					</div>
 
-					<table class="table">
-						  <tr><th></th><th>日時</th></tr>
-						<% @user.events.each do |event| %>
-						  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td></tr>
 
-						<% end %>
-					</table>
 				<% end %>
 
 			  </div>
@@ -104,14 +99,10 @@
 					<p>まだいいねしたボランティアはありません...。</p>
 
 				<% else %>
+					<div id="tab_likes">
+						<%= render 'tab_like', user_likes: @user_likes %>
+					</div>
 
-					<table class="table">
-						  <tr><th></th><th>日時</th></tr>
-						<% @user.liked_events.each do |event| %>
-						  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td></tr>
-
-						<% end %>
-					</table>
 
 				<% end %>
 			  </div>

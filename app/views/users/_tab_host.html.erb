@@ -1,0 +1,8 @@
+<table class="table">
+	  <tr><th></th><th>日時</th></tr>
+	<% user_hosts.each do |event| %>
+	  <tr><td><%= link_to event.title, event %></td><td><%= event.start_time.strftime("%Y年%m月%d日") %></td></tr>
+
+	<% end %>
+</table>
+<%= paginate user_hosts, :param_name => 'user_hosts', remote: true %>

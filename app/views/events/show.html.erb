@@ -1,5 +1,9 @@
 <h4><%= @event.title %></h4>
 
+<% if @event.start_time < DateTime.now %>
+	<p class="text-danger">※このボランティアは既に終了しています</p>
+<% end %>
+
 <div class="row">
 	<div class="col-4">
 		<%= image_tag @event.image_url, width: 350, class: "img-thumbnail rounded shadow" %>
@@ -29,77 +33,70 @@
 <div class="row justify-content-center">
 	<div class="col-4"><!-- 参加機能 -->
 		<div class="card shadow rounded-pill text-center">
-		    	<!-- 主催者の場合は参加ボタンを表示しない -->
-		    	<!-- ログインしていなければボタンを表示しない -->
+		    <!-- 日付が過ぎていれば参加ボタンを表示しない -->
+	    	<% if @event.start_time < DateTime.now %>
+
+				<p class="text-warning mt-3">※既に終了しているので参加できません</p>
+
+				<div class="mb-3">
+					<%= render partial: "join_index", locals: { event: @event } %>
+				</div>
+
+			<% else %>
+
+				<!-- 主催者の場合は参加ボタンを表示しない -->
 				<% if current_user == @event.user %>
 
-					<p class="mt-3">主催者は参加できません</p>
-
-					<div class="mb-3">
-						参加人数: <%= @event.join_users.count %><br>
-						<% @event.joined_users.each do |user| %>
-					  		<%= link_to user.username, user %>さん<br>
-						<% end %>
-					</div>
-
-				<% elsif %>
-
-
-
-					<% unless user_signed_in? %>
-
-						<p class="text-info mt-3">ログインすると参加できるようになるよ</p>
+						<p class="mt-3">主催者は参加できません</p>
 
 						<div class="mb-3">
-							参加人数: <%= @event.join_users.count %><br>
-							<% @event.joined_users.each do |user| %>
-						  		<%= link_to user.username, user %>さん<br>
-							<% end %>
+							<%= render partial: "join_index", locals: { event: @event } %>
 						</div>
 
+				<% else %>
+						<!-- ログインしていなければボタンを表示しない -->
+						<% unless user_signed_in? %>
 
+							<p class="text-info mt-3">ログインすると参加できるようになるよ</p>
 
-					<% else %>
+							<div class="mb-3">
+								<%= render partial: "join_index", locals: { event: @event } %>
+							</div>
 
-						<div id="join-<%= @event.id %>" class="mt-3 mb-2">
-						  	<%= render partial: "join_users/join", locals: { event: @event } %>
-						</div>
+						<% else %>
 
+							<div id="join-<%= @event.id %>" class="mt-3 mb-2">
+							  	<%= render partial: "join_users/join", locals: { event: @event } %>
+							</div>
 
-
-					<% end %>
+						<% end %>
 
 				<% end %>
-				<!-- 参加ボタンここまで -->
+			<% end %>
+			<!-- 参加ボタンここまで -->
 		</div>
 	</div><!-- 参加機能ここまで -->
 
 	<div class="col-4"><!-- いいね機能 -->
 		<div class="card shadow rounded-pill text-center">
-				<!-- 主催者の場合はいいねボタンを表示しない -->
-				<!-- ログインしていなければボタンを表示しない -->
-				<% if current_user == @event.user %>
+			<!-- 主催者の場合はいいねボタンを表示しない -->
+			<!-- ログインしていなければボタンを表示しない -->
+			<% if current_user == @event.user %>
 
 					<p class="mt-3">主催者はいいねできません</p>
 
 					<div class="mb-3">
-						いいね数: <%= @event.likes.count %><br>
-						<% @event.liked_users.each do |user| %>
-						  <%= link_to user.username, user %>さん<br>
-						<% end %>
+						<%= render partial: "like_index", locals: { event: @event } %>
 					</div>
 
-				<% elsif %>
+			<% else %>
 
 					<% unless user_signed_in? %>
 
 						<p class="text-info mt-3">ログインするといいねできるようになるよ</p>
 
 						<div class="mb-3">
-							いいね数: <%= @event.likes.count %><br>
-							<% @event.liked_users.each do |user| %>
-							  <%= link_to user.username, user %>さん<br>
-							<% end %>
+							<%= render partial: "like_index", locals: { event: @event } %>
 						</div>
 
 
@@ -111,8 +108,8 @@
 
 					<% end %>
 
-				<% end %>
-			<!-- いいねボタンここまで -->
+			<% end %>
+		<!-- いいねボタンここまで -->
 		</div>
 	</div><!-- いいね機能ここまで -->
 </div>
@@ -124,7 +121,7 @@
 	<h5>コメント</h5>
 
 	<div id="comments_area">
-		<%= render partial: "comments/index", locals: { comments: @comments } %>
+		<%= render partial: "comments/index", locals: { comments: @comments, comment: @comment } %>
 	</div>
 
 	<!-- ログインしていなければフォームを表示しない -->
