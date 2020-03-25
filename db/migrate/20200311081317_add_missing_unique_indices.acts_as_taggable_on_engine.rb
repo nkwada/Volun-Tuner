@@ -11,6 +11,7 @@ AddMissingUniqueIndices.class_eval do
     add_index ActsAsTaggableOn.tags_table, :name, unique: true
 
     if index_exists?(ActsAsTaggableOn.taggings_table, :tag_id)
+      remove_foreign_key :taggings, :tags
       remove_index ActsAsTaggableOn.taggings_table, :tag_id
     end
     remove_index ActsAsTaggableOn.taggings_table, name: 'taggings_taggable_context_idx'
