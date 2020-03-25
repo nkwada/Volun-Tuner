@@ -81,3 +81,7 @@ gem 'jquery-rails'
 gem 'kaminari', '~> 1.1.1'
 gem 'pry-rails'
 gem 'simple_calendar', '~> 2.0'
+
+group :production do
+  gem 'mysql2'
+end
