@@ -9,7 +9,7 @@ RSpec.feature "Events", type: :feature do
   	fill_in "メールアドレス", with: user.email
   	fill_in "パスワード", with: user.password
   	click_button "ログイン"
-save_and_open_page
+
   	expect {
   		click_link "ボランティアを主催する"
   		fill_in "タイトル", with: "Test Volunteer"

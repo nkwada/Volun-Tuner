@@ -149,8 +149,20 @@ input {
         }
       }
     }
+    #button {
+      background: #33cc77;
+      color: #fff;
+      display: block;
+      margin: 0 auto;
+      padding: 4px 0;
+      width: 100px;
+      &:hover {
+        background: #28ad63;
+      }
+    }
   }
 }
+
 
 
 /*ログイン・新規登録画面ここまで*/
