@@ -1,95 +1,87 @@
-<div class="card shadow text-center"><!-- pickupここから -->
+<div class="card shadow text-center">
 	<div class="card-header">
 		Pick Up
 	</div>
 
 	<div class="card-body">
 
-		<!-- タブメニュー activeクラスに、クリック済のデザインを設定したcssを指定 -->
-		<ul class="tab clearfix">
-		  <li class="active">ランダム</li>
-		  <li>タイムライン</li>
-		  <li>いいね数ランキング</li>
-		  <li>参加人数ランキング</li>
-		  <li>参加数ランキング</li>
-		  <li>主催数ランキング</li>
+		<!-- ピル部分 -->
+		<ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="pills-random-tab" data-toggle="pill" href="#pills-random" role="tab" aria-controls="pills-random" aria-selected="true">ランダム</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab" aria-controls="pills-timeline" aria-selected="false">タイムライン </a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="pills-likes-tab" data-toggle="pill" href="#pills-likes" role="tab" aria-controls="pills-likes" aria-selected="false">いいね数ランキング</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="pills-joins-tab" data-toggle="pill" href="#pills-joins" role="tab" aria-controls="pills-joins" aria-selected="false">参加人数ランキング</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="pills-joinuser-tab" data-toggle="pill" href="#pills-joinuser" role="tab" aria-controls="pills-joinuser" aria-selected="false">参加数ランキング</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="pills-hostuser-tab" data-toggle="pill" href="#pills-hostuser" role="tab" aria-controls="pills-hostuser" aria-selected="false">主催数ランキング</a>
+		  </li>
 		</ul>
 
-		<!-- コンテンツ全体を非表示にし、showクラスが付いたコンテンツのみ表示 -->
-		<div class="area">
-			<ul class="show"><!-- タブメニュー１つ目 -->
-				<p class="text-center">ランダムに表示します。</p>
+		<!-- パネル部分 -->
+		<div class="tab-content" id="pills-tabContent">
+		  <div class="tab-pane fade show active" id="pills-random" role="tabpanel" aria-labelledby="pills-random-tab">
 
-				<%= render 'tab_menu', event: @event_randoms %>
+			<p class="text-center">ランダムに表示します。</p>
 
-			</ul>
-		  	<ul><!-- タブメニュー２つ目 -->
+			<%= render 'tab_menu', event: @event_randoms %>
 
-		  		<p class="text-center">フォローしているユーザーが主催したボランティアを新着順に表示します。</p>
-				<% if user_signed_in? && @follow_events.present? %>
+		  </div>
 
-					<%= render 'tab_menu', event: @follow_events %>
+		  <div class="tab-pane fade" id="pills-timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
+
+	  		<p class="text-center">フォローしているユーザーが主催したボランティアを新着順に表示します。</p>
+			<% if user_signed_in? && @follow_events.present? %>
+
+				<%= render 'tab_menu', event: @follow_events %>
 
 
 
-				<% elsif user_signed_in? && @follow_events.count == 0 %>
+			<% elsif user_signed_in? && @follow_events.count == 0 %>
 
-					<p>まだフォローユーザーのイベントはありません。</p>
+				<p>まだフォローユーザーのイベントはありません。</p>
 
-				<% else %>
+			<% else %>
 
-					<p>ログインして誰かをフォローしてみよう!</p>
+				<p>ログインして誰かをフォローしてみよう!</p>
 
-				<% end %>
-		  	</ul>
+			<% end %>
 
-		  	<ul><!-- タブメニュー３つ目 -->
+		  </div>
 
-				<%= render 'tab_menu_index', event: @event_like_ranking %>
+		  <div class="tab-pane fade" id="pills-likes" role="tabpanel" aria-labelledby="pills-likes-tab">
 
-		  	</ul>
+			<%= render 'tab_menu_index', event: @event_like_ranking %>
 
-		 	<ul><!-- タブメニュー４つ目 -->
+		  </div>
 
-		  		<%= render 'tab_menu_index', event: @event_join_ranking %>
+		  <div class="tab-pane fade" id="pills-joins" role="tabpanel" aria-labelledby="pills-joins-tab">
 
-		  	</ul>
+		  	<%= render 'tab_menu_index', event: @event_join_ranking %>
 
-		  	<ul><!-- タブメニュー５つ目 -->
+		  </div>
 
-				<%= render 'user_ranking', users: @user_join_ranking %>
+		  <div class="tab-pane fade" id="pills-joinuser" role="tabpanel" aria-labelledby="pills-joinuser-tab">
 
-		  	</ul>
+		  	<%= render 'user_ranking', users: @user_join_ranking %>
 
-		  	<ul><!-- タブメニュー６つ目 -->
+		  </div>
 
-				<%= render 'user_ranking', users: @user_event_ranking %>
+		  <div class="tab-pane fade" id="pills-hostuser" role="tabpanel" aria-labelledby="pills-hostuser-tab">
 
-		  	</ul>
+		  	<%= render 'user_ranking', users: @user_event_ranking %>
+
+		  </div>
 		</div>
 	</div>
-</div><!-- pickupここまで -->
+</div>
 
-
-<!-- タブメニューの記述 -->
-<script>
-$(function() {
-
-  // ①タブをクリックしたら発動
-  $('.tab li').click(function() {
-
-    // ②クリックされたタブの順番を変数に格納
-    var index = $('.tab li').index(this);
-
-    // ③クリック済みタブのデザインを設定したcssのクラスを一旦削除
-    $('.tab li').removeClass('active');
-
-    // ④クリックされたタブにクリック済みデザインを適用する
-    $(this).addClass('active');
-
-    // ⑤コンテンツを一旦非表示にし、クリックされた順番のコンテンツのみを表示
-    $('.area ul').removeClass('show').eq(index).addClass('show');
-
-  });
-});
-</script>

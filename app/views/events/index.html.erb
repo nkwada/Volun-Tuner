@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-4"><!-- 全件表示ここから -->
+	<div class="col-xs-12 col-lg-4 mb-3"><!-- 全件表示ここから -->
 		<div class="card shadow text-center">
 		  <div class="card-header">
 		    新着順に全件表示
@@ -10,28 +10,7 @@
 		</div>
 	</div><!-- 全件表示ここまで -->
 
-	<div class="col-8"><!-- フリーワード検索ここから -->
-		<div class="card shadow text-center">
-			<div class="card-header">
-			フリーワード検索
-			</div>
-			<div class="card-body">
-				<!-- 検索フォームの表示 -->
-				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
-					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
-				 	<%= f.search_field :search, :size=>"40", class: "border shadow-sm" %>
-				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm shadow-sm" %>
-				<% end %>
-				<!-- ここまで -->
-			</div>
-		</div>
-	</div><!-- フリーワード検索ここまで -->
-</div>
-
-<hr>
-
-<div class="row">
-	<div class="col-4"><!-- 現在地検索ここから -->
+	<div class="col-xs-12 col-lg-4 d-lg-none mb-3"><!-- 現在地検索ここから -->
 		<div class="card shadow text-center">
 			  <div class="card-header">
 			    現在地から近い順に表示
@@ -52,45 +31,73 @@
 		</div>
 	</div><!-- 現在地検索ここまで -->
 
-	<div class="col-8"><!-- タグ検索ここから -->
+	<div class="col-xs-12 col-lg-8 mb-3"><!-- フリーワード検索ここから -->
+		<div class="card shadow text-center">
+			<div class="card-header">
+			フリーワード検索
+			</div>
+			<div class="card-body">
+				<!-- 検索フォームの表示 -->
+				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
+					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
+				 	<%= f.search_field :search, :size=>"40", class: "border shadow-sm" %>
+				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm shadow-sm" %>
+				<% end %>
+				<!-- ここまで -->
+			</div>
+		</div>
+	</div><!-- フリーワード検索ここまで -->
+
+<hr>
+
+
+
+	<div class="col-xs-12 col-lg-12 mb-3"><!-- タグ検索ここから -->
 		<div class="card shadow text-center">
 		  <div class="card-header">
 		    タグで検索
 		  </div>
 		  <div class="card-body">
 		  	<div class="row justify-content-center mb-2">
-				<%= link_to "ゴミ拾い", events_search_path(tag_name: "ゴミ拾い"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "募金", events_search_path(tag_name: "募金"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "東京オリンピック", events_search_path(tag_name: "東京オリンピック"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "災害支援", events_search_path(tag_name: "災害支援"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "動物保護", events_search_path(tag_name: "動物保護"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "飢餓", events_search_path(tag_name: "飢餓"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "台風", events_search_path(tag_name: "台風"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "熊本地震", events_search_path(tag_name: "熊本地震"), class: "btn-sm btn-info mr-2" %>
-		  	</div>
-		  	<div class="row justify-content-center">
-				<%= link_to "難民", events_search_path(tag_name: "難民"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "教育", events_search_path(tag_name: "教育"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "障害者", events_search_path(tag_name: "障害者"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "子供", events_search_path(tag_name: "子供"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "スポーツ", events_search_path(tag_name: "スポーツ"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "女性", events_search_path(tag_name: "女性"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "宗教", events_search_path(tag_name: "宗教"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "国際協力", events_search_path(tag_name: "国際協力"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "環境", events_search_path(tag_name: "環境"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "農業", events_search_path(tag_name: "農業"), class: "btn-sm btn-info mr-2" %>
-				<%= link_to "衛生", events_search_path(tag_name: "衛生"), class: "btn-sm btn-info mr-2" %>
+		  		<div class="col-10">
+					<%= link_to "ゴミ拾い", events_search_path(tag_name: "ゴミ拾い"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "募金", events_search_path(tag_name: "募金"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "東京オリンピック", events_search_path(tag_name: "東京オリンピック"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "災害支援", events_search_path(tag_name: "災害支援"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "動物保護", events_search_path(tag_name: "動物保護"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "飢餓", events_search_path(tag_name: "飢餓"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "台風", events_search_path(tag_name: "台風"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "熊本地震", events_search_path(tag_name: "熊本地震"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "難民", events_search_path(tag_name: "難民"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "教育", events_search_path(tag_name: "教育"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "障害者", events_search_path(tag_name: "障害者"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "子供", events_search_path(tag_name: "子供"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "スポーツ", events_search_path(tag_name: "スポーツ"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "女性", events_search_path(tag_name: "女性"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "宗教", events_search_path(tag_name: "宗教"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "国際協力", events_search_path(tag_name: "国際協力"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "環境", events_search_path(tag_name: "環境"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "農業", events_search_path(tag_name: "農業"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "衛生", events_search_path(tag_name: "衛生"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "人権", events_search_path(tag_name: "人権"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "住環境", events_search_path(tag_name: "住環境"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "寄付", events_search_path(tag_name: "寄付"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "高齢者", events_search_path(tag_name: "高齢者"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "歴史", events_search_path(tag_name: "歴史"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "学習", events_search_path(tag_name: "学習"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+					<%= link_to "医療", events_search_path(tag_name: "医療"), class: "btn-sm btn-info mr-2 d-inline-block mb-3" %>
+				</div>
 		  	</div>
 
 		  </div>
 		</div>
 	</div><!-- タグ検索ここまで -->
-</div>
+
 
 <hr>
 
-<div class="row">
-	<div class="col-6"><!-- カレンダーここから -->
+
+	<div class="col-xs-12 col-lg-6 mb-3"><!-- カレンダーここから -->
 		<div class="card shadow text-center">
 			<div class="card-header">
 				カレンダー
@@ -104,7 +111,7 @@
 		</div>
 	</div><!-- カレンダーここまで -->
 
-	<div class="col-6"><!-- エリア検索ここから -->
+	<div class="col-xs-12 col-lg-6"><!-- エリア検索ここから -->
 		<div class="card shadow text-center">
 			<div class="card-header">
 				エリアで探す

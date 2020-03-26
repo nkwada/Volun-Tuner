@@ -244,34 +244,18 @@ footer {
 }
 
 
-
-/*events/pickupのタブメニュー*/
-.tab {
-  border-bottom: 3px solid $main_color;
-  li {
-    color: #333;
-    float: left;
-    margin: 0 5px -1px 0;
-    padding: 5px 10px;
-    border: 1px solid $main_color;
-    cursor: pointer;
-    list-style: none;
-    transition: .3s;
-    &.active {
-      color: #fff;
-      background: $main_color;
-      cursor: auto;
-    }
-  }
-}
-
-
 .area ul {
   display: none;
   &.show {
     display: block;
   }
 }
+
+
+/**/
+
+
+
 
 
 

@@ -106,7 +106,7 @@ class EventsController < ApplicationController
 
   def pickup
     # ランダムに取得
-    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RAND()').limit(6)
+    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RANDOM()').limit(6)
 
       if user_signed_in?
         # フォローしているユーザーを取得

@@ -13,105 +13,107 @@
 	</div>
 </nav>
 
-<div class="row">
-  <div class="col-md-4 mt-2">
-	    <div class="card shadow img-thumbnail">
-	      <%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
-	      <div class="card-body px-2 py-3 text-center">
-	        <h5 class="card-title"><%= @user.username %></h5>
+<div class="row justify-content-center">
+	<div class="col-lg-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10 mt-3 mb-3 card shadow img-thumbnail">
+				<%= image_tag @user.image_url, width: 100, class: "rounded-circle mx-auto mt-4" %>
+				<div class="card-body px-2 py-3 text-center">
+				<h5 class="card-title"><%= @user.username %></h5>
 
-	        <!-- 本人の場合のみ通知へのリンクを表示 -->
-	        <% if @user == current_user %>
-	        	<%= render 'circle' %>
-	        <% end %>
-
-	        <hr>
-	        <div class="mb-3">
-	        	<!-- フォロー機能 -->
-					<!-- フォロー、フォロワー数を表示 -->
-					<div id="stats">
-						<%= render 'stats' %>
-					</div>
-
-					<!-- フォローボタンの表示 -->
-					<%= render 'follow_form', cached: true if user_signed_in? %>
-				<!-- フォロー機能ここまで -->
-	        </div>
-	    	<!-- 本人の場合のみボタンを表示 -->
-			<% if @user == current_user %>
-				<%= link_to "ユーザー情報編集", edit_user_path(current_user.id), class: "btn btn-outline-primary btn-sm mb-2" %><br>
-				<%= link_to new_event_path, class: "btn btn-success btn-sm" do %>
-					<i class="fas fa-hand-holding-heart mr-2"></i>ボランティアを主催する
-				<% end %>
-			<% end %>
-
-	      </div><!-- /.card-body -->
-	    </div><!-- /.card -->
-
-
-
-		<div class="card shadow card-body mt-3 pb-5">
-			<nav>
-			  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-			    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-envira"></i>参加</a>
-			    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-hand-holding-heart mr-1"></i>主催</a>
-			    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="far fa-thumbs-up"></i>いいね</a>
-			  </div>
-			</nav>
-
-			<div class="tab-content mt-3" id="nav-tabContent">
-			  <div class="tab-pane active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-				<!-- 参加イベントがない時は文章を表示 -->
-				<% if @user.joined_events.count == 0 %>
-
-					<p>まだ参加したボランティアはありません...。</p>
-
-				<% else %>
-
-					<div id="tab_joins">
-						<%= render 'tab_join', user_joins: @user_joins %>
-					</div>
-
+				<!-- 本人の場合のみ通知へのリンクを表示 -->
+				<% if @user == current_user %>
+					<%= render 'circle' %>
 				<% end %>
 
-			  </div>
+				<hr>
+				<div class="mb-3">
+					<!-- フォロー機能 -->
+						<!-- フォロー、フォロワー数を表示 -->
+						<div id="stats">
+							<%= render 'stats' %>
+						</div>
 
-			  <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-				<!-- 主催イベントがない時は文章を表示 -->
-				<% if @user.events.count == 0 %>
-
-					<p>まだ主催したボランティアはありません...。</p>
-
-				<% else %>
-					<div id="tab_hosts">
-						<%= render 'tab_host', user_hosts: @user_hosts %>
-					</div>
-
-
+						<!-- フォローボタンの表示 -->
+						<%= render 'follow_form', cached: true if user_signed_in? %>
+					<!-- フォロー機能ここまで -->
+				</div>
+				<!-- 本人の場合のみボタンを表示 -->
+				<% if @user == current_user %>
+					<%= link_to "ユーザー情報編集", edit_user_path(current_user.id), class: "btn btn-outline-primary btn-sm mb-2" %><br>
+					<%= link_to new_event_path, class: "btn btn-success btn-sm" do %>
+						<i class="fas fa-hand-holding-heart mr-2"></i>ボランティアを主催する
+					<% end %>
 				<% end %>
 
-			  </div>
-
-			  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-				<!-- いいねしたイベントがない時は文章を表示 -->
-				<% if @user.liked_events.count == 0 %>
-
-					<p>まだいいねしたボランティアはありません...。</p>
-
-				<% else %>
-					<div id="tab_likes">
-						<%= render 'tab_like', user_likes: @user_likes %>
-					</div>
+				</div><!-- /.card-body -->
+			</div><!-- /.card -->
 
 
-				<% end %>
-			  </div>
+
+			<div class="col-md-10 card shadow card-body mt-3 pb-5">
+				<nav>
+				  <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+				    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-envira"></i>参加</a>
+				    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fas fa-hand-holding-heart mr-1"></i>主催</a>
+				    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="far fa-thumbs-up"></i>いいね</a>
+				  </div>
+				</nav>
+
+				<div class="tab-content mt-3" id="nav-tabContent">
+				  <div class="tab-pane active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<!-- 参加イベントがない時は文章を表示 -->
+					<% if @user.joined_events.count == 0 %>
+
+						<p>まだ参加したボランティアはありません...。</p>
+
+					<% else %>
+
+						<div id="tab_joins">
+							<%= render 'tab_join', user_joins: @user_joins %>
+						</div>
+
+					<% end %>
+
+				  </div>
+
+				  <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+					<!-- 主催イベントがない時は文章を表示 -->
+					<% if @user.events.count == 0 %>
+
+						<p>まだ主催したボランティアはありません...。</p>
+
+					<% else %>
+						<div id="tab_hosts">
+							<%= render 'tab_host', user_hosts: @user_hosts %>
+						</div>
+
+
+					<% end %>
+
+				  </div>
+
+				  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+					<!-- いいねしたイベントがない時は文章を表示 -->
+					<% if @user.liked_events.count == 0 %>
+
+						<p>まだいいねしたボランティアはありません...。</p>
+
+					<% else %>
+						<div id="tab_likes">
+							<%= render 'tab_like', user_likes: @user_likes %>
+						</div>
+
+					<% end %>
+				  </div>
+				</div>
 			</div>
 		</div>
-  </div><!-- /.col-md-4 -->
+	</div>
+
 
 	<!-- ユーザーが参加するイベントをカレンダーに表示 -->
-	<div class="col-md-8 text-center mt-2">
+	<div class="col-lg-7 col-md-10 text-center mt-3">
 		<div class="card shadow">
 		  <div class="card-header bg-success text-white">
 		    <%= @user.username %>さんの予定表
