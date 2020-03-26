@@ -58,10 +58,10 @@ class EventsController < ApplicationController
     end
   end
 
-  # イベント確認画面
-  def confirm
+  # イベント確認画面 モーダルの確認画面に変更
+  # def confirm
     # パラメータで確認画面へ
-    @event = Event.new(event_params)
+    # @event = Event.new(event_params)
     # event_paramsを書けば下記を省略できる
     # @event.title = params[:event][:title]
     # @event.content = params[:content]
@@ -69,7 +69,7 @@ class EventsController < ApplicationController
     # @event.time = params[:time]
     # @event.postal_code = params[:postal_code]
     # @event.address = params[:address]
-  end
+  # end
 
   def search_index
     # @events = Event.search(params[:search])
@@ -106,7 +106,7 @@ class EventsController < ApplicationController
 
   def pickup
     # ランダムに取得
-    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RANDOM()').limit(6)
+    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RAND()').limit(6)
 
       if user_signed_in?
         # フォローしているユーザーを取得
