@@ -11,8 +11,7 @@
 		<div class="card-body text-center">
 			<h5><span class="bg-info px-2 py-2 rounded text-white">参加</span></h5>
 
-
-		<%= image_tag asset_path('bokin.jpg', class: "img-fluid shadow rounded img-thumbnail w-75 mt-3", alt: "bokin") %>
+		<img src="<%= asset_path "bokin.jpg" %>" class="img-fluid shadow rounded img-thumbnail w-75 mt-3" alt="bokin">
 
 		</div>
 	</div>
@@ -21,11 +20,7 @@
 		<div class="card-body text-center">
 			<h5><span class="bg-success px-2 py-2 rounded text-white">主催</span></h5>
 
-
-		<%= image_tag asset_path('heart.jpg', class: "img-fluid shadow rounded img-thumbnail mt-3", :style => "width: 60%;", alt: "ハート") %>
-
-
-
+			<img src="<%= asset_path "heart.jpg" %>" class="img-fluid shadow rounded img-thumbnail mt-3" style="width: 60%;" alt="ハート">
 		</div>
 	</div>
 </div>
