@@ -1,56 +1,52 @@
 <!-- 検索結果により表題を変化 -->
 <% if params[:selected] == 'Title' %>
 
-	<h5>"<%= params[:search] %>"がタイトルに含まれる検索結果：<%= events.total_count %>件</h5>
+	<h4>"<%= params[:search] %>"がタイトルに含まれる検索結果：<%= events.total_count %>件</h4>
 
 <% elsif params[:selected] == 'Content' %>
 
-	<h5>"<%= params[:search] %>"が内容に含まれる検索結果：<%= events.total_count %>件</h5>
+	<h4>"<%= params[:search] %>"が内容に含まれる検索結果：<%= events.total_count %>件</h4>
 
 <% elsif params[:tag_name] %>
 	<!-- どのタグなのかを表示 -->
-	<h5><span class="badge badge-info mr-1 p-2"><%= params[:tag_name] %></span>タグが付いている投稿一覧：<%= events.total_count %>件</h5>
+	<h4><span class="badge badge-info mr-1 p-2"><%= params[:tag_name] %></span>タグが付いている投稿一覧：<%= events.total_count %>件</h4>
 
 <% elsif params[:latitude] %>
 
-	<h5>現在地から半径10km以内のボランティアを表示：<%= events.total_count %>件</h5>
+	<h4>現在地から半径10km以内のボランティアを表示：<%= events.total_count %>件</h4>
 
 <% elsif params[:prefecture] %>
-	<h5><%= Event.prefectures.invert.fetch(params[:prefecture].to_i()) %>のボランティア：<%= events.total_count %>件</h5>
+	<h4><%= Event.prefectures.invert.fetch(params[:prefecture].to_i()) %>のボランティア：<%= events.total_count %>件</h4>
 
 <% else %>
 
-	<h5>全件(新着順)：<%= events.total_count %>件</h5>
+	<h4>全件(新着順)：<%= events.total_count %>件</h4>
 
 <% end %>
 
-<table class="table table-bordered">
-	  <thead class="bg-success text-white">
-	    <tr>
-	      <th>タイトル</th>
-	      <th>日時</th>
-	      <th>集合場所</th>
-	      <th>いいね数</th>
-	      <th>参加人数</th>
-	      <th>主催者</th>
-	      <th>タグ</th>
-	    </tr>
-	  </thead>
 
+
+<div class="row mt-4">
 	<% events.each do |event| %>
+		<div class="col-md-6 col-lg-4">
+			<div class="card shadow">
+			  <div class="card-header">
+			    <%= event.title %>
+			  </div>
 
-	  <tbody>
-	    <tr>
-	      <td><%= link_to event.title, event %></td>
-	      <td><%= event.start_time.strftime("%Y-%m-%d %H:%M") %></td>
-	      <td><%= event.prefecture %><%= event.address %></td>
-	      <td><%= event.liked_users.count %></td>
-	      <td><%= event.joined_users.count %></td>
-	      <td><%= link_to event.user.username, user_path(event.user.id) %></td>
-	      <td><%= render 'events/tag_list', tag_list: event.tag_list %></td>
-	    </tr>
-	  </tbody>
-
+			  <div class="card-body tab">
+				  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+				  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
+				  <li>いいね数：<%= event.liked_users.count %></li>
+				  <li>参加人数：<%= event.joined_users.count %></li>
+				  <li>主催者：<%= event.user.username %></li>
+				  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
+			  </div>
+			</div>
+			<div class="text-right mt-1 mb-3">
+				<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+			</div>
+		</div>
 	<% end %>
-</table>
+</div>
 <%= paginate events, remote: true %>
