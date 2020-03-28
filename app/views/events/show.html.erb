@@ -5,10 +5,10 @@
 <% end %>
 
 <div class="row">
-	<div class="col-4">
+	<div class="col-md-12 col-lg-4 text-center">
 		<%= image_tag @event.image_url, width: 350, class: "img-thumbnail rounded shadow" %>
 	</div>
-	<div class="col-8">
+	<div class="col-md-12 col-lg-8">
 		<table class="table table-bordered">
 			<tr><th>内容</th><td><%= @event.content %></td></tr>
 			<tr><th>日時</th><td><%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></td></tr>
@@ -31,8 +31,8 @@
 <hr>
 
 <div class="row justify-content-center">
-	<div class="col-4"><!-- 参加機能 -->
-		<div class="card shadow rounded-pill text-center">
+	<div class="col-sm-12 col-md-4 mb-3"><!-- 参加機能 -->
+		<div class="card shadow rounded text-center">
 		    <!-- 日付が過ぎていれば参加ボタンを表示しない -->
 	    	<% if @event.start_time < DateTime.now %>
 
@@ -77,8 +77,8 @@
 		</div>
 	</div><!-- 参加機能ここまで -->
 
-	<div class="col-4"><!-- いいね機能 -->
-		<div class="card shadow rounded-pill text-center">
+	<div class="col-sm-12 col-md-4"><!-- いいね機能 -->
+		<div class="card shadow rounded text-center">
 			<!-- 主催者の場合はいいねボタンを表示しない -->
 			<!-- ログインしていなければボタンを表示しない -->
 			<% if current_user == @event.user %>
@@ -154,7 +154,7 @@
 <style>
 #map{
   height: 400px;
-  width: 700px;
+  width: 80%;
   margin: 0 auto;
 }
 </style>

@@ -1,13 +1,13 @@
 <div class="row">
 	<% event.each.with_index(1) do |event, index| %>
-		<div class="col-4">
+		<div class="col-md-6 col-lg-4">
 			<p class="badge badge-danger text-center"><%= index %>位</p>
 			<div class="card shadow">
 			  <div class="card-header text-white">
 			    <%= event.title %>
 			  </div>
 
-			  <div class="card-body">
+			  <div class="card-body tab">
 				  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
 				  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
 				  <li>いいね数：<%= event.liked_users.count %></li>

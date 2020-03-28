@@ -1,8 +1,11 @@
 <%= month_calendar events: @user.joined_events do |date, events| %>
   <div class="text-left"><%= date.day %></div>
   <% events.each do |event| %>
-    <div>
-      <p class="small"><%= link_to event.title, event %><br><%= event.start_time.strftime("%H:%M") %>から</p>
-    </div>
+      <a tabindex="0" class="btn btn-sm btn-outline-danger mb-1" role="button" data-toggle="popover" data-trigger="focus" title='<%= event.title %>' data-content='<%= event.start_time.strftime("%H:%M") %>から  <%= event.prefecture %><%= event.address %>'><i class="far fa-star"></i></a>
   <% end %>
 <% end %>
+
+
+<script>
+  $("[data-toggle=popover]").popover()
+</script>

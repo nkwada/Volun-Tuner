@@ -1,13 +1,13 @@
 <div class="row">
 	<% users.each.with_index(1) do |user, index| %>
-		<div class="col-4">
+		<div class="col-md-6 col-lg-4">
 			<p class="badge badge-danger text-center"><%= index %>位</p>
 			<div class="card shadow">
 			  <div class="card-header text-white">
 			    <%= user.username %>
 			  </div>
 
-			  <div class="card-body">
+			  <div class="card-body tab">
 				  <li>参加数：<%= user.joined_events.count %>件</li>
 				  <li>主催数：<%= user.events.count %>件</li>
 			  </div>

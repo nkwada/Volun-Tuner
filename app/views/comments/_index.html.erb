@@ -1,7 +1,7 @@
 <p><%= comments.count %>件のコメント</p>
 	<% comments.each do |comment| %>
 		<div class="row">
-    		<div class="col-3">
+    		<div class="offset-1 col-3">
     			<a href="/users/<%= @event.user.id %>"><%= comment.user.username %></a>
     		</div>
     		<div class="col-4">

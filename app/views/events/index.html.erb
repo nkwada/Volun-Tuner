@@ -40,7 +40,7 @@
 				<!-- 検索フォームの表示 -->
 				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
 					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
-				 	<%= f.search_field :search, :size=>"40", class: "border shadow-sm" %>
+				 	<%= f.search_field :search, :size=>"40", class: "search_box border shadow-sm" %>
 				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm shadow-sm" %>
 				<% end %>
 				<!-- ここまで -->
