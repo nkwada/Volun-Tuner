@@ -76,37 +76,37 @@ class EventsController < ApplicationController
     if params[:selected] == 'Title'
       # セレクトボックスがタイトルの時
       search = params[:search]
-      @events = Event.page(params[:page]).where(['title LIKE ?', "%#{search}%"]).reverse_order.per(5)
+      @events = Event.page(params[:page]).where(['title LIKE ?', "%#{search}%"]).reverse_order.per(6)
     elsif params[:selected] == 'Content'
       # セレクトボックスが内容の時
       search = params[:search]
-      @events = Event.page(params[:page]).where(['content LIKE ?', "%#{search}%"]).reverse_order.per(5)
+      @events = Event.page(params[:page]).where(['content LIKE ?', "%#{search}%"]).reverse_order.per(6)
     elsif params[:tag_name]
       # タグをクリックした時に同じタグ名のイベントを表示
       # 現在の日時を過ぎたイベントは表示しない
       # 日時が近い順に表示
-      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).tagged_with(params[:tag_name].to_s).per(5)
+      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).tagged_with(params[:tag_name].to_s).per(6)
     elsif params[:latitude]
       latitude = params[:latitude].to_f
       longitude = params[:longitude].to_f
       # 10kmは約6.21371マイル　半径10km以内のイベントを表示
       # 現在の日時を過ぎたイベントは表示しない
       # 日時が近い順に表示
-      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).within_box(6.21371, latitude, longitude).per(5)
+      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).within_box(6.21371, latitude, longitude).per(6)
     elsif params[:prefecture]
       # 現在の日時を過ぎたイベントは表示しない
       # 日時が近い順に表示
-      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).where(prefecture: params[:prefecture]).per(5)
+      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).where(prefecture: params[:prefecture]).per(6)
     else
       # 新着順に全件表示
       # 現在の日時を過ぎたイベントは表示しない
-      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).reverse_order.per(5)
+      @events = Event.where('events.start_time > ?', DateTime.now).page(params[:page]).reverse_order.per(6)
     end
   end
 
   def pickup
     # ランダムに取得
-    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RAND()').limit(6)
+    @event_randoms = Event.where('events.start_time > ?', DateTime.now).order('RANDOM()').limit(6)
 
       if user_signed_in?
         # フォローしているユーザーを取得

@@ -12,12 +12,17 @@ RSpec.feature "Events", type: :feature do
 
   	expect {
   		click_link "ボランティアを主催する"
-  		fill_in "タイトル", with: "Test Volunteer"
-  		fill_in "内容", with: "Trying out Capybara"
-  		select "東京都", from: "都道府県"
-  		fill_in "住所", with: "渋谷区道玄坂"
-  		fill_in "カテゴリータグ", with: "テストカテゴリー"
-  		click_button "投稿"
+  		fill_in "title", with: "Test Volunteer"
+  		fill_in "content", with: "ボランティアをします"
+  		select "東京都", from: "prefecture"
+  		fill_in "address", with: "渋谷区道玄坂"
+  		fill_in "tag_list", with: "テストカテゴリー"
+  		within "#host-button" do
+        click_button "主催する"
+      end
+      within ".modal-footer" do
+        click_button "主催する"
+      end
 
   	expect(page).to have_content "新しいボランティアを主催しました"
   	expect(page).to have_content "Test Volunteer"

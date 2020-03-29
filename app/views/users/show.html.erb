@@ -1,6 +1,7 @@
 <!-- スライドメニュー部分-->
 <nav id="slide_menu">
 	<div style="padding-top: 70px;">
+		<div class="text-right mr-3"><i id="close-button" class="far fa-times-circle fa-lg text-secondary"></i></div>
 		<!-- 自分の投稿に対するいいね、コメントは通知に表示しない -->
 		<% notifications = @notifications.where.not(visitor_id: current_user.id) %>
 		<% if notifications.exists? %>
@@ -9,11 +10,11 @@
 			</div>
 		<% else %>
 		<div class="text-center">
-			<span class="px-3 bg-warning">通知はありません</span>
+			<span class="px-3 text-white bg-success">通知はありません</span>
 		</div>
 		<% end %>
 	</div>
-</nav>
+</nav><!-- スライドメニューここまで-->
 
 <div class="row justify-content-center">
 	<div class="col-lg-5">
@@ -136,7 +137,7 @@
 <script>
 $(function(){
 var menu = $('#slide_menu'), // スライドインするメニューを指定
-    menuBtn = $('#button'), // メニューボタンを指定
+    menuBtn = $('#button, #close-button'), // メニューボタンを指定
     body = $(document.body),
     menuWidth = menu.outerWidth();
 
