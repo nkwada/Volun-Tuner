@@ -65,7 +65,7 @@
 - devise (認証機能)
 - dotenv-rails (環境変数管理)
 - I18n (日本語化)
-- GoogleMapAPI (地図表示)
+- GoogleMapsAPI (地図表示)
 - Geolocation API (現在地取得機能)
 - Geocoder (現在地取得機能)
 - simple calendar (スケジュール機能)
@@ -83,4 +83,7 @@ $ cd Volun-Tuner
 $ bundle install
 $ rails db:migrate
 $ rails db:seed
+
+テストユーザー： mail "test1@test", password "aaaaaa"
+管理者： mail "test@admin", password "testadmin"
 ```
