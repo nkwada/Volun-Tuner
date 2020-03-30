@@ -24,6 +24,7 @@ class User < ApplicationRecord
   # 追加したカラムの新規登録のバリデーション
   validates :username,
             presence: { message: 'が入力されていません。' },
+            uniqueness: { message: 'はすでに存在しています。' },
             length: { maximum: 15, minimum: 2, message: 'は2文字以上15文字以内です。' }
 
   validates :lastname,

@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col-md-12 col-lg-4 text-center">
-		<%= image_tag @event.image_url, width: 350, class: "img-thumbnail rounded shadow" %>
+		<%= image_tag asset_path(@event.image_url), width: 350, class: "img-thumbnail rounded shadow" %>
 	</div>
 	<div class="col-md-12 col-lg-8">
 		<table class="table table-bordered">

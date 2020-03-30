@@ -10,28 +10,43 @@
 
 Admin.create(email: 'test@admin', password: 'testadmin')
 
-15.times do |n|
+50.times do |n|
+  gimei = Gimei.name
   User.create!(
     email: "test#{n + 1}@test",
-    username: "テスト太郎#{n + 1}",
-    lastname: 'テスト',
-    firstname: '太郎',
-    kana_lastname: 'テスト',
-    kana_firstname: 'タロウ',
+    username: gimei.first.hiragana + "#{n + 1}",
+    lastname: gimei.last.kanji,
+    firstname: gimei.first.kanji,
+    kana_lastname: gimei.last.katakana,
+    kana_firstname: gimei.first.katakana,
     password: 'aaaaaa'
   )
 end
 
-User.all.each do |user|
-  user.events.create!(
-    title: "テストイベント#{user.id}",
-    content: 'テストイベントです',
-    start_time: DateTime.strptime('03/30/2020 10:30', '%m/%d/%Y %H:%M'),
-    prefecture: 13,
-    address: '渋谷区道玄坂',
-    user_id: user.id,
-    latitude: 35.6581518,
-    longitude: 139.6981574,
+200.times do |event|
+  address = Gimei.address
+  Event.create!(
+    title: "#{address.prefecture.to_s}でボランティアをしましょう",
+    content: 'seedファイルで作られた、ボランティアです。みんなでボランティアをして社会貢献しよう。',
+    start_time: DateTime.strptime("04/#{rand(01..30)}/2020 #{rand(00..23)}:30", '%m/%d/%Y %H:%M'),
+    prefecture: address.prefecture.to_s,
+    address: address.city.to_s + address.town.to_s,
+    user_id: rand(1..50),
     tag_list: 'ゴミ拾い'
   )
 end
+
+400.times do |join|
+  JoinUser.create(
+    event_id: rand(1..100),
+    user_id: rand(1..50)
+  )
+end
+
+400.times do |like|
+  Like.create(
+    event_id: rand(1..100),
+    user_id: rand(1..50)
+  )
+end
+

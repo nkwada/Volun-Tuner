@@ -114,6 +114,8 @@ GEM
     geokit-rails (2.3.1)
       geokit (~> 1.5)
       rails (>= 3.0)
+    gimei (0.5.0)
+      romaji
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.2)
@@ -211,6 +213,8 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
+    romaji (0.2.4)
+      rake (>= 0.8.0)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
     rspec-expectations (3.9.1)
@@ -326,6 +330,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.4.1)
   geocoder
   geokit-rails
+  gimei
   jbuilder (~> 2.5)
   jquery-rails
   kaminari (~> 1.1.1)
