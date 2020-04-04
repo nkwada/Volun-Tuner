@@ -1,6 +1,13 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.12.1"
 
+set :application, "Volun-Tuner" # my_app_name → アプリ名
+set :repo_url, "git@github.com:nkwada/Volun-Tuner.git" # git@example.com:me/my_repo.git → GitHubに登録しているアプリのアドレス
+
+set :deploy_to, "/home/ec2-user/Volun-Tuner"
+set :rbenv_ruby, '2.5.7'
+set :linked_files, %w{config/master.key .env}
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
