@@ -22,6 +22,9 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:event_id])
     @event = @comment.event
     @comments = @event.comments
+    if @comment.user != current_user
+      redirect_to request.referer
+    end
     @comment.destroy
     # redirect_back(fallback_location: root_path) 非同期実装のためコメントアウト
   end
