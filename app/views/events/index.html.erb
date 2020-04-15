@@ -20,13 +20,6 @@
 
 			　		<button id="button" onclick="getPosition();" class="btn btn-outline-danger shadow-sm mx-auto">現在地から探す</button>
 
-					<!-- ボタンを押すとスピナーを表示 -->
-					<div id="overlay">
-					    <div class="cv-spinner">
-					        <span class="spinner"></span>
-					    </div>
-					</div>
-
 			  </div>
 		</div>
 	</div><!-- 現在地検索ここまで -->
@@ -187,27 +180,4 @@ $(function(){
         }
       );
     }
-</script>
-
-
-<!-- 現在地検索のスピナー -->
-<script>
-jQuery(function($){
-    $(document).ajaxSend(function() {
-        $("#overlay").fadeIn(700);
-    });
-
-    $('#button').click(function(){
-        $.ajax({
-            type: 'GET',
-            success: function(data){
-                console.log(data);
-            }
-        }).done(function() {
-            setTimeout(function(){
-                $("#overlay").fadeOut(700);
-            },700);
-        });
-    });
-});
 </script>
