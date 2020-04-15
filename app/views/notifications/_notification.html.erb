@@ -2,44 +2,44 @@
 <% visited = notification.visited %>
 
 <div class="col-11 mx-auto">
-  <div class="form_inline">
-    <span>
-      <%= link_to user_path(visitor) do %>
-        <%= visitor.username %>
-      <% end %>
-      さんが
-    </span><br>
+	<div class="form_inline">
+		<span>
+			<%= link_to user_path(visitor) do %>
+			<%= visitor.username %>
+			<% end %>
+			さんが
+		</span><br>
 
-    <% case notification.action %>
-      <% when 'follow' then %>
-        あなたをフォローしました
-      <% when 'like' then %>
-        <%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;"  %>にいいねしました
-      <% when 'join' then %>
-        <%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;"  %>に参加しました
-      <% when 'comment' then %>
-        <% if notification.event.user_id == visited.id %>
-          <%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;" %>
-        <% else %>
-          <span>
-            <%= link_to event_path(notification.event) do %>
-              <%= notification.event.user.username %>さんの投稿
-            <% end %>
-          </span>
-        <% end %>
-        にコメントしました
+		<% case notification.action %>
+		<% when 'follow' then %>
+			あなたをフォローしました
+		<% when 'like' then %>
+			<%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;"  %>にいいねしました
+		<% when 'join' then %>
+			<%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;"  %>に参加しました
+		<% when 'comment' then %>
+			<% if notification.event.user_id == visited.id %>
+				<%= link_to "あなたのボランティア", notification.event, style: "font-weight: bold;" %>
+			<% else %>
+				<span>
+					<%= link_to event_path(notification.event) do %>
+					<%= notification.event.user.username %>さんの投稿
+					<% end %>
+				</span>
+			<% end %>
+			にコメントしました
 
-        <p class="text-muted mb-0">
-          <%= Comment.find_by(id: notification.comment_id)&.content %>
-        </p>
-    <% end %>
+			<p class="text-muted mb-0">
+				<%= Comment.find_by(id: notification.comment_id)&.content %>
+			</p>
+		<% end %>
 
-        <div class="small text-muted text-right">
-          <%= time_ago_in_words(notification.created_at) %>前
-        </div>
-<hr>
+		<div class="small text-muted text-right">
+			<%= time_ago_in_words(notification.created_at) %>前
+		</div>
+		<hr>
 
-  </div>
+	</div>
 </div>
 
 

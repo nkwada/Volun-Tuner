@@ -1,68 +1,68 @@
 <div class="row">
 	<div class="col-xs-12 col-lg-4 mb-3"><!-- 全件表示ここから -->
 		<div class="card shadow text-center">
-		  <div class="card-header">
-		    新着順に全件表示
-		  </div>
-		  <div class="card-body">
-		  	<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-outline-primary shadow-sm rounded-pill" %>
-		  </div>
+			<div class="card-header">
+				新着順に全件表示
+			</div>
+			<div class="card-body">
+				<%= link_to "ボランティアを見る", events_search_path, class: "btn btn-outline-primary shadow-sm rounded-pill" %>
+			</div>
 		</div>
 	</div><!-- 全件表示ここまで -->
 
 	<div class="col-xs-12 col-lg-4 d-lg-none mb-3"><!-- 現在地検索ここから -->
 		<div class="card shadow text-center">
-			  <div class="card-header">
-			    現在地から近い順に表示
-			  </div>
+			　<div class="card-header">
+				現在地から近い順に表示
+			</div>
 
-			  <div class="card-body row">
+			<div class="card-body row">
 
-			　		<button id="button" onclick="getPosition();" class="btn btn-outline-danger shadow-sm mx-auto">現在地から探す</button>
+				　		<button id="button" onclick="getPosition();" class="btn btn-outline-danger shadow-sm mx-auto">現在地から探す</button>
 
-			  </div>
+			</div>
 		</div>
 	</div><!-- 現在地検索ここまで -->
 
 	<div class="col-xs-12 col-lg-8 mb-3"><!-- フリーワード検索ここから -->
 		<div class="card shadow text-center">
 			<div class="card-header">
-			フリーワード検索
+				フリーワード検索
 			</div>
 			<div class="card-body">
 				<!-- 検索フォームの表示 -->
 				<%= form_with url:events_search_path, :method => 'get', local: true do |f| %>
-					<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
-				 	<%= f.search_field :search, :size=>"40", class: "search_box border shadow-sm" %>
-				  	<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm shadow-sm" %>
+				<%= f.select :selected, [['タイトル','Title'],['内容','Content']] %>
+				<%= f.search_field :search, :size=>"40", class: "search_box border shadow-sm" %>
+				<%= f.submit '検索する', name: nil, class: "btn btn-dark btn-sm shadow-sm" %>
 				<% end %>
 				<!-- ここまで -->
 			</div>
 		</div>
 	</div><!-- フリーワード検索ここまで -->
 
-<hr>
+	<hr>
 
 
 
 	<div class="col-xs-12 col-lg-12 mb-3"><!-- タグ検索ここから -->
 		<div class="card shadow text-center">
-		  <div class="card-header">
-		    タグで検索
-		  </div>
-		  <div class="card-body">
-		  	<div class="row justify-content-center mb-2">
-		  		<div class="col-10">
-		  			<%= render 'tag_search' %>
+			<div class="card-header">
+				タグで検索
+			</div>
+			<div class="card-body">
+				<div class="row justify-content-center mb-2">
+					<div class="col-10">
+						<%= render 'tag_search' %>
+					</div>
 				</div>
-		  	</div>
 
-		  </div>
+			</div>
 		</div>
 	</div><!-- タグ検索ここまで -->
 
 
-<hr>
+	<hr>
 
 
 	<div class="col-xs-12 col-lg-6 mb-3"><!-- カレンダーここから -->
@@ -105,25 +105,25 @@
 
 <!-- エリア選択の記述 -->
 <script>
-$(function(){
+	$(function(){
     //地域を選択
     $('.area_btn').click(function(){
-        $('.area_overlay').show();
-        $('.pref_area').show();
-        var area = $(this).data('area');
-        $('[data-list]').hide();
-        $('[data-list="' + area + '"]').show();
+    	$('.area_overlay').show();
+    	$('.pref_area').show();
+    	var area = $(this).data('area');
+    	$('[data-list]').hide();
+    	$('[data-list="' + area + '"]').show();
     });
 
     //レイヤーをタップ
     $('.area_overlay').click(function(){
-        prefReset();
+    	prefReset();
     });
 
     //都道府県をクリック
     $('.pref_list [data-id]').click(function(){
-        if($(this).data('id')){
-            var id = $(this).data('id');
+    	if($(this).data('id')){
+    		var id = $(this).data('id');
             //このidを使用して行いたい操作をしてください
             //都道府県IDに応じて別ページに飛ばしたい場合はこんな風に書く↓
             //window.location.href = 'https://kinocolog.com/pref/' + id;
@@ -134,9 +134,9 @@ $(function(){
 
     //表示リセット
     function prefReset(){
-        $('[data-list]').hide();
-        $('.pref_area').hide();
-        $('.area_overlay').hide();
+    	$('[data-list]').hide();
+    	$('.pref_area').hide();
+    	$('.area_overlay').hide();
     }
 });
 </script>
@@ -152,7 +152,7 @@ $(function(){
       navigator.geolocation.getCurrentPosition(
         // 取得成功した場合
         function(position) {
-            window.location.href = "/events/search?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
+        	window.location.href = "/events/search?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
             // $.ajax({
             //   url: "/events/search_location",
             //   type: "GET",
@@ -163,21 +163,21 @@ $(function(){
         },
         // 取得失敗した場合
         function(error) {
-          switch(error.code) {
+        	switch(error.code) {
             case 1: //PERMISSION_DENIED
-              alert("位置情報の利用が許可されていません");
-              break;
+            alert("位置情報の利用が許可されていません");
+            break;
             case 2: //POSITION_UNAVAILABLE
-              alert("現在位置が取得できませんでした");
-              break;
+            alert("現在位置が取得できませんでした");
+            break;
             case 3: //TIMEOUT
-              alert("タイムアウトになりました");
-              break;
+            alert("タイムアウトになりました");
+            break;
             default:
-              alert("その他のエラー(エラーコード:"+error.code+")");
-              break;
-          }
+            alert("その他のエラー(エラーコード:"+error.code+")");
+            break;
         }
-      );
     }
+    );
+  }
 </script>
