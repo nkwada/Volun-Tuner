@@ -4,33 +4,33 @@
 
 		<table class="table table-bordered">
 
-		  <tr>
-		    <th>ID</th><td><%= @user.id %></td>
-		  </tr>
+			<tr>
+				<th>ID</th><td><%= @user.id %></td>
+			</tr>
 
-		  <tr>
-		    <th>ユーザーネーム</th><td><%= @user.username %></td>
-		  </tr>
+			<tr>
+				<th>ユーザーネーム</th><td><%= @user.username %></td>
+			</tr>
 
-		  <tr>
-		    <th>姓</th><td><%= @user.lastname %></td>
-		  </tr>
+			<tr>
+				<th>姓</th><td><%= @user.lastname %></td>
+			</tr>
 
-		  <tr>
-		    <th>名</th><td><%= @user.firstname %></td>
-		  </tr>
+			<tr>
+				<th>名</th><td><%= @user.firstname %></td>
+			</tr>
 
-		  <tr>
-		    <th>姓(カナ)</th><td><%= @user.kana_lastname %></td>
-		  </tr>
+			<tr>
+				<th>姓(カナ)</th><td><%= @user.kana_lastname %></td>
+			</tr>
 
-		  <tr>
-		    <th>名(カナ)</th><td><%= @user.kana_firstname %></td>
-		  </tr>
+			<tr>
+				<th>名(カナ)</th><td><%= @user.kana_firstname %></td>
+			</tr>
 
-		  <tr>
-		    <th>メールアドレス</th><td><%= @user.email %></td>
-		  </tr>
+			<tr>
+				<th>メールアドレス</th><td><%= @user.email %></td>
+			</tr>
 
 		</table>
 
@@ -46,12 +46,12 @@
 
 		<% @user.events.each.with_index(1) do |event, index| %>
 
-			<table class="table table-bordered">
+		<table class="table table-bordered">
 			<tr>
-			  <th><%= index %></th><td><%= event.title %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td>
+				<th><%= index %></th><td><%= event.title %></td><td><%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %>から</td>
 
 			</tr>
-			</table>
+		</table>
 
 		<% end %>
 	</div>

@@ -1,25 +1,25 @@
  <h3>イベント確認画面</h3>
 
-<p>タイトル：<%= @event.title %></p>
-<p>内容：<%= @event.content %></p>
-<p>日時：<%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></p>
-<p>郵便番号：<%= @event.postal_code %></p>
-<p>住所：<%= @event.address %></p>
-<p>タグ：<%= render 'events/tag_list', tag_list: @event.tag_list %></p>
-<p>画像：<%= image_tag(@event.image_url, width: 100) if @event.image? %></p>
+ <p>タイトル：<%= @event.title %></p>
+ <p>内容：<%= @event.content %></p>
+ <p>日時：<%= @event.start_time.strftime("%Y-%m-%d %H:%M") %></p>
+ <p>郵便番号：<%= @event.postal_code %></p>
+ <p>住所：<%= @event.address %></p>
+ <p>タグ：<%= render 'events/tag_list', tag_list: @event.tag_list %></p>
+ <p>画像：<%= image_tag(@event.image_url, width: 100) if @event.image? %></p>
 
 
-<%= form_for(@event, url: events_path, method: :post) do |f| %>
+ <%= form_for(@event, url: events_path, method: :post) do |f| %>
 
-	<%= f.hidden_field :title, :value => @event.title %>
-	<%= f.hidden_field :content, :value => @event.content %>
-	<%= f.hidden_field :start_time, :value => @event.start_time %>
-	<%= f.hidden_field :postal_code, :value => @event.postal_code %>
-	<%= f.hidden_field :address, :value => @event.address %>
-	<%= f.hidden_field :image, :value => @event.image %>
-	<%= f.hidden_field :tag_list, :value => @event.tag_list.join(',') %>
-	<%= f.hidden_field :latitude, :value => @event.latitude %>
-	<%= f.hidden_field :longitude, :value => @event.longitude %>
+	 <%= f.hidden_field :title, :value => @event.title %>
+	 <%= f.hidden_field :content, :value => @event.content %>
+	 <%= f.hidden_field :start_time, :value => @event.start_time %>
+	 <%= f.hidden_field :postal_code, :value => @event.postal_code %>
+	 <%= f.hidden_field :address, :value => @event.address %>
+	 <%= f.hidden_field :image, :value => @event.image %>
+	 <%= f.hidden_field :tag_list, :value => @event.tag_list.join(',') %>
+	 <%= f.hidden_field :latitude, :value => @event.latitude %>
+	 <%= f.hidden_field :longitude, :value => @event.longitude %>
 
-	<%= f.submit 'ボランティアを主催する' %>
-<% end %>
+	 <%= f.submit 'ボランティアを主催する' %>
+ <% end %>

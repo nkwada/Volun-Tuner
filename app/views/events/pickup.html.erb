@@ -7,80 +7,80 @@
 
 		<!-- ピル部分 -->
 		<ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-		  <li class="nav-item">
-		    <a class="nav-link active" id="pills-random-tab" data-toggle="pill" href="#pills-random" role="tab" aria-controls="pills-random" aria-selected="true"><i class="fas fa-random mr-1"></i>ランダム</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab" aria-controls="pills-timeline" aria-selected="false"><i class="fas fa-user-friends mr-1"></i>タイムライン</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="pills-likes-tab" data-toggle="pill" href="#pills-likes" role="tab" aria-controls="pills-likes" aria-selected="false"><i class="far fa-thumbs-up"></i>いいね数<br>ランキング</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="pills-joins-tab" data-toggle="pill" href="#pills-joins" role="tab" aria-controls="pills-joins" aria-selected="false"><i class="fas fa-users mr-1"></i>参加人数<br>ランキング</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="pills-joinuser-tab" data-toggle="pill" href="#pills-joinuser" role="tab" aria-controls="pills-joinuser" aria-selected="false"><i class="fab fa-envira mr-1"></i>参加数<br>ランキング</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" id="pills-hostuser-tab" data-toggle="pill" href="#pills-hostuser" role="tab" aria-controls="pills-hostuser" aria-selected="false"><i class="fas fa-hand-holding-heart mr-1"></i>主催数<br>ランキング</a>
-		  </li>
+			<li class="nav-item">
+				<a class="nav-link active" id="pills-random-tab" data-toggle="pill" href="#pills-random" role="tab" aria-controls="pills-random" aria-selected="true"><i class="fas fa-random mr-1"></i>ランダム</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab" aria-controls="pills-timeline" aria-selected="false"><i class="fas fa-user-friends mr-1"></i>タイムライン</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-likes-tab" data-toggle="pill" href="#pills-likes" role="tab" aria-controls="pills-likes" aria-selected="false"><i class="far fa-thumbs-up"></i>いいね数<br>ランキング</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-joins-tab" data-toggle="pill" href="#pills-joins" role="tab" aria-controls="pills-joins" aria-selected="false"><i class="fas fa-users mr-1"></i>参加人数<br>ランキング</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-joinuser-tab" data-toggle="pill" href="#pills-joinuser" role="tab" aria-controls="pills-joinuser" aria-selected="false"><i class="fab fa-envira mr-1"></i>参加数<br>ランキング</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-hostuser-tab" data-toggle="pill" href="#pills-hostuser" role="tab" aria-controls="pills-hostuser" aria-selected="false"><i class="fas fa-hand-holding-heart mr-1"></i>主催数<br>ランキング</a>
+			</li>
 		</ul>
 
 		<!-- パネル部分 -->
 		<div class="tab-content" id="pills-tabContent">
-		  <div class="tab-pane fade show active" id="pills-random" role="tabpanel" aria-labelledby="pills-random-tab">
+			<div class="tab-pane fade show active" id="pills-random" role="tabpanel" aria-labelledby="pills-random-tab">
 
-			<p class="text-center">ランダムに表示します。</p>
+				<p class="text-center">ランダムに表示します。</p>
 
-			<%= render 'tab_menu', event: @event_randoms %>
+				<%= render 'tab_menu', event: @event_randoms %>
 
-		  </div>
+			</div>
 
-		  <div class="tab-pane fade" id="pills-timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
+			<div class="tab-pane fade" id="pills-timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
 
-	  		<p class="text-center">フォローしているユーザーが主催したボランティアを新着順に表示します。</p>
-			<% if user_signed_in? && @follow_events.present? %>
+				<p class="text-center">フォローしているユーザーが主催したボランティアを新着順に表示します。</p>
+				<% if user_signed_in? && @follow_events.present? %>
 
 				<%= render 'tab_menu', event: @follow_events %>
 
 
 
-			<% elsif user_signed_in? && @follow_events.count == 0 %>
+				<% elsif user_signed_in? && @follow_events.count == 0 %>
 
 				<p>まだフォローユーザーのイベントはありません。</p>
 
-			<% else %>
+				<% else %>
 
 				<p>ログインして誰かをフォローしてみよう!</p>
 
-			<% end %>
+				<% end %>
 
-		  </div>
+			</div>
 
-		  <div class="tab-pane fade" id="pills-likes" role="tabpanel" aria-labelledby="pills-likes-tab">
+			<div class="tab-pane fade" id="pills-likes" role="tabpanel" aria-labelledby="pills-likes-tab">
 
-			<%= render 'tab_menu_index', event: @event_like_ranking %>
+				<%= render 'tab_menu_index', event: @event_like_ranking %>
 
-		  </div>
+			</div>
 
-		  <div class="tab-pane fade" id="pills-joins" role="tabpanel" aria-labelledby="pills-joins-tab">
+			<div class="tab-pane fade" id="pills-joins" role="tabpanel" aria-labelledby="pills-joins-tab">
 
-		  	<%= render 'tab_menu_index', event: @event_join_ranking %>
+				<%= render 'tab_menu_index', event: @event_join_ranking %>
 
-		  </div>
+			</div>
 
-		  <div class="tab-pane fade" id="pills-joinuser" role="tabpanel" aria-labelledby="pills-joinuser-tab">
+			<div class="tab-pane fade" id="pills-joinuser" role="tabpanel" aria-labelledby="pills-joinuser-tab">
 
-		  	<%= render 'user_ranking', users: @user_join_ranking %>
+				<%= render 'user_ranking', users: @user_join_ranking %>
 
-		  </div>
+			</div>
 
-		  <div class="tab-pane fade" id="pills-hostuser" role="tabpanel" aria-labelledby="pills-hostuser-tab">
+			<div class="tab-pane fade" id="pills-hostuser" role="tabpanel" aria-labelledby="pills-hostuser-tab">
 
-		  	<%= render 'user_ranking', users: @user_event_ranking %>
+				<%= render 'user_ranking', users: @user_event_ranking %>
 
-		  </div>
+			</div>
 		</div>
 	</div>
 </div>

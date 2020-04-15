@@ -1,81 +1,76 @@
 <%= render 'error_messages', event: @event %>
 
 <div class="align mt-4">
-  <div class="grid">
+	<div class="grid">
 
-    <div id="login">
+		<div id="login">
 
-      <h4><span class="fas fa-edit"></span>主催する</h4>
+			<h4><span class="fas fa-edit"></span>主催する</h4>
 
-        <%= form_for @event, url: events_path, method: :post, local: true do |f| %>
+			<%= form_for @event, url: events_path, method: :post, local: true do |f| %>
 
-        <fieldset>
+			<fieldset>
 
+				<p><%= f.label :title, "タイトル" %></p>
+				<p><%= f.text_field :title, id: "title" %></p><hr>
 
-          <p><%= f.label :title, "タイトル" %></p>
-          <p><%= f.text_field :title, id: "title" %></p><hr>
+				<p><%= f.label :content, "内容" %></p>
+				<p><%= f.text_field :content, id: "content" %></p><hr>
 
-          <p><%= f.label :content, "内容" %></p>
-          <p><%= f.text_field :content, id: "content" %></p><hr>
+				<p><%= f.label :start_time, "日時" %></p>
+				<p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5, id: "start_time" %></p><hr>
 
-          <p><%= f.label :start_time, "日時" %></p>
-          <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5, id: "start_time" %></p><hr>
+				<p><%= f.label :prefecture, "集合場所" %></p>
+				<p><%= f.label :prefecture, "都道府県" %></p>
+				<p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3", id: "prefecture" %>
+				<p><%= f.label :address, "住所" %></p>
+				<P><%= f.text_field :address, id: "address" %></p>
+					<p class="text-info">番地まで正確にご記入ください</p><hr>
 
-          <p><%= f.label :prefecture, "集合場所" %></p>
-          <p><%= f.label :prefecture, "都道府県" %></p>
-          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3", id: "prefecture" %>
-          <p><%= f.label :address, "住所" %></p>
-          <P><%= f.text_field :address, id: "address" %></p>
-          <p class="text-info">番地まで正確にご記入ください</p><hr>
+				<p><%= f.label :tag_list, "カテゴリータグ" %></p>
+				<%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"}, id: "tag_list" %><hr>
 
-            <p><%= f.label :tag_list, "カテゴリータグ" %></p>
-           <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"}, id: "tag_list" %><hr>
+				<p><%= f.label :image, "画像" %></p>
+				<p><%= f.file_field :image, id: :event_image %></p>
+					<!-- 画像プレビューを表示 -->
+					<%= image_tag @event.image.url, width: 100, id: :image_prev %><hr>
 
-          <p><%= f.label :image, "画像" %></p>
-          <p><%= f.file_field :image, id: :event_image %></p>
-          <!-- 画像プレビューを表示 -->
-          <%= image_tag @event.image.url, width: 100, id: :image_prev %><hr>
+				<!-- 切り替えボタンの設定 -->
+				<p id="host-button"><button type="button" id="button" data-toggle="modal" data-target="#Modal">主催する</button></p>
 
-          <!-- 切り替えボタンの設定 -->
-          <p id="host-button"><button type="button" id="button" data-toggle="modal" data-target="#Modal">主催する</button></p>
+				<!-- モーダルの設定 -->
+				<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">ボランティア主催確認</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p class="mb-4">こちらの内容でお間違いありませんか？</p>
+								<p>タイトル：<span id="title-confirm"></span><span id="error-title" class="text-danger"></span></p>
+								<p>内容：<span id="content-confirm"></span><span id="error-content" class="text-danger"></span></p>
+								<p>日時：<span id="start_time1-confirm"></span><span id="start_time2-confirm"></span><span id="start_time3-confirm"></span><span id="start_time4-confirm"></span><span id="start_time5-confirm"></span></p>
+								<p>住所：<span id="prefecture-confirm"></span><span id="address-confirm"></span><span id="error-prefecture" class="text-danger"></span><br><span id="error-address" class="text-danger ml-5"></span></p>
+								<p>タグ：<span id="tag_list-confirm"></span><span id="error-tag_list" class="text-danger"></span></p>
+								<!-- 画像プレビューを表示 -->
+								<%= image_tag @event.image.url, width: 100, id: :image_prev2 %>
 
-          <!-- モーダルの設定 -->
-          <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">ボランティア主催確認</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="mb-4">こちらの内容でお間違いありませんか？</p>
-                  <p>タイトル：<span id="title-confirm"></span><span id="error-title" class="text-danger"></span></p>
-                  <p>内容：<span id="content-confirm"></span><span id="error-content" class="text-danger"></span></p>
-                  <p>日時：<span id="start_time1-confirm"></span><span id="start_time2-confirm"></span><span id="start_time3-confirm"></span><span id="start_time4-confirm"></span><span id="start_time5-confirm"></span></p>
-                  <p>住所：<span id="prefecture-confirm"></span><span id="address-confirm"></span><span id="error-prefecture" class="text-danger"></span><br><span id="error-address" class="text-danger ml-5"></span></p>
-                  <p>タグ：<span id="tag_list-confirm"></span><span id="error-tag_list" class="text-danger"></span></p>
-                  <!-- 画像プレビューを表示 -->
-                  <%= image_tag @event.image.url, width: 100, id: :image_prev2 %>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+								<p><%= f.submit "主催する" %></p>
+							</div><!-- /.modal-footer -->
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+			</fieldset>
 
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                  <p><%= f.submit "主催する" %></p>
-                </div><!-- /.modal-footer -->
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
-
-
-        </fieldset>
-
-      <% end %>
-
-    </div> <!-- end login -->
-
-  </div>
+			<% end %>
+		</div> <!-- end login -->
+	</div>
 </div>
 
 

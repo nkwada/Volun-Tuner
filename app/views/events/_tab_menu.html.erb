@@ -1,23 +1,23 @@
 <div class="row">
 	<% event.each do |event| %>
-		<div class="col-md-6 col-lg-4">
-			<div class="card shadow">
-			  <div class="card-header">
-			    <%= event.title %>
-			  </div>
-
-			  <div class="card-body tab">
-				  <li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
-				  <li>集合場所：<%= event.prefecture %><%= event.address %></li>
-				  <li>いいね数：<%= event.liked_users.count %></li>
-				  <li>参加人数：<%= event.joined_users.count %></li>
-				  <li>主催者：<%= event.user.username %></li>
-				  <li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
-			  </div>
+	<div class="col-md-6 col-lg-4">
+		<div class="card shadow">
+			<div class="card-header">
+				<%= event.title %>
 			</div>
-			<div class="text-right mt-1 mb-3">
-				<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+
+			<div class="card-body tab">
+				<li>開催日時：<%= event.start_time.strftime("%Y年%m月%d日 %H:%M") %></li>
+				<li>集合場所：<%= event.prefecture %><%= event.address %></li>
+				<li>いいね数：<%= event.liked_users.count %></li>
+				<li>参加人数：<%= event.joined_users.count %></li>
+				<li>主催者：<%= event.user.username %></li>
+				<li><%= render 'events/tag_list', tag_list: event.tag_list %></li>
 			</div>
 		</div>
+		<div class="text-right mt-1 mb-3">
+			<%= link_to "詳細をみる", event, class: "btn btn-sm btn-secondary" %>
+		</div>
+	</div>
 	<% end %>
 </div>

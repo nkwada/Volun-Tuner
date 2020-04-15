@@ -1,65 +1,65 @@
 <%= render 'error_messages', event: @event %>
 
 <div class="align mt-4">
-  <div class="grid">
+	<div class="grid">
 
-    <div id="login">
+		<div id="login">
 
-      <h4><span class="fas fa-edit"></span>編集</h4>
+			<h4><span class="fas fa-edit"></span>編集</h4>
 
-        <%= form_for(@event, url:"/events/#{@event.id}") do |f| %>
+			<%= form_for(@event, url:"/events/#{@event.id}") do |f| %>
 
-        <fieldset>
+			<fieldset>
 
-          <p><%= f.label :title, "タイトル" %></p>
-          <p><%= f.text_field :title %></p><hr>
+				<p><%= f.label :title, "タイトル" %></p>
+				<p><%= f.text_field :title %></p><hr>
 
-          <p><%= f.label :content, "内容" %></p>
-          <p><%= f.text_field :content %></p><hr>
+				<p><%= f.label :content, "内容" %></p>
+				<p><%= f.text_field :content %></p><hr>
 
-          <p><%= f.label :start_time, "日時" %></p>
-          <p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %></p><hr>
+				<p><%= f.label :start_time, "日時" %></p>
+				<p><%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %></p><hr>
 
-          <p><%= f.label :prefecture, "集合場所の住所" %></p>
-          <p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %></p><hr>
+				<p><%= f.label :prefecture, "集合場所の住所" %></p>
+				<p><%= f.select :prefecture, Event.prefectures.keys, {prompt: '選択してください'}, class: "mr-3" %><%= f.text_field :address %></p><hr>
 
-          <p><%= f.label :tag_list, "カテゴリータグ" %></p>
-           <%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %><hr>
+				<p><%= f.label :tag_list, "カテゴリータグ" %></p>
+				<%= f.text_field :tag_list, value: @event.tag_list.join(','), data: {role: "tagsinput"} %><hr>
 
-          <p><%= f.label :image, "画像" %></p>
-          <p><%= f.file_field :image, id: :event_image %></p>
-          <!-- 画像プレビューを表示 -->
-          <%= image_tag @event.image.url, width: 100, id: :image_prev %>
-          <p><%= f.check_box :remove_image %>画像を削除する</p><hr>
+				<p><%= f.label :image, "画像" %></p>
+				<p><%= f.file_field :image, id: :event_image %></p>
+				<!-- 画像プレビューを表示 -->
+				<%= image_tag @event.image.url, width: 100, id: :image_prev %>
+				<p><%= f.check_box :remove_image %>画像を削除する</p><hr>
 
 
-          <p><%= f.submit "更新" %></p>
+				<p><%= f.submit "更新" %></p>
 
-        </fieldset>
+			</fieldset>
 
-      <% end %>
+			<% end %>
 
-    </div> <!-- end login -->
+		</div> <!-- end login -->
 
-  </div>
+	</div>
 </div>
 
 
 
 
 <script type="text/javascript">
-$(function() {
- function readURL(input) {
-   if (input.files && input.files[0]) {
-     var reader = new FileReader();
-     reader.onload = function (e) {
-       $('#image_prev').attr('src', e.target.result);
-     }
-     reader.readAsDataURL(input.files[0]);
-   }
- }
- $("#event_image").change(function(){
-   readURL(this);
- });
-});
+	$(function() {
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#image_prev').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#event_image").change(function(){
+			readURL(this);
+		});
+	});
 </script>

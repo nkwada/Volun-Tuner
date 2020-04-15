@@ -1,36 +1,36 @@
 <% provide(:title, @title) %>
 <div class="row">
-  <aside class="col-md-4">
-      <h4><%= @user.username %></h4>
-      <%= link_to "マイページに戻る", @user %>
-      <%= render 'stats' %>
-  </aside>
-  <div class="col-md-8">
-    <h3><%= @title %></h3>
-    <% if @users.any? %>
-      <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>ユーザー名</th>
-              <th>主催ボランティア数</th>
-              <th>参加ボランティア数</th>
-            </tr>
-          </thead>
+	<aside class="col-md-4">
+		<h4><%= @user.username %></h4>
+		<%= link_to "マイページに戻る", @user %>
+		<%= render 'stats' %>
+	</aside>
+	<div class="col-md-8">
+		<h3><%= @title %></h3>
+		<% if @users.any? %>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>ユーザー名</th>
+					<th>主催ボランティア数</th>
+					<th>参加ボランティア数</th>
+				</tr>
+			</thead>
 
-        <% @users.each do |user| %>
+			<% @users.each do |user| %>
 
-          <tbody>
-            <tr>
-              <td><%= link_to user.username, user %></td>
-              <td><%= user.events.count %>件</td>
-              <td><%= user.joined_events.count %>件</td>
-            </tr>
-          </tbody>
+				<tbody>
+					<tr>
+						<td><%= link_to user.username, user %></td>
+						<td><%= user.events.count %>件</td>
+						<td><%= user.joined_events.count %>件</td>
+					</tr>
+				</tbody>
 
-        <% end %>
-      </table>
-      <%= paginate @users %>
+			<% end %>
+		</table>
+		<%= paginate @users %>
 
-    <% end %>
-  </div>
+		<% end %>
+	</div>
 </div>
